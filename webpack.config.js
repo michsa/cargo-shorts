@@ -1,10 +1,8 @@
-const path = require('path');
 const webpack = require('webpack');
-
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-
 module.exports = {
+  mode: 'production',
   entry: {
     // Each entry in here would declare a file that needs to be transpiled
     // and included in the extension source.
@@ -29,13 +27,7 @@ module.exports = {
   },
 
   module: {
-    // This transpiles all code (except for third party modules) using Babel.
-    loaders: [{
-      exclude: /node_modules/,
-      test: /\.jsx?$/,
-      // Babel options are in .babelrc
-      loaders: ['babel'],
-    }], rules: [
+    rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
@@ -47,9 +39,9 @@ module.exports = {
   plugins: [
     // Since some NodeJS modules expect to be running in Node, it is helpful
     // to set this environment var to avoid reference errors.
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
+//    new webpack.DefinePlugin({
+//      'process.env.NODE_ENV': JSON.stringify('production'),
+//    }),
     new CopyWebpackPlugin([
       { from: 'node_modules/webextension-polyfill/dist/' },
     ]),
@@ -60,7 +52,7 @@ module.exports = {
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
-    // "react": "React",
-    // "react-dom": "ReactDOM"
+//    "react": "React",
+//    "react-dom": "ReactDOM"
   },
-};
+}
