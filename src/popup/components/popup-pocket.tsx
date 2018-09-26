@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Pocket} from '../constants'
+import { Pocket} from '../../types'
 import * as emoji from 'node-emoji'
 
 interface Props {

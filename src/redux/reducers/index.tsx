@@ -3,8 +3,8 @@ import tabReducer from './tab'
 import { combineReducers } from 'redux'
 
 const reducer = combineReducers({
-  pocket: pocketReducer,
-  tab: tabReducer
+  pockets: pocketReducer,
+  tabs: tabReducer
 })
 
 export default reducer
