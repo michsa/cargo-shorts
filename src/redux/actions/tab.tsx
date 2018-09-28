@@ -1,6 +1,6 @@
 // import { createAction } from 'typesafe-actions'
 import { UPDATE_CURRENT_TAB } from '../../constants'
-import browser from 'webextension-polyfill'
+import { browser } from 'webextension-polyfill-ts'
 import { Tab } from '../../types'
 
 /*
@@ -16,8 +16,13 @@ export const updateCurrentTab = (data: Tab) => ({
 
 export const getTabInfo = () => {
   return async dispatch => {
-    const tab = await browser.tabs.getCurrent()
-    return dispatch(updateCurrentTab({url: tab.url, title: tab.title}))
+    try {
+      const tab = await browser.tabs.getCurrent()
+      return dispatch(updateCurrentTab({url: tab.url, title: tab.title}))
+    } catch (err) {
+      console.log(`error getting tab info `, err.message)
+      return dispatch(updateCurrentTab({}))
+    }
   }
 }
 
