@@ -10,6 +10,9 @@ const store = createStore(
   applyMiddleware(thunk)
 )
 
+console.log('store.tsx')
+console.log(store.getState())
+
 export default createBackgroundStore({
   store,
   actions: {

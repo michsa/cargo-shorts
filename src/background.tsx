@@ -3,7 +3,7 @@ import backgroundStore from './redux/store'
 // window.browser = browser
 // import { getTabInfo } from './redux/actions'
 
-
+console.log('background.tsx')
 console.log(backgroundStore.getState())
 
 /*
