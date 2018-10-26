@@ -1,37 +1,29 @@
-import { State, Tab } from '../../types'
-// import { currentTabInfoSelector } from '../../redux/selectors'
-import { connect } from 'react-redux';
+import { State, Route } from '../../types'
+import { orderedPocketSelector } from '../../selectors'
+import { connect } from 'react-redux'
+import { route } from '../../actions'
 
 import * as React from 'react'
-// import PopupPocket from './popup-pocket'
-import TabInfo from './tab-info';
-
-interface Props {
-  // pockets: Pocket[],
-  tab: Tab
-}
+import PopupPocketListItem from './popup-pocket-list-item'
 
 const mapStateToProps = (state: State) => ({
-    // pockets: orderedPocketSelector(state),
+    pockets: orderedPocketSelector(state),
     tab: state.tabs.current
-} as Props)
-
-/*
-const mapDispatchToProps = (dispatch) => ({
-  onTodoClick
 })
-*/
 
-const PopupPocketList = (props: Props) => (
+const mapDispatchToProps = dispatch => ({
+  onClick: id => {
+    dispatch(route(Route.NEW_POCKET))
+  }
+})
+
+const PopupPocketList = ({pockets, onClick}) => (
   <ul>
-    <TabInfo url={props.tab.url} title={props.tab.title}/>
-    {`hello world`}
+    {pockets.map((pocket, index) => 
+      <PopupPocketListItem pocket={pocket} key={index}/>
+    )}
+    <li onClick={onClick}>+ New Pocket</li>
   </ul>
 )
 
-export default connect(mapStateToProps)(PopupPocketList)
-/*
-{props.pockets.map((pocket, index) => 
-  <PopupPocket pocket={pocket} key={index}/>
-)}
-*/
+export default connect(mapStateToProps, mapDispatchToProps)(PopupPocketList)

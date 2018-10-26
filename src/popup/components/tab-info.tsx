@@ -1,11 +1,14 @@
 import * as React from 'react'
-import { Tab } from '../../types'
+import { Tab, State } from '../../types'
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state: State) => (state.tabs.current as Tab)
 
 const TabInfo = (props: Tab) => (
   <div>
-    <h1>url: {props.url ? props.url: '(none)'}</h1>
-    <h2>name: {props.title ? props.title: '(none)'}</h2>
+    <p>url: {props.url ? props.url : '(none)'}</p>
+    <p>name: {props.title ? props.title : '(none)'}</p>
   </div>
 )
 
-export default TabInfo
+export default connect(mapStateToProps)(TabInfo)

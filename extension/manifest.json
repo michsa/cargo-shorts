@@ -1,14 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "webext-typescript-react-redux",
+  "name": "Cargo Shorts",
   "version": "1.0",
-
-  "applications": {
-    "gecko": {
-      "id": "nathan-webext-typescript@yergler.net",
-      "strict_min_version": "51.0"
-    }
-  },
 
   "browser_action": {
     "browser_style": true,
@@ -16,7 +9,7 @@
       "48": "images/Watermelon-48.png",
       "96": "images/Watermelon-96.png"
     },
-    "default_title": "React Example",
+    "default_title": "Cargo Shorts",
     "default_popup": "popup.html"
   },
   "background": {
@@ -27,7 +20,7 @@
   },
 
   "permissions": [
-    "tabs",
+    "activeTab",
     "storage"
   ]
 }
