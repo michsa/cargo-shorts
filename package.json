@@ -8,12 +8,14 @@
     "@types/node": "^10.10.3",
     "@types/node-emoji": "^1.8.0",
     "@types/react": "^16.4.14",
+    "@types/react-color": "^2.13.6",
     "@types/react-dom": "^16.0.7",
     "@types/react-redux": "^6.0.9",
     "@types/react-transition-group": "^2.0.14",
     "@types/redux-first-router": "^1.10.4",
     "node-emoji": "^1.8.1",
     "react": "^16.5.2",
+    "react-color": "^2.14.1",
     "react-dnd": "^5.0.0",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
@@ -23,6 +25,7 @@
     "redux-thunk": "^2.3.0",
     "redux-webext": "^1.1.2",
     "reselect": "^3.0.1",
+    "semantic-ui-react": "^0.83.0",
     "typesafe-actions": "^2.0.4",
     "webpack": "^4.19.1"
   },
@@ -40,8 +43,6 @@
   },
   "scripts": {
     "build": "webpack --display-error-details --progress --colors -w",
-    "start": "web-ext run -s extension/",
-    "test": "react-scripts-ts test --env=jsdom",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix"
   }
 }

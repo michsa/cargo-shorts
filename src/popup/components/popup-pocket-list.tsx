@@ -1,10 +1,11 @@
-import { State, Route } from '../../types'
+import { State } from '../../types'
 import { orderedPocketSelector } from '../../selectors'
 import { connect } from 'react-redux'
-import { route } from '../../actions'
+import { routeNewPocket, routeEditPocket } from '../../actions'
 
 import * as React from 'react'
 import PopupPocketListItem from './popup-pocket-list-item'
+import TabInfo from './tab-info'
 
 const mapStateToProps = (state: State) => ({
     pockets: orderedPocketSelector(state),
@@ -12,17 +13,26 @@ const mapStateToProps = (state: State) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onClick: id => {
-    dispatch(route(Route.NEW_POCKET))
+  handlers: {
+    newPocket: id => {
+      dispatch(routeNewPocket())
+    },
+    editPocket: id => {
+      dispatch(routeEditPocket(id))
+    }
   }
 })
 
-const PopupPocketList = ({pockets, onClick}) => (
-  <ul>
+const PopupPocketList = ({pockets, handlers}) => (
+  <ul id="pocket-list">
+    <li><TabInfo/></li>
     {pockets.map((pocket, index) => 
-      <PopupPocketListItem pocket={pocket} key={index}/>
+      <li id="pocket-list-item">
+        <PopupPocketListItem pocket={pocket} key={index} isActive={index % 2 === 0} />
+        <i id="edit-pocket" className="ui icon pencil" onClick={handlers.editPocket} />
+      </li>
     )}
-    <li onClick={onClick}>+ New Pocket</li>
+    <li onClick={handlers.newPocket}>+ New Pocket</li>
   </ul>
 )
 

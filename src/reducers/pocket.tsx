@@ -7,8 +7,21 @@ import { PocketState, PocketMap } from '../types'
 // export type PocketAction = ActionType<typeof pocketActions>
 
 const initialState: PocketState = {
-  byId: {} as PocketMap,
-  idList: [] as string[]
+  byId: {
+    'test-pocket': {
+      name: 'Test Pocket',
+      color: '#8cd1fc',
+      icon: 'pizza',
+      tabs: []
+    },
+    'test-2': {
+      name: 'Test Pocket 2',
+      color: '#EB144C',
+      icon: 'coffee',
+      tabs: []
+    }
+  } as PocketMap,
+  idList: ['test-pocket', 'test-2'] as string[]
 }
 
 const pocketReducer = (state: PocketState = initialState, action): PocketState => {

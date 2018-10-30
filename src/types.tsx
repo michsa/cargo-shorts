@@ -1,11 +1,22 @@
-export enum Route {
-  POCKET_LIST,
-  NEW_POCKET,
-  EDIT_POCKET
+export class NewPocketRoute {
+  route: 'NEW_POCKET'
 }
 
+export class EditPocketRoute {
+  route: 'EDIT_POCKET'
+  data: {
+    id: string
+  }
+}
+
+export class PocketListRoute {
+  route: 'POCKET_LIST'
+}
+
+export type RouterState = (NewPocketRoute | EditPocketRoute | PocketListRoute)
+
 export type State = {
-  readonly route: Route,
+  readonly router: RouterState,
   readonly pockets: PocketState,
   readonly tabs: TabState
 }

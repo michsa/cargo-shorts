@@ -3,8 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createUIStore } from 'redux-webext'
 import { requestTabInfo } from '../actions'
-import PopupPocketList from './components/popup-pocket-list'
-import TabInfo from './components/tab-info'
+import App from './components/app'
 
 async function initApp() {
   const store = await createUIStore()
@@ -12,8 +11,7 @@ async function initApp() {
 
   ReactDOM.render(
     <Provider store={store}>
-      <TabInfo />
-      <PopupPocketList/>
+      <App/>
     </Provider>,
     document.getElementById('root') as HTMLElement
   )

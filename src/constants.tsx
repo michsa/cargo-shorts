@@ -12,3 +12,6 @@ export const REQUEST_TAB_INFO = 'tab/current/REQUEST_INFO'
 export const UPDATE_CURRENT_TAB = 'tab/current/UPDATE'
 
 export const ROUTE = 'route/ROUTE'
+export const ROUTE_NEW_POCKET = 'route/NEW_POCKET'
+export const ROUTE_EDIT_POCKET = 'route/EDIT_POCKET'
+export const ROUTE_POCKET_LIST = 'route/POCKET_LIST'

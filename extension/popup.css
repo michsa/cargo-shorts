@@ -1,8 +1,69 @@
 body {
-  width: 400px;
+  width: 300px;
+  max-height: 400px;
   padding: 1em;
 }
 
 h1, h2 {
   border-bottom: 1px solid;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#pocket-list li {
+  padding: 0.2em 0.3em;
+}
+
+#pocket-list-item {
+  display: flex;
+  align-items: baseline;
+}
+
+  #pocket-list-item > * {
+    height: 2.5em;
+    line-height: 2.5em;
+    padding: 0;
+  }
+
+  #pocket-list-item-details {
+    border-radius: 5px 0 0 5px;
+    background-color: #eee;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.15), 0 0 4px #eee;
+    flex: 1;
+    padding: 0 0.5em;
+    display: flex;
+    align-items: baseline;
+  }
+
+    #pocket-icon {
+      flex: 0 0 1.5em;
+      text-align: center;
+    }
+
+    #pocket-name {
+      flex: 1;
+      text-align: left;
+      font-weight: bold;
+      padding: 0 0.2em;
+    }
+
+    #pocket-count {
+      flex: 0;
+      background-color: rgba(255,255,255,0.65);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 0 4px #fff;
+      border-radius: 3px;
+      padding: 0.2em 0.6em;
+      font-size: 0.9em;
+      vertical-align: middle;
+      line-height: normal;
+    }
+
+  #edit-pocket {
+    flex: 0 0 2.2em;
+    border-radius: 0 5px 5px 0;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.15), 0 0 4px #eee;
+  }
