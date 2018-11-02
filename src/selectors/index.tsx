@@ -2,18 +2,16 @@ import { createSelector } from 'reselect'
 import { State } from '../types'
 import * as _ from 'lodash'
 
-export const pocketsByIdSelector = (state: State) => state.pockets.byId
-
-export const pocketIdListSelector = (state: State) => state.pockets.idList
+export const pocketsByIdSelector = ({pockets}: State) => pockets.byId
+export const pocketIdListSelector = ({pockets}: State) => pockets.idList
 
 export const orderedPocketSelector = createSelector(
   [pocketIdListSelector, pocketsByIdSelector],
   (idList, pockets) => idList.map(id => pockets[id])
 )
 
-export const tabStateSelector = (state: State) => state.tabs
-export const tabsByIdSelector = (state: State) => state.tabs.byId
-export const currentTabInfoSelector = (state: State) => state.tabs.current
+export const tabsByIdSelector = ({tabs}: State) => tabs.byId
+export const currentTabInfoSelector = ({tabs}: State) => tabs.current
 
 export const tabIdListSelector = createSelector(
   tabsByIdSelector,
@@ -22,7 +20,7 @@ export const tabIdListSelector = createSelector(
 
 export const currentTabIdSelector = createSelector(
   [tabsByIdSelector, currentTabInfoSelector],
-  (tabs, current) => _.findKey(tabs, (tab) => tab === current)
+  (tabs, current) => _.findKey(tabs, (tab) => current && tab.url === current.url)
 )
 
 export const currentPocketIdSelector = createSelector(

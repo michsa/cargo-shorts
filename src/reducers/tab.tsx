@@ -7,7 +7,12 @@ import { combineReducers } from 'redux'
 
 // export type TabAction = ActionType<typeof tab>
 const initialState: TabState = {
-  byId: {} as TabMap,
+  byId: {
+    'michsa': {
+      url: 'https://michsa.me/',
+      title: 'michsa.me'
+    }
+  } as TabMap,
   current: {} as Tab
 }
 

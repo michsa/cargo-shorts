@@ -48,6 +48,6 @@ export type TabState = {
 export type TabMap = Readonly<{[id: string]: Tab}>
 
 export type Tab = {
-  url?: string,
-  title?: string
+  url: string,
+  title: string
 }

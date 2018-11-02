@@ -13,7 +13,7 @@ const initialState: PocketState = {
       name: 'Test Pocket',
       color: '#8cd1fc',
       icon: 'pizza',
-      tabs: []
+      tabs: ['michsa']
     },
     'test-2': {
       id: 'test-2',
