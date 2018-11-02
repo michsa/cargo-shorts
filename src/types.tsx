@@ -31,6 +31,7 @@ export type PocketState = {
 export type PocketMap =  Readonly<{[id: string]: Pocket}>
 
 export interface Pocket {
+  id: string,
   name: string,
   color: string,
   icon: string,
