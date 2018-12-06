@@ -1,4 +1,4 @@
-import { State, Pocket, Tab } from '../../types'
+import { State, Pocket, Tab, PocketID } from '../../types'
 import { orderedPocketSelector, currentPocketIdSelector } from '../../selectors'
 import { connect } from 'react-redux'
 import { routeNewPocket, routeEditPocket } from '../../actions'
@@ -9,7 +9,7 @@ import TabInfo from './tab-info'
 
 interface Props {
   pockets: Pocket[]
-  currentPocket: string, // pocket id
+  currentPocket: PocketID, // pocket id
   tab: Tab
 }
 
@@ -43,8 +43,8 @@ const PopupPocketList = ({pockets, currentPocket, tab, handlers}: (Props & Handl
     {pockets.map((pocket) => 
       <PopupPocketListItem 
           pocket={pocket} 
-          isActive={currentPocket === pocket.id} 
-          editHandler={handlers.editPocket} 
+          isActive={currentPocket === pocket.id}
+          editHandler={handlers.editPocket}
           key={pocket.id}
       />
     )}
