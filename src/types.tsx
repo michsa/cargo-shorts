@@ -47,6 +47,7 @@ export type PocketState = {
 export type TabID = string
 
 export type Tab = {
+  id: TabID,
   url: string,
   title: string
 }

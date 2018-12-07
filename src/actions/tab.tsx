@@ -1,11 +1,22 @@
-import { UPDATE_CURRENT_TAB, REQUEST_TAB_INFO } from '../constants'
+import { UPDATE_CURRENT_TAB, REQUEST_TAB_INFO, ADD_TAB, DELETE_TAB } from '../constants'
 import { browser, Tabs } from 'webextension-polyfill-ts'
-import { Tab } from '../types'
+import { Tab, TabID } from '../types'
+import { v4 as uuid } from 'uuid'
 interface BrowserTab extends Tabs.Tab {}
 
-export const updateCurrentTab = (data: Tab | undefined) => ({
+export const addTab = (tab: Tab) => ({
+  type: ADD_TAB,
+  payload: tab
+})
+
+export const deleteTab = (id: TabID) => ({
+  type: DELETE_TAB,
+  payload: id
+})
+
+export const updateCurrentTab = (tab: Tab | undefined) => ({
   type: UPDATE_CURRENT_TAB,
-  payload: data
+  payload: tab
 })
 
 export const requestTabInfo = () => ({
@@ -24,7 +35,7 @@ export const getTabInfo = () => {
       if (tabs && tabs.length) {
         const browserTab: BrowserTab = tabs[0]
         const tab: Tab | undefined = browserTab.url && browserTab.title ? 
-            {url: browserTab.url, title: browserTab.title} : undefined
+            {url: browserTab.url, title: browserTab.title, id: uuid()} : undefined
         return dispatch(updateCurrentTab(tab))
       }
     } catch (err) {

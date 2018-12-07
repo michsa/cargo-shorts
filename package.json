@@ -13,6 +13,7 @@
     "@types/react-redux": "^6.0.9",
     "@types/react-transition-group": "^2.0.14",
     "@types/redux-first-router": "^1.10.4",
+    "@types/uuid": "^3.4.4",
     "node-emoji": "^1.8.1",
     "react": "^16.5.2",
     "react-color": "^2.14.1",
@@ -27,6 +28,7 @@
     "reselect": "^3.0.1",
     "semantic-ui-react": "^0.83.0",
     "typesafe-actions": "^2.0.4",
+    "uuid": "^3.3.2",
     "webpack": "^4.19.1"
   },
   "devDependencies": {
@@ -39,7 +41,7 @@
     "typescript": "^3.0.3",
     "web-ext-types": "^2.1.0",
     "webextension-polyfill-ts": "^0.8.8",
-    "webpack-cli": "^3.1.1"
+    "webpack-cli": "^3.1.2"
   },
   "scripts": {
     "build": "webpack --display-error-details --progress --colors -w",
