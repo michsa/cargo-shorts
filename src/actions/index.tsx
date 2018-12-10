@@ -17,3 +17,8 @@ export const routeEditPocket = (id: string) => ({
 export const routePocketList = () => ({
   type: ROUTE_EDIT_POCKET
 })
+
+export const route = (rt: string) => ({
+  type: ROUTE,
+  payload: rt
+})

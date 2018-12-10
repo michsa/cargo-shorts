@@ -13,11 +13,14 @@ export const deletePocket =
 
 export const modifyPocket = 
     (pocket: Pocket) => 
-        action(MODIFY_POCKET, {pocket})
+        action(MODIFY_POCKET, pocket)
 
 export const assignTab = 
-    (id: PocketID, tab: TabID) => 
-        action(ASSIGN_TAB, {id, tab})
+    (id: PocketID, tab: TabID) => {
+        console.log(`assign tab | id: ${id} | tab: ${tab}`)
+        return action(ASSIGN_TAB, {id, tab})
+    }
+
 
 export const unassignTab = 
     (id: PocketID, tab: TabID) => 

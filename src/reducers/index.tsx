@@ -13,7 +13,7 @@ const routeReducer = (state: RouterState = defaultState, action): RouterState =>
 }
 
 const reducer = combineReducers({
-  route: routeReducer,
+  router: routeReducer,
   pockets: pocketReducer,
   tabs: tabReducer
 })

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 import { State } from '../types'
-import * as _ from 'lodash'
+import { keys, findKey, includes } from 'lodash'
 
 export const pocketsByIdSelector = ({pockets}: State) => pockets.byId
 export const pocketIdListSelector = ({pockets}: State) => pockets.idList
@@ -15,17 +15,17 @@ export const currentTabInfoSelector = ({tabs}: State) => tabs.current
 
 export const tabIdListSelector = createSelector(
   tabsByIdSelector,
-  (tabs) => _.keys(tabs)
+  (tabs) => keys(tabs)
 )
 
 export const currentTabIdSelector = createSelector(
   [tabsByIdSelector, currentTabInfoSelector],
-  (tabs, current) => _.findKey(tabs, (tab) => current && tab.url === current.url)
+  (tabs, current) => findKey(tabs, (tab) => current && tab.url === current.url)
 )
 
 export const currentPocketIdSelector = createSelector(
   [pocketsByIdSelector, currentTabIdSelector],
-  (pockets, tab) => _.findKey(pockets, (pocket) => _.includes(pocket.tabs, tab))
+  (pockets, tab) => findKey(pockets, (pocket) => includes(pocket.tabs, tab))
 )
 
 /*

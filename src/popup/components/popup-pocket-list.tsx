@@ -24,46 +24,50 @@ const mapStateToProps = (state: State) => ({
 interface Handlers {
   onNewPocket: () => void
   onPocketEdit: (id: PocketID) => void,
-  onPocketClick: (id: PocketID) => void
+  onPocketClick: (id: PocketID, currentPocket: PocketID, tab: Tab) => void
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onNewPocket: () => {
+      console.log('new pocket!')
       dispatch(routeNewPocket())
     },
     onPocketEdit: (id: PocketID) => {
+      console.log(`pocket edit: ${id}`)
       dispatch(routeEditPocket(id))
     },
-    onPocketClick: (id: PocketID) => {
-      if (!ownProps.currentPocket) {
-        dispatch(addTab(ownProps.tab))
+    onPocketClick: (id: PocketID, currentPocket: PocketID, tab: Tab) => {
+      console.log(`pocket click! id: ${id}, current: ${currentPocket}, tab:`)
+      console.log(tab)
+      if (!currentPocket) {
+        dispatch(addTab(tab))
       }
-      else if (ownProps.currentPocket === id) {
-        dispatch(unassignTab(ownProps.tab.id, id))
-        dispatch(deleteTab(ownProps.tab.id))
+      else if (currentPocket === id) {
+        dispatch(unassignTab(tab.id, id))
+        dispatch(deleteTab(tab.id))
       }
-      else if (ownProps.currentPocket !== id) {
-        dispatch(unassignTab(ownProps.tab.id, ownProps.currentPocket))
-        dispatch(assignTab(ownProps.tab.id, id))
+      else if (currentPocket !== id) {
+        dispatch(unassignTab(tab.id, currentPocket))
+        dispatch(assignTab(tab.id, id))
       }
     }
   }
 }
 
-const PopupPocketList = (props: Props, {onPocketClick, onPocketEdit, onNewPocket}: Handlers) => (
+const PopupPocketList = ({pockets, currentPocket, tab, onPocketClick, onPocketEdit, onNewPocket}: Props & Handlers) => (
   <ul id="pocket-list">
-    <li><TabInfo/></li>
-    {props.pockets.map((pocket) =>
+    <li><TabInfo tab={tab}/></li>
+    {pockets.map((pocket) =>
       <PopupPocketListItem
           pocket={pocket}
-          isActive={props.currentPocket === pocket.id}
+          isActive={currentPocket === pocket.id}
           key={pocket.id}
-          handleClick={onPocketClick}
+          handleClick={(id: PocketID) => onPocketClick(id, currentPocket, tab)}
           handleEdit={onPocketEdit}
       />
     )}
-    <li onClick={onNewPocket}>+ New Pocket</li>
+    <li onClick={onNewPocket} style={{backgroundColor: '#fdd'}}>+ New Pocket</li>
   </ul>
 )
 

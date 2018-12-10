@@ -4,10 +4,14 @@ import { Tab, TabID } from '../types'
 import { v4 as uuid } from 'uuid'
 interface BrowserTab extends Tabs.Tab {}
 
-export const addTab = (tab: Tab) => ({
+export const addTab = (tab: Tab) => {
+  console.log(`add tab action creator`)
+  console.log(tab)
+  return {
   type: ADD_TAB,
   payload: tab
-})
+  }
+}
 
 export const deleteTab = (id: TabID) => ({
   type: DELETE_TAB,

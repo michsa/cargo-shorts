@@ -1,10 +1,7 @@
 // import { combineReducers } from 'redux'
-// import { ActionType } from 'typesafe-actions'
 import { PocketState, PocketMap } from '../types'
-// import { ADD_POCKET, DELETE_POCKET, MODIFY_POCKET } from '../../constants'
-
-// import * as pocketActions from '../actions/pocket'
-// export type PocketAction = ActionType<typeof pocketActions>
+import { filter } from 'lodash'
+import { ASSIGN_TAB, UNASSIGN_TAB } from '../constants'
 
 const initialState: PocketState = {
   byId: {
@@ -27,7 +24,45 @@ const initialState: PocketState = {
 }
 
 const pocketReducer = (state: PocketState = initialState, action): PocketState => {
-  return state
+  switch (action.type) {
+    case ASSIGN_TAB:
+      console.log('ASSIGN_TAB')
+      console.log(action)
+      console.log(state)
+      // there has to be a better way to do this
+      return {
+        byId: {
+          [action.payload.id]: {
+            tabs: [
+              ...state.byId[action.payload.id].tabs,
+              action.payload.tab
+            ],
+            ...state.byId[action.payload.id]
+          },
+          ...state.byId
+        },
+        ...state
+      }
+    case UNASSIGN_TAB:
+      console.log('UNASSIGN_TAB')
+      console.log(action)
+      console.log(state)
+      return {
+        byId: {
+          [action.payload.id]: {
+            tabs: filter(
+              state.byId[action.payload.id].tabs,
+              (tab) => tab !== action.payload.tab
+            ),
+            ...state.byId[action.payload.id]
+          },
+          ...state.byId
+        },
+        ...state
+      }
+    default:
+      return state
+  }
 }
 
 export default pocketReducer
