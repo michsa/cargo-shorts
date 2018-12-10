@@ -9,8 +9,9 @@ module.exports = {
     // For example, you could add a background script like:
     // background: './src/background.js',
     popup: './src/popup',
-    background: './src/background.tsx',
+    background: './src/background.tsx'
   },
+
   output: {
     // This copies each source entry into the extension dist folder named
     // after its entry config key.
@@ -18,12 +19,26 @@ module.exports = {
     filename: '[name].js',
   },
 
+//  optimization: {
+//    splitChunks: {
+//      chunks: 'all'
+//    }
+//  },
+
+  performance: {
+    hints: false
+  },
+
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+//    alias: {
+//      "react": "preact-compat",
+//      "react-dom": "preact-compat"
+//    }
   },
 
   module: {
@@ -44,15 +59,15 @@ module.exports = {
 //    }),
     new CopyWebpackPlugin([
       { from: 'node_modules/webextension-polyfill/dist/' },
-    ]),
+    ])
   ],
 
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
-  externals: {
-//    "react": "React",
-//    "react-dom": "ReactDOM"
-  },
+  //  externals: {
+  //    "react": "React",
+  //    "react-dom": "ReactDOM"
+  //  },
 }
