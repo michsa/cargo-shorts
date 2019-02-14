@@ -1,9 +1,10 @@
-import { State, Pocket, Tab, PocketID } from '../../types'
-import { orderedPocketSelector, currentPocketIdSelector } from '../../selectors'
+import { State, Pocket, SavedTab, Tab, PocketID } from '../../types'
+import { orderedPocketSelector, currentTabSelector, currentTabInfoSelector } from '../../selectors'
 import { connect } from 'react-redux'
-import { routeNewPocket, routeEditPocket, 
-         addTab, assignTab, 
-         deleteTab, unassignTab } from '../../actions'
+import {
+  routeNewPocket, routeEditPocket,
+  addTab, assignTab, removeTab
+} from '../../actions'
 
 import * as React from 'react'
 import PopupPocketListItem from './popup-pocket-list-item'
@@ -11,64 +12,65 @@ import TabInfo from './tab-info'
 
 interface Props {
   pockets: Pocket[],
-  currentPocket: PocketID, // pocket id
+  savedTab: SavedTab | undefined,
   tab: Tab
 }
 
 const mapStateToProps = (state: State) => ({
-    pockets: orderedPocketSelector(state),
-    currentPocket: currentPocketIdSelector(state),
-    tab: state.tabs.current
+  pockets: orderedPocketSelector(state),
+  savedTab: currentTabSelector(state),
+  tab: currentTabInfoSelector(state)
 } as Props)
 
 interface Handlers {
   onNewPocket: () => void
   onPocketEdit: (id: PocketID) => void,
-  onPocketClick: (id: PocketID, currentPocket: PocketID, tab: Tab) => void
+  onPocketClick: (
+    pocketId: PocketID,
+    tab: Tab,
+    savedTab: SavedTab | undefined
+  ) => void
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onNewPocket: () => {
-      console.log('new pocket!')
-      dispatch(routeNewPocket())
-    },
-    onPocketEdit: (id: PocketID) => {
-      console.log(`pocket edit: ${id}`)
-      dispatch(routeEditPocket(id))
-    },
-    onPocketClick: (id: PocketID, currentPocket: PocketID, tab: Tab) => {
-      console.log(`pocket click! id: ${id}, current: ${currentPocket}, tab:`)
-      console.log(tab)
-      if (!currentPocket) {
-        dispatch(addTab(tab))
-      }
-      else if (currentPocket === id) {
-        dispatch(unassignTab(tab.id, id))
-        dispatch(deleteTab(tab.id))
-      }
-      else if (currentPocket !== id) {
-        dispatch(unassignTab(tab.id, currentPocket))
-        dispatch(assignTab(tab.id, id))
-      }
+const mapDispatchToProps = (dispatch) => ({
+  onNewPocket: () => {
+    console.log('new pocket!')
+    dispatch(routeNewPocket())
+  },
+  onPocketEdit: (pocketId) => {
+    console.log(`pocket edit: ${pocketId}`)
+    dispatch(routeEditPocket(pocketId))
+  },
+  onPocketClick: (pocketId, tab, savedTab) => {
+    if (!savedTab) {
+      dispatch(addTab(tab, pocketId))
+    }
+    else if (savedTab.pocket === pocketId) {
+      dispatch(removeTab(savedTab.id))
+    }
+    else if (savedTab.pocket !== pocketId) {
+      dispatch(assignTab(savedTab.id, pocketId))
     }
   }
-}
+} as Handlers)
 
-const PopupPocketList = ({pockets, currentPocket, tab, onPocketClick, onPocketEdit, onNewPocket}: Props & Handlers) => (
-  <ul id="pocket-list">
-    <li><TabInfo tab={tab}/></li>
-    {pockets.map((pocket) =>
-      <PopupPocketListItem
+const PopupPocketList = ({
+  pockets, savedTab, tab,
+  onPocketClick, onPocketEdit, onNewPocket
+}: Props & Handlers) => (
+    <ul id="pocket-list">
+      <li><TabInfo tab={tab} /></li>
+      {pockets.map((pocket) =>
+        <PopupPocketListItem
           pocket={pocket}
-          isActive={currentPocket === pocket.id}
+          isActive={!!savedTab && savedTab.id === pocket.id}
           key={pocket.id}
-          handleClick={(id: PocketID) => onPocketClick(id, currentPocket, tab)}
+          handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
           handleEdit={onPocketEdit}
-      />
-    )}
-    <li onClick={onNewPocket} style={{backgroundColor: '#fdd'}}>+ New Pocket</li>
-  </ul>
-)
+        />
+      )}
+      <li onClick={onNewPocket} style={{ backgroundColor: '#fdd' }}>+ New Pocket</li>
+    </ul>
+  )
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopupPocketList)

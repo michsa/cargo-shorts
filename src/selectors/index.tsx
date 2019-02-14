@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { State } from '../types'
-import { keys, findKey, includes } from 'lodash'
+import { State, SavedTab, TabMap } from '../types'
+import { keys, find, compose, eqProps, values } from 'ramda'
 
 export const pocketsByIdSelector = ({pockets}: State) => pockets.byId
 export const pocketIdListSelector = ({pockets}: State) => pockets.idList
@@ -18,27 +18,40 @@ export const tabIdListSelector = createSelector(
   (tabs) => keys(tabs)
 )
 
-export const currentTabIdSelector = createSelector(
+export const currentTabSelector = createSelector(
   [tabsByIdSelector, currentTabInfoSelector],
-  (tabs, current) => findKey(tabs, (tab) => current && tab.url === current.url)
+  (tabs, current) => compose<TabMap, SavedTab[], SavedTab | undefined>(
+    find(eqProps('url', current)),
+    values
+  )(tabs)
+)
+
+export const currentTabIdSelector = createSelector(
+  [currentTabSelector],
+  (tab: SavedTab | null) => tab ? tab.id : null
 )
 
 export const currentPocketIdSelector = createSelector(
-  [pocketsByIdSelector, currentTabIdSelector],
-  (pockets, tab) => findKey(pockets, (pocket) => includes(pocket.tabs, tab))
+  [currentTabSelector],
+  (tab: SavedTab | undefined) => tab === undefined ? null : tab.pocket
 )
 
-/*
+
 let ex: State = {
+  router: {
+    route: 'NEW_POCKET'
+  },
   pockets: {
     byId: {
       '1': {
+        id: '1',
         name: 'misc',
         color: '#FFF',
         icon: ':pizza:',
         tabs: ['4']
       },
       '2': {
+        id: '2',
         name: 'other',
         color: '#F0E',
         icon: ':100:',
@@ -50,12 +63,16 @@ let ex: State = {
   tabs: {
     byId: {
       '4': {
+        id: '4',
         url: 'http://test.com',
-        title: 'Test dot com'
+        title: 'Test dot com',
+        pocket: '1'
       },
       '5': {
+        id: '5',
         url: 'http://michsa.me',
-        title: 'MICHSA'
+        title: 'MICHSA',
+        pocket: '2'
       }
     },
     current: {
@@ -67,4 +84,4 @@ let ex: State = {
 
 console.log(orderedPocketSelector(ex))
 console.log(currentTabIdSelector(ex))
-*/
+

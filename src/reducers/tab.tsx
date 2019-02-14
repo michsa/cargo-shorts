@@ -1,7 +1,7 @@
 // import { ActionType, getType } from 'typesafe-actions'
 import { TabState, TabMap, Tab } from '../types'
 import { UPDATE_CURRENT_TAB, ADD_TAB } from '../constants'
-import { combineReducers } from 'redux'
+import { combineReducers, Reducer } from 'redux'
 import { v4 as uuid } from 'uuid'
 
 // import * as tab from '../actions/tab'
@@ -12,25 +12,30 @@ const initialState: TabState = {
     'michsa': {
       url: 'https://michsa.me/',
       title: 'michsa.me',
-      id: uuid()
+      id: uuid(),
+      pocket: '1'
     }
   } as TabMap,
   current: {} as Tab
 }
 
-const tabsReducer = (state: TabMap = initialState.byId, action): TabMap => {
+const tabsReducer: Reducer<TabMap> = (
+  state: TabMap = initialState.byId, action
+) => {
   switch (action.type) {
     case ADD_TAB:
       console.log('ADD_TAB')
       console.log(action)
       console.log(state)
       return { ...state, [action.payload.id]: action.payload }
-    default: 
+    default:
       return state
   }
 }
 
-const currentTabReducer = (state = initialState.current, action): Tab | undefined => {
+const currentTabReducer: Reducer<Tab | undefined> = (
+  state = initialState.current, action
+) => {
   if (action.type === UPDATE_CURRENT_TAB) {
     console.log('UPDATE_CURRENT_TAB')
     console.log(action)

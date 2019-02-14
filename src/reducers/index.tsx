@@ -1,6 +1,6 @@
 import pocketReducer from './pocket'
 import tabReducer from './tab'
-import { combineReducers } from 'redux'
+import { combineReducers, Reducer } from 'redux'
 import { RouterState } from '../types'
 import { ROUTE } from '../constants'
 
@@ -8,7 +8,9 @@ const defaultState: RouterState = {
   route: 'POCKET_LIST'
 }
 
-const routeReducer = (state: RouterState = defaultState, action): RouterState => {
+const routeReducer: Reducer<RouterState> = (
+  state: RouterState = defaultState, action
+) => {
   return (action.type === ROUTE) ? action.payload : state
 }
 

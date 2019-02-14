@@ -9,6 +9,7 @@ module.exports = {
     // For example, you could add a background script like:
     // background: './src/background.js',
     popup: './src/popup',
+    newtab: './src/newtab.tsx',
     background: './src/background.tsx'
   },
 
@@ -35,10 +36,10 @@ module.exports = {
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-//    alias: {
-//      "react": "preact-compat",
-//      "react-dom": "preact-compat"
-//    }
+  //  alias: {
+  //    "react": "preact-compat",
+  //    "react-dom": "preact-compat"
+  //  }
   },
 
   module: {

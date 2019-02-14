@@ -1,24 +1,11 @@
-import { NewPocketRoute, EditPocketRoute } from '../types'
-import { ROUTE, ROUTE_EDIT_POCKET } from '../constants'
+import { NEW_TAB } from '../constants'
 
+export * from './router'
 export * from './tab'
 export * from './pocket'
 
-export const routeNewPocket = () => ({
-  type: ROUTE,
-  payload: {} as NewPocketRoute
+export const newTab = (tab: Tab, pocketId: PocketID) => ({
+  type: NEW_TAB,
+  payload: { tab, pocketId }
 })
 
-export const routeEditPocket = (id: string) => ({
-  type: ROUTE,
-  payload: {} as EditPocketRoute
-})
-
-export const routePocketList = () => ({
-  type: ROUTE_EDIT_POCKET
-})
-
-export const route = (rt: string) => ({
-  type: ROUTE,
-  payload: rt
-})

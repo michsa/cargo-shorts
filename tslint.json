@@ -58,7 +58,7 @@
             "check-whitespace"
         ],
         "ordered-imports": [false],
-        "quotemark": [true, "single", "jsx-double"],
+        "quotemark": [false, "single", "jsx-double"],
         "radix": true,
         "semicolon": [true, "never"],
         "switch-default": true,

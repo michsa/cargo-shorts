@@ -1,27 +1,32 @@
-import { action } from 'typesafe-actions'
-import { ADD_POCKET, DELETE_POCKET, MODIFY_POCKET, ASSIGN_TAB, UNASSIGN_TAB } from '../constants'
+import { POCKET_ADD, POCKET_DELETE, POCKET_MODIFY, POCKET_ASSIGN_TAB, POCKET_UNASSIGN_TAB } from '../constants'
 import { Pocket, PocketID, TabID } from '../types'
-import { v4 as uuid } from 'uuid'
 
-export const addPocket = 
-    (pocket: Pocket) => 
-        action(ADD_POCKET, {id: uuid(), data: pocket})
+const action = (type: string, payload: T) => ({type, payload})
 
-export const deletePocket = 
-    (id: PocketID) => 
-        action(DELETE_POCKET, id)
+export const addPocket =
+  (pocket: Pocket) =>
+    action(POCKET_ADD, pocket)
 
-export const modifyPocket = 
-    (pocket: Pocket) => 
-        action(MODIFY_POCKET, pocket)
+export const deletePocket =
+  (id: PocketID) =>
+    action(POCKET_DELETE, id)
 
-export const assignTab = 
-    (id: PocketID, tab: TabID) => {
-        console.log(`assign tab | id: ${id} | tab: ${tab}`)
-        return action(ASSIGN_TAB, {id, tab})
-    }
+export const modifyPocket =
+  (pocket: Pocket) =>
+    action(POCKET_MODIFY, pocket)
 
+export const modifyPocket2 =
+  (pocket: Pocket) => ({
+    type: POCKET_MODIFY,
+    payload: pocket
+  })
 
-export const unassignTab = 
-    (id: PocketID, tab: TabID) => 
-        action(UNASSIGN_TAB, {id, tab})
+export const assignTab =
+  (id: PocketID, tab: TabID) => {
+    console.log(`assign tab | id: ${id} | tab: ${tab}`)
+    return action(POCKET_ASSIGN_TAB, { id, tab })
+  }
+
+export const unassignTab =
+  (id: PocketID, tab: TabID) =>
+    action(POCKET_UNASSIGN_TAB, { id, tab })

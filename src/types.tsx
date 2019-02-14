@@ -27,7 +27,7 @@ export type RouterState = (NewPocketRoute | EditPocketRoute | PocketListRoute)
 
 export type PocketID = string
 
-export type PocketMap =  Readonly<{[id in PocketID]: Pocket}>
+export type PocketMap = Readonly<{[id in PocketID]: Pocket}>
 
 export interface Pocket {
   id: PocketID,
@@ -47,12 +47,16 @@ export type PocketState = {
 export type TabID = string
 
 export type Tab = {
-  id: TabID,
   url: string,
   title: string
 }
 
-export type TabMap = Readonly<{[id in TabID]: Tab}>
+export type SavedTab = Tab & {
+  id: TabID,
+  pocket: PocketID
+}
+
+export type TabMap = Readonly<{[id in TabID]: SavedTab}>
 
 export type TabState = {
   readonly byId: TabMap,
