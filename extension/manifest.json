@@ -2,7 +2,12 @@
   "manifest_version": 2,
   "name": "Cargo Shorts",
   "version": "1.0",
-
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "cargo.shorts@michsa.me",
+      "strict_min_version": "1.0"
+    }
+  },
   "browser_action": {
     "browser_style": true,
     "default_icon": {
@@ -18,10 +23,9 @@
       "dist/background.js"
     ]
   },
-  "chrome_url_overrides" : {
+  "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
-
   "permissions": [
     "activeTab",
     "storage"

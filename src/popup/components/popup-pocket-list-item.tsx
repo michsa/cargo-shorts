@@ -10,12 +10,11 @@ interface Props {
 }
 
 const style = (color: string, isActive: boolean) => ({
-  backgroundColor: isActive ? color : '#fafafa',
-  boxShadow: `inset 0 0 0 1px rgba(0,0,0,.15)`
+  display: 'block',
+  backgroundColor: isActive ? color : '#fafafa'
 })
 
 const PopupPocketListItem = ({ pocket, isActive, handleEdit, handleClick }: Props) => {
-  // const editPocket = () => editHandler(pocket.id)
   const doClick = () => handleClick(pocket.id)
   return (
     <li id="pocket-list-item" key={pocket.id}>
@@ -29,10 +28,11 @@ const PopupPocketListItem = ({ pocket, isActive, handleEdit, handleClick }: Prop
             ? emoji.get(pocket.icon)
             : emoji.random().emoji
         }</span>
-        <span id="pocket-name">{pocket.name}</span>
-        <span id="pocket-count">{pocket.tabs.length}</span>
+        <span id="pocket-name">{pocket.name} </span>
+        <span id="pocket-count"> {pocket.tabs.length} </span>
+        <span onClick={() => handleEdit(pocket.id)}> edit </span>
+        <span> {isActive ? 'active! :D' : 'not active :('}</span>
       </div>
-      <i id="edit-pocket" className="ui icon pencil" onClick={() => handleEdit(pocket.id)} />
     </li>
   )
 }

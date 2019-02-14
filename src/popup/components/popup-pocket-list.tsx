@@ -1,10 +1,8 @@
 import { State, Pocket, SavedTab, Tab, PocketID } from '../../types'
-import { orderedPocketSelector, currentTabSelector, currentTabInfoSelector } from '../../selectors'
+import { orderedPocketSelector, currentTabSelector, currentTabInfoSelector } from '../../redux/selectors'
 import { connect } from 'react-redux'
-import {
-  routeNewPocket, routeEditPocket,
-  newTab, moveTab, removeTab
-} from '../../actions'
+import { routeNewPocket, routeEditPocket } from '../../redux/router/actions'
+import { newTab, moveTab, removeTab } from '../../redux/tabs/actions'
 
 import * as React from 'react'
 import PopupPocketListItem from './popup-pocket-list-item'
@@ -57,20 +55,22 @@ const mapDispatchToProps = (dispatch) => ({
 const PopupPocketList = ({
   pockets, savedTab, tab,
   onPocketClick, onPocketEdit, onNewPocket
-}: Props & Handlers) => (
+}: Props & Handlers) => {
+  return (
     <ul id="pocket-list">
       <li><TabInfo tab={tab} /></li>
       {pockets.map((pocket) =>
         <PopupPocketListItem
           pocket={pocket}
-          isActive={!!savedTab && savedTab.id === pocket.id}
+          isActive={!!savedTab && savedTab.pocket === pocket.id}
           key={pocket.id}
           handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
           handleEdit={onPocketEdit}
         />
       )}
-      <li onClick={onNewPocket} style={{ backgroundColor: '#fdd' }}>+ New Pocket</li>
+      <li onClick={onNewPocket}>+ New Pocket</li>
     </ul>
   )
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopupPocketList)

@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createUIStore } from 'redux-webext'
-import { requestCurrentTabInfo } from '../actions'
+import { requestCurrentTabInfo } from '../redux/actions'
 import App from './components/app'
 
 async function initApp() {

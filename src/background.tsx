@@ -1,7 +1,7 @@
-import backgroundStore from './store'
+import backgroundStore from './redux/store'
 // import browser from 'webextension-polyfill'
 // window.browser = browser
-import { requestCurrentTabInfo } from './actions'
+import { requestCurrentTabInfo } from './redux/actions'
 
 console.log('background.tsx')
 console.log(backgroundStore.getState())

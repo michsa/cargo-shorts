@@ -1,26 +1,24 @@
 import { action } from 'typesafe-actions'
 import * as uuid from 'uuid'
 import { browser, Tabs } from 'webextension-polyfill-ts'
-
-import { UPDATE_CURRENT_TAB, NEW_TAB, REQUEST_CURRENT_TAB_INFO, REMOVE_TAB, MOVE_TAB } from '../constants'
-import { Tab, SavedTab, PocketID } from '../types'
+import { Tab, SavedTab, PocketID } from '../../types'
 
 interface BrowserTab extends Tabs.Tab { }
 
-export const updateCurrentTab =
-  (tab: Tab | undefined) => action(UPDATE_CURRENT_TAB, tab)
+export const updateCurrentTab = (tab: Tab | undefined) =>
+  action('UPDATE_CURRENT_TAB', tab)
 
-  export const newTab = (tab: Tab, pocketId: PocketID) =>
-  action(NEW_TAB, { tab, pocketId, tabId: uuid() })
+export const newTab = (tab: Tab, pocketId: PocketID) =>
+  action('NEW_TAB', { tab, pocketId, tabId: uuid() })
 
-export const moveTab = (tab: SavedTab, pocketId: PocketID) =>
-  action(MOVE_TAB, { tab, pocketId })
+export const moveTab = (tab: SavedTab, pocketId: PocketID, position?: number) =>
+  action('MOVE_TAB', { tab, pocketId, position })
 
 export const removeTab = (tab: SavedTab) =>
-  action(REMOVE_TAB, tab)
+  action('REMOVE_TAB', tab)
 
 export const requestCurrentTabInfo = () =>
-  action(REQUEST_CURRENT_TAB_INFO)
+  action('REQUEST_CURRENT_TAB_INFO')
 
 // getTabInfo: executed from the background store in response to
 // the API_REQUEST_TAB_INFO action (see store.tsx)
