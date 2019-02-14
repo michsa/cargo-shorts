@@ -1,8 +1,16 @@
 // import { combineReducers } from 'redux'
-import { PocketState, PocketMap } from '../types'
-import { filter } from 'ramda'
-import { POCKET_ASSIGN_TAB, POCKET_UNASSIGN_TAB } from '../constants'
+import { lensPath, over, append, without, insert, compose } from 'ramda'
 import { Reducer } from 'redux'
+
+import { PocketState, PocketMap, PocketID, TabID } from '../types'
+import {
+  NEW_TAB, MOVE_TAB, REMOVE_TAB,
+  NEW_POCKET, REMOVE_POCKET, MODIFY_POCKET
+} from '../constants'
+
+//---------------//
+// initial state //
+//---------------//
 
 const initialState: PocketState = {
   byId: {
@@ -24,48 +32,54 @@ const initialState: PocketState = {
   idList: ['test-pocket', 'test-2'] as string[]
 }
 
-const pocketReducer: Reducer<PocketState> = (
+//-----------//
+// utilities //
+//-----------//
+
+const tabsLens = (pocketId: PocketID) => lensPath(['byId', pocketId, 'tabs'])
+
+const insertOrAppend = (tabId: TabID, position?: number) =>
+  position !== undefined ? insert(position, tabId) : append(tabId)
+
+const assignTab = (pocketId: PocketID, tabId: TabID, position?: number) =>
+  (state: PocketState) => over(tabsLens(pocketId), insertOrAppend(tabId, position), state)
+
+const unassignTab = (pocketId: PocketID, tabId: TabID) =>
+  (state: PocketState) => over(tabsLens(pocketId), without([tabId]), state)
+
+//---------//
+// reducer //
+//---------//
+
+const pockets: Reducer<PocketState> = (
   state: PocketState = initialState, action
 ): PocketState => {
+  const payload = action.payload
   switch (action.type) {
-    case POCKET_ASSIGN_TAB:
-      console.log('ASSIGN_TAB')
-      console.log(action)
-      console.log(state)
-      // there has to be a better way to do this
-      return {
-        byId: {
-          [action.payload.id]: {
-            tabs: [
-              ...state.byId[action.payload.id].tabs,
-              action.payload.tab
-            ],
-            ...state.byId[action.payload.id]
-          },
-          ...state.byId
-        },
-        ...state
-      }
-    case POCKET_UNASSIGN_TAB:
-      console.log('UNASSIGN_TAB')
-      console.log(action)
-      console.log(state)
-      return {
-        byId: {
-          [action.payload.id]: {
-            tabs: filter(
-              (tab) => tab !== action.payload.tab,
-              state.byId[action.payload.id].tabs
-            ),
-            ...state.byId[action.payload.id]
-          },
-          ...state.byId
-        },
-        ...state
-      }
+    case MOVE_TAB:
+      return compose(
+        assignTab(payload.pocketId, payload.tab.id, payload.position),
+        unassignTab(payload.tab.pocket, payload.tab.id)
+      )(state)
+
+    case REMOVE_TAB:
+      return unassignTab(payload.tab.pocket, payload.tab.id)(state)
+
+    case NEW_TAB:
+      return state
+
+    case NEW_POCKET:
+      return state
+
+    case REMOVE_POCKET:
+      return state
+
+    case MODIFY_POCKET:
+      return state
+
     default:
       return state
   }
 }
 
-export default pocketReducer
+export default pockets

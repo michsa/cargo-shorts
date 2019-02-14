@@ -1,12 +1,12 @@
 import backgroundStore from './store'
 // import browser from 'webextension-polyfill'
 // window.browser = browser
-import { requestTabInfo } from './actions/tab'
+import { requestCurrentTabInfo } from './actions'
 
 console.log('background.tsx')
 console.log(backgroundStore.getState())
 
-backgroundStore.dispatch(requestTabInfo)
+backgroundStore.dispatch(requestCurrentTabInfo)
 
 /*
 import * as React from 'react'

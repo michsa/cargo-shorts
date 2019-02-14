@@ -1,38 +1,32 @@
-import { TAB_UPDATE_CURRENT, API_REQUEST_TAB_INFO, TAB_ADD, TAB_DELETE, NEW_TAB, REMOVE_TAB } from '../constants'
+import { action } from 'typesafe-actions'
+import * as uuid from 'uuid'
 import { browser, Tabs } from 'webextension-polyfill-ts'
-import { Tab, TabID, PocketID } from '../types'
-// import { v4 as uuid } from 'uuid'
+
+import { UPDATE_CURRENT_TAB, NEW_TAB, REQUEST_CURRENT_TAB_INFO, REMOVE_TAB, MOVE_TAB } from '../constants'
+import { Tab, SavedTab, PocketID } from '../types'
+
 interface BrowserTab extends Tabs.Tab { }
 
-export const newTab = (tab: Tab, pocketId: PocketID) => ({
-  type: NEW_TAB,
-  payload: { tab, pocketId }
-})
+export const updateCurrentTab =
+  (tab: Tab | undefined) => action(UPDATE_CURRENT_TAB, tab)
 
-export const addTab = (tab: Tab) => ({
-  type: TAB_ADD,
-  payload: tab
-})
+  export const newTab = (tab: Tab, pocketId: PocketID) =>
+  action(NEW_TAB, { tab, pocketId, tabId: uuid() })
 
-export const deleteTab = (id: TabID) => ({
-  type: TAB_DELETE,
-  payload: id
-})
+export const moveTab = (tab: SavedTab, pocketId: PocketID) =>
+  action(MOVE_TAB, { tab, pocketId })
 
-export const updateCurrentTab = (tab: Tab | undefined) => ({
-  type: TAB_UPDATE_CURRENT,
-  payload: tab
-})
+export const removeTab = (tab: SavedTab) =>
+  action(REMOVE_TAB, tab)
 
-export const requestTabInfo = () => ({
-  type: API_REQUEST_TAB_INFO
-})
+export const requestCurrentTabInfo = () =>
+  action(REQUEST_CURRENT_TAB_INFO)
 
-// getTabInfo: executed from the background store in response to 
+// getTabInfo: executed from the background store in response to
 // the API_REQUEST_TAB_INFO action (see store.tsx)
-export const getTabInfo = () => {
+export const getCurrentTabInfo = () => {
   return async dispatch => {
-    dispatch({ type: API_REQUEST_TAB_INFO })
+    // dispatch({ type: API_REQUEST_TAB_INFO })
     try {
       const tabs: BrowserTab[] = await browser.tabs.query({
         active: true, currentWindow: true

@@ -3,7 +3,7 @@ import { orderedPocketSelector, currentTabSelector, currentTabInfoSelector } fro
 import { connect } from 'react-redux'
 import {
   routeNewPocket, routeEditPocket,
-  addTab, assignTab, removeTab
+  newTab, moveTab, removeTab
 } from '../../actions'
 
 import * as React from 'react'
@@ -43,13 +43,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onPocketClick: (pocketId, tab, savedTab) => {
     if (!savedTab) {
-      dispatch(addTab(tab, pocketId))
+      dispatch(newTab(tab, pocketId))
     }
     else if (savedTab.pocket === pocketId) {
-      dispatch(removeTab(savedTab.id))
+      dispatch(removeTab(savedTab))
     }
     else if (savedTab.pocket !== pocketId) {
-      dispatch(assignTab(savedTab.id, pocketId))
+      dispatch(moveTab(savedTab, pocketId))
     }
   }
 } as Handlers)

@@ -1,8 +1,9 @@
 // import { ActionType, getType } from 'typesafe-actions'
-import { TabState, TabMap, Tab } from '../types'
-import { UPDATE_CURRENT_TAB, ADD_TAB } from '../constants'
+import * as uuid from 'uuid'
+import { omit } from 'ramda'
 import { combineReducers, Reducer } from 'redux'
-import { v4 as uuid } from 'uuid'
+import { TabState, TabMap, Tab } from '../types'
+import { UPDATE_CURRENT_TAB, NEW_TAB, MOVE_TAB, REMOVE_TAB, REMOVE_POCKET } from '../constants'
 
 // import * as tab from '../actions/tab'
 
@@ -19,27 +20,46 @@ const initialState: TabState = {
   current: {} as Tab
 }
 
-const tabsReducer: Reducer<TabMap> = (
+const byId: Reducer<TabMap> = (
   state: TabMap = initialState.byId, action
 ) => {
+  const payload = action.payload
   switch (action.type) {
-    case ADD_TAB:
-      console.log('ADD_TAB')
-      console.log(action)
-      console.log(state)
-      return { ...state, [action.payload.id]: action.payload }
+    case NEW_TAB:
+      return {
+        ...state,
+        [payload.tabId]:
+        {
+          ...payload.tab,
+          id: payload.tabId,
+          pocket: payload.pocketId
+        }
+      }
+
+    case MOVE_TAB:
+      return {
+        ...state,
+        [payload.tab.id]: {
+          ...payload.tab,
+          pocket: payload.pocketId
+        }
+      }
+
+    case REMOVE_TAB:
+      return omit(payload.tab.id, state)
+
+    case REMOVE_POCKET:
+      return omit(payload.tabs, state)
+
     default:
       return state
   }
 }
 
-const currentTabReducer: Reducer<Tab | undefined> = (
+const current: Reducer<Tab | undefined> = (
   state = initialState.current, action
 ) => {
   if (action.type === UPDATE_CURRENT_TAB) {
-    console.log('UPDATE_CURRENT_TAB')
-    console.log(action)
-    console.log(state)
     return action.payload
   }
   else {
@@ -47,7 +67,4 @@ const currentTabReducer: Reducer<Tab | undefined> = (
   }
 }
 
-export default combineReducers({
-  byId: tabsReducer,
-  current: currentTabReducer
-})
+export default combineReducers({byId, current})

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { createBackgroundStore } from 'redux-webext'
-import { API_REQUEST_TAB_INFO, ADD_TAB, ASSIGN_TAB, UNASSIGN_TAB, ROUTE } from './constants'
-import { getTabInfo, addTab, assignTab, route } from './actions'
+import { REQUEST_CURRENT_TAB_INFO, NEW_TAB, ROUTE } from './constants'
+import { getCurrentTabInfo, newTab, route } from './actions'
 import reducer from './reducers'
 import thunk from 'redux-thunk'
 
@@ -23,13 +23,12 @@ const testAddTab = ({payload}) => {
 export default createBackgroundStore({
   store,
   actions: {
-    [API_REQUEST_TAB_INFO]: getTabInfo,
-    [ADD_TAB]: ({ payload }) => (addTab(payload)),
-    [ASSIGN_TAB]: assignTab,
-    [UNASSIGN_TAB]: ({ id, tab }) => assignTab(id, tab),
+    [REQUEST_CURRENT_TAB_INFO]: getCurrentTabInfo,
+    [NEW_TAB]: newTab,
     [ROUTE]: route
   }
 })
+
 /*
 const stripPayload = (fn: Function, ...args) => (
   ({ payload }) => (fn(...args.map(arg => payload[arg])))
