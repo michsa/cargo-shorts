@@ -1,14 +1,12 @@
-import { lensPath, over, append, without, insert, compose } from 'ramda'
+import { append, compose, insert, lensPath, over, without } from 'ramda'
 import { Reducer } from 'redux'
 import { ActionType } from 'typesafe-actions'
-import { PocketState, PocketMap, PocketID, TabID } from '../../types'
 
-import * as pocket from './actions'
-import { moveTab, removeTab, newTab } from '../tabs/actions'
+import { PocketID, PocketMap, PocketState, TabID } from '../../types'
+import * as pocket from '../actions/pocket'
+import { moveTab, newTab, removeTab } from '../actions/tab'
 
-// --------------- //
-//  initial state  //
-// --------------- //
+// --- initial state --- //
 
 const initialState: PocketState = {
   byId: {
@@ -30,9 +28,7 @@ const initialState: PocketState = {
   idList: ['2', '1'] as string[]
 }
 
-// ----------- //
-//  utilities  //
-// ----------- //
+// --- utilities --- //
 
 const tabsLens = (pocketId: PocketID) => lensPath(['byId', pocketId, 'tabs'])
 
@@ -45,9 +41,7 @@ const assignTab = (pocketId: PocketID, tabId: TabID, position?: number) =>
 const unassignTab = (pocketId: PocketID, tabId: TabID) =>
   (state: PocketState) => over(tabsLens(pocketId), without([tabId]), state)
 
-// --------- //
-//  reducer  //
-// --------- //
+// --- reducer --- //
 
 const pockets: Reducer<PocketState> = (
   state: PocketState = initialState,

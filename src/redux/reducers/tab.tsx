@@ -1,10 +1,12 @@
 import { omit } from 'ramda'
 import { combineReducers, Reducer } from 'redux'
 import { ActionType } from 'typesafe-actions'
-import { TabState, TabMap, Tab } from '../../types'
 
-import * as tab from './actions'
-import { removePocket } from '../pockets/actions'
+import { Tab, TabMap, TabState } from '../../types'
+import { removePocket } from '../actions/pocket'
+import * as tab from '../actions/tab'
+
+// --- initial state --- //
 
 const initialState: TabState = {
   byId: {
@@ -17,6 +19,8 @@ const initialState: TabState = {
   } as TabMap,
   current: {} as Tab
 }
+
+// --- reducer: tabs by id --- //
 
 const byId: Reducer<TabMap> = (
   state: TabMap = initialState.byId,
@@ -53,6 +57,8 @@ const byId: Reducer<TabMap> = (
       return state
   }
 }
+
+// --- reducer: current tab --- //
 
 const current: Reducer<Tab | undefined> = (
   state = initialState.current,

@@ -1,6 +1,7 @@
-import { keys, find, compose, eqProps, values } from 'ramda'
+import { compose, eqProps, find, keys, values } from 'ramda'
 import { createSelector } from 'reselect'
-import { State, TabMap, SavedTab } from '../../types'
+
+import { SavedTab, State, TabMap } from '../../types'
 
 export const tabsByIdSelector = ({tabs}: State) => tabs.byId
 export const currentTabInfoSelector = ({tabs}: State) => tabs.current

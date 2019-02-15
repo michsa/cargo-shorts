@@ -1,4 +1,5 @@
 import { action } from 'typesafe-actions'
+
 import { Pocket } from '../../types'
 
 export const newPocket =

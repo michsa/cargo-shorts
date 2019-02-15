@@ -1,17 +1,17 @@
 import * as React from 'react'
-import PopupPocketList from './popup-pocket-list'
-import PopupPocketDetail from './popup-pocket-detail'
-import { State, RouterState } from '../../types'
 import { connect } from 'react-redux'
+
+import { RouterState, State } from '../../types'
+import PopupPocketList from '../popup/popup-pocket-list'
 
 const mapStateToProps = ({router}: State) => router
 
 const getComponent = (router: RouterState) => {
   switch (router.route) {
     case 'NEW_POCKET':
-      return <PopupPocketDetail isNew={true} />
+      return <PopupPocketList/>
     case 'EDIT_POCKET':
-      return <PopupPocketDetail id={router.data.id} isNew={false} />
+      return <PopupPocketList/>
     case 'POCKET_LIST':
     default:
       return <PopupPocketList/>

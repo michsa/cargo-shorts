@@ -57,7 +57,14 @@
             "check-open-brace",
             "check-whitespace"
         ],
-        "ordered-imports": [false],
+        "ordered-imports": [
+            true,
+            {
+                "import-sources-order": "case-insensitive",
+                "named-imports-order": "case-insensitive",
+                "grouped-imports": true
+            }
+        ],
         "quotemark": [false, "single", "jsx-double"],
         "radix": true,
         "semicolon": [true, "never"],

@@ -1,5 +1,6 @@
-import { NewPocketRoute, EditPocketRoute, PocketListRoute } from '../../types'
 import { action } from 'typesafe-actions'
+
+import { EditPocketRoute, NewPocketRoute, PocketListRoute } from '../../types'
 
 export const routeNewPocket =
   () => action('ROUTE', {} as NewPocketRoute)

@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect'
-import { State, SavedTab } from '../../types'
-import { currentTabSelector } from '../tabs/selectors'
+
+import { SavedTab, State } from '../../types'
+
+import { currentTabSelector } from './tab'
 
 export const pocketsByIdSelector =
   ({ pockets }: State) => pockets.byId
@@ -15,7 +17,5 @@ export const orderedPocketSelector = createSelector(
 
 export const currentPocketIdSelector = createSelector(
   [currentTabSelector],
-  (tab: SavedTab | undefined) => tab === undefined
-    ? null
-    : tab.pocket
+  (tab: SavedTab | undefined) => tab === undefined ? null : tab.pocket
 )

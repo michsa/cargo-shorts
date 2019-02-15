@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Pocket, State } from '../../types'
-import { connect } from 'react-redux'
 import { TwitterPicker } from 'react-color'
+import { connect } from 'react-redux'
+
+import { Pocket, State } from '../../types'
 
 interface Props {
   id?: string,

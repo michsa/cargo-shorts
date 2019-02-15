@@ -1,10 +1,11 @@
-import { State, Pocket, SavedTab, Tab, PocketID } from '../../types'
-import { orderedPocketSelector, currentTabSelector, currentTabInfoSelector } from '../../redux/selectors'
-import { connect } from 'react-redux'
-import { routeNewPocket, routeEditPocket } from '../../redux/router/actions'
-import { newTab, moveTab, removeTab } from '../../redux/tabs/actions'
-
 import * as React from 'react'
+import { connect } from 'react-redux'
+
+
+import { moveTab, newTab, removeTab, routeEditPocket, routeNewPocket } from '../../redux/actions'
+import { currentTabInfoSelector, currentTabSelector, orderedPocketSelector } from '../../redux/selectors'
+import { Pocket, PocketID, SavedTab, State, Tab } from '../../types'
+
 import PopupPocketListItem from './popup-pocket-list-item'
 import TabInfo from './tab-info'
 

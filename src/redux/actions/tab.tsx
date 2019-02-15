@@ -1,7 +1,8 @@
 import { action } from 'typesafe-actions'
 import * as uuid from 'uuid'
 import { browser, Tabs } from 'webextension-polyfill-ts'
-import { Tab, SavedTab, PocketID } from '../../types'
+
+import { PocketID, SavedTab, Tab } from '../../types'
 
 interface BrowserTab extends Tabs.Tab { }
 

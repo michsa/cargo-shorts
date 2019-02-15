@@ -9,7 +9,7 @@ module.exports = {
     // For example, you could add a background script like:
     // background: './src/background.js',
     popup: './src/popup',
-    newtab: './src/newtab.tsx',
+    page: './src/page.tsx',
     background: './src/background.tsx'
   },
 
