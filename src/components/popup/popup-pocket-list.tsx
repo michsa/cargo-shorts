@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 
-import { moveTab, newTab, removeTab, routeEditPocket, routeNewPocket } from '../../redux/actions'
+import { moveTab, newTab, removeTab } from '../../redux/actions/ui'
 import { currentTabInfoSelector, currentTabSelector, orderedPocketSelector } from '../../redux/selectors'
 import { Pocket, PocketID, SavedTab, State, Tab } from '../../types'
 
@@ -22,8 +22,8 @@ const mapStateToProps = (state: State) => ({
 } as Props)
 
 interface Handlers {
-  onNewPocket: () => void
-  onPocketEdit: (id: PocketID) => void,
+  // onNewPocket: () => void
+  // onPocketEdit: (id: PocketID) => void,
   onPocketClick: (
     pocketId: PocketID,
     tab: Tab,
@@ -32,6 +32,7 @@ interface Handlers {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  /*
   onNewPocket: () => {
     console.log('new pocket!')
     dispatch(routeNewPocket())
@@ -40,22 +41,25 @@ const mapDispatchToProps = (dispatch) => ({
     console.log(`pocket edit: ${pocketId}`)
     dispatch(routeEditPocket(pocketId))
   },
+  */
   onPocketClick: (pocketId, tab, savedTab) => {
+    console.log(`onPocketClick | pocket: ${pocketId}`)
+    console.log(tab)
+    console.log(savedTab)
     if (!savedTab) {
-      dispatch(newTab(tab, pocketId))
+      dispatch(newTab({tab, pocketId}))
     }
     else if (savedTab.pocket === pocketId) {
       dispatch(removeTab(savedTab))
     }
     else if (savedTab.pocket !== pocketId) {
-      dispatch(moveTab(savedTab, pocketId))
+      dispatch(moveTab({tab: savedTab, pocketId}))
     }
   }
 } as Handlers)
 
 const PopupPocketList = ({
-  pockets, savedTab, tab,
-  onPocketClick, onPocketEdit, onNewPocket
+  pockets, savedTab, tab, onPocketClick
 }: Props & Handlers) => {
   return (
     <ul id="pocket-list">
@@ -66,10 +70,10 @@ const PopupPocketList = ({
           isActive={!!savedTab && savedTab.pocket === pocket.id}
           key={pocket.id}
           handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
-          handleEdit={onPocketEdit}
+          handleEdit={(x) => x}
         />
       )}
-      <li onClick={onNewPocket}>+ New Pocket</li>
+      <li onClick={(x) => x}>+ New Pocket</li>
     </ul>
   )
 }

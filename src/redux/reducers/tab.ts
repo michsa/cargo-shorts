@@ -1,9 +1,8 @@
-import { omit } from 'ramda'
+import { assoc, assocPath, omit } from 'ramda'
 import { combineReducers, Reducer } from 'redux'
-import { ActionType } from 'typesafe-actions'
+import { ActionType, getType } from 'typesafe-actions'
 
 import { Tab, TabMap, TabState } from '../../types'
-import { removePocket } from '../actions/pocket'
 import * as tab from '../actions/tab'
 
 // --- initial state --- //
@@ -24,34 +23,26 @@ const initialState: TabState = {
 
 const byId: Reducer<TabMap> = (
   state: TabMap = initialState.byId,
-  action: ActionType<typeof tab> | ActionType<typeof removePocket>
+  action: ActionType<typeof tab>
 ) => {
+  console.log("tab.byId reducer")
+  console.log(action)
   switch (action.type) {
-    case 'NEW_TAB':
-      return {
-        ...state,
-        [action.payload.tabId]:
-        {
-          ...action.payload.tab,
-          id: action.payload.tabId,
-          pocket: action.payload.pocketId
-        }
-      }
 
-    case 'MOVE_TAB':
-      return {
-        ...state,
-        [action.payload.tab.id]: {
-          ...action.payload.tab,
-          pocket: action.payload.pocketId
-        }
-      }
+    case getType(tab.newTab):
+      const newState = assoc(action.payload.id, action.payload, state)
+      console.log(newState)
+      return newState
 
-    case 'REMOVE_TAB':
-      return omit([action.payload.id], state)
+    case getType(tab.deleteTab):
+      return omit([action.payload], state)
 
-    case 'REMOVE_POCKET':
-      return omit(action.payload.tabs, state)
+    case getType(tab.updateTabPocket):
+      return assocPath(
+        [action.payload.tabId, 'pocket'],
+        action.payload.pocketId,
+        state
+      )
 
     default:
       return state
@@ -64,12 +55,9 @@ const current: Reducer<Tab | undefined> = (
   state = initialState.current,
   action: ActionType<typeof tab.updateCurrentTab>
 ) => {
-  if (action.type === 'UPDATE_CURRENT_TAB') {
-    return action.payload
-  }
-  else {
-    return state
-  }
+  return (action.type === getType(tab.updateCurrentTab))
+    ? action.payload
+    : state
 }
 
 export default combineReducers({ byId, current })

@@ -1,10 +1,9 @@
-import { append, compose, insert, lensPath, over, without } from 'ramda'
-import { Reducer } from 'redux'
-import { ActionType } from 'typesafe-actions'
+import { append, assoc, insert, lensPath, omit, over, without } from 'ramda'
+import { combineReducers, Reducer } from 'redux'
+import { ActionType, getType } from 'typesafe-actions'
 
 import { PocketID, PocketMap, PocketState, TabID } from '../../types'
 import * as pocket from '../actions/pocket'
-import { moveTab, newTab, removeTab } from '../actions/tab'
 
 // --- initial state --- //
 
@@ -25,63 +24,68 @@ const initialState: PocketState = {
       tabs: []
     }
   } as PocketMap,
-  idList: ['2', '1'] as string[]
+  idList: ['2', '1'] as PocketID[]
 }
 
 // --- utilities --- //
 
-const tabsLens = (pocketId: PocketID) => lensPath(['byId', pocketId, 'tabs'])
+const tabsLens = (pocketId: PocketID) => lensPath([pocketId, 'tabs'])
 
 const insertOrAppend = (tabId: TabID, position?: number) =>
   position !== undefined ? insert(position, tabId) : append(tabId)
 
-const assignTab = (pocketId: PocketID, tabId: TabID, position?: number) =>
-  (state: PocketState) => over(tabsLens(pocketId), insertOrAppend(tabId, position), state)
+// --- reducers --- //
 
-const unassignTab = (pocketId: PocketID, tabId: TabID) =>
-  (state: PocketState) => over(tabsLens(pocketId), without([tabId]), state)
-
-// --- reducer --- //
-
-const pockets: Reducer<PocketState> = (
-  state: PocketState = initialState,
-  action: ActionType<typeof pocket | typeof moveTab | typeof removeTab | typeof newTab>
-): PocketState => {
+const byId: Reducer<PocketMap> = (
+  state: PocketMap = initialState.byId,
+  action: ActionType<typeof pocket>
+): PocketMap => {
   switch (action.type) {
-    case 'MOVE_TAB':
-      return compose(
-        assignTab(
-          action.payload.pocketId,
-          action.payload.tab.id,
-          action.payload.position
-        ),
-        unassignTab(
-          action.payload.tab.pocket,
-          action.payload.tab.id
-        )
-      )(state)
+    case getType(pocket.newPocket):
+      return assoc(action.payload.id, action.payload, state)
 
-    case 'REMOVE_TAB':
-      return unassignTab(
-        action.payload.pocket,
-        action.payload.id
-      )(state)
+    case getType(pocket.deletePocket):
+      return omit([action.payload], state)
 
-    case 'NEW_TAB':
-      return state
+    case getType(pocket.modifyPocket):
+      return {
+        ...state,
+        [action.payload.id]: action.payload
+      }
 
-    case 'NEW_POCKET':
-      return state
+    case getType(pocket.unassignTab):
+      return over(
+        tabsLens(action.payload.pocketId),
+        without([action.payload.tabId]),
+        state
+      )
 
-    case 'REMOVE_POCKET':
-      return state
-
-    case 'MODIFY_POCKET':
-      return state
+    case getType(pocket.assignTab):
+      return over(
+        tabsLens(action.payload.pocketId),
+        insertOrAppend(action.payload.tabId, action.payload.position),
+        state
+      )
 
     default:
       return state
   }
 }
 
-export default pockets
+const idList: Reducer<PocketID[]> = (
+  state: PocketID[] = initialState.idList,
+  action: ActionType<typeof pocket>
+): PocketID[] => {
+  switch (action.type) {
+    case getType(pocket.newPocket):
+      return append(action.payload)(state)
+
+    case getType(pocket.deletePocket):
+      return without([action.payload], state)
+
+    default:
+      return state
+  }
+}
+
+export default combineReducers({ byId, idList })

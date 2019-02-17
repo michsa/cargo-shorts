@@ -1,12 +1,15 @@
-import { action } from 'typesafe-actions'
+import { createStandardAction as create } from 'typesafe-actions'
 
-import { Pocket } from '../../types'
+import { Pocket, PocketID, TabID } from '../../types'
 
-export const newPocket =
-  (pocket: Pocket) => action('NEW_POCKET', pocket)
+export const newPocket = create('pocket/NEW')<Pocket>()
 
-export const removePocket =
-  (pocket: Pocket) => action('REMOVE_POCKET', pocket)
+export const deletePocket = create('pocket/DELETE')<PocketID>()
 
-export const modifyPocket =
-  (pocket: Pocket) => action('MODIFY_POCKET', pocket)
+export const modifyPocket = create('pocket/MODIFY')<Pocket>()
+
+export const assignTab = create('pocket/ASSIGN_TAB')
+  <{pocketId: PocketID, tabId: TabID, position?: number}>()
+
+export const unassignTab = create('pocket/UNASSIGN_TAB')
+  <{pocketId: PocketID, tabId: TabID}>()

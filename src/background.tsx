@@ -1,12 +1,14 @@
+//# sourceMappingURL=http://localhost:8080/background.js.map
+
 // import browser from 'webextension-polyfill'
 // window.browser = browser
-import { requestCurrentTabInfo } from './redux/actions'
+// import { requestCurrentTabInfo } from './redux/actions'
 import backgroundStore from './redux/store'
 
 console.log('background.tsx')
 console.log(backgroundStore.getState())
 
-backgroundStore.dispatch(requestCurrentTabInfo)
+// backgroundStore.dispatch(requestCurrentTabInfo)
 
 /*
 import * as React from 'react'

@@ -40,10 +40,12 @@
     "web-ext-types": "^3.1.0",
     "webextension-polyfill-ts": "^0.8.9",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
     "build": "webpack --display-error-details --progress --colors -w",
+    "serve": "webpack-dev-server --display-error-details --progress --colors -w",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix"
   }
 }
