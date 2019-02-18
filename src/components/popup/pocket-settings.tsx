@@ -54,8 +54,8 @@ const PocketSettings = ({
   const [settings, updateSettings] = useSettings(initializeSettings(pocket))
 
   const handleConfirm = () => {
-    setRoute(route.pocketList())
     onConfirm(settings, id)
+    setRoute(route.pocketList())
   }
 
   return (

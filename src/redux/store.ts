@@ -4,7 +4,7 @@ import { createBackgroundStore } from 'redux-webext'
 import { getType } from 'typesafe-actions'
 
 import * as actions from './actions'
-import * as uiActions from './actions/ui'
+import * as ui from './actions/ui'
 import reducer from './reducers'
 
 const store = createStore(
@@ -15,9 +15,11 @@ const store = createStore(
 export default createBackgroundStore({
   store,
   actions: {
-    [getType(uiActions.requestCurrentTabInfo)]: actions.getCurrentTabInfo,
-    [getType(uiActions.newTab)]: actions.newTab,
-    [getType(uiActions.removeTab)]: actions.removeTab,
-    [getType(uiActions.moveTab)]: actions.moveTab
+    [getType(ui.requestCurrentTabInfo)]: actions.getCurrentTabInfo,
+    [getType(ui.newTab)]: actions.newTab,
+    [getType(ui.removeTab)]: actions.removeTab,
+    [getType(ui.moveTab)]: actions.moveTab,
+    [getType(ui.newPocket)]: actions.newPocket,
+    [getType(ui.updatePocketSettings)]: actions.updatePocketSettings
   }
 })

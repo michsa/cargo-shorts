@@ -32,7 +32,7 @@ export const getCurrentTabId = createSelector(
   (tab: SavedTab | null) => tab ? tab.id : null
 )
 
-export const getOrderedTabs = createSelector(
+export const makeGetOrderedTabs = () => createSelector(
   [getTabIdListForPocket, getTabs],
   (idList, tabs) => idList.map(id => tabs[id])
 )

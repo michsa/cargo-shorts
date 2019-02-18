@@ -1,6 +1,6 @@
+import { slug as id } from 'cuid'
 import { Dispatch } from 'redux'
 import { ActionType } from 'typesafe-actions'
-import { v4 as uuid } from 'uuid'
 import { browser, Tabs } from 'webextension-polyfill-ts'
 
 import { Tab } from '../../types'
@@ -39,7 +39,7 @@ export const newTab = (
     typeof tabActions.newTab
     | typeof pocketActions.assignTab
   >>) => {
-    const newTabId = uuid()
+    const newTabId = id()
     dispatch(tabActions.newTab({
       ...payload.tab,
       id: newTabId,
@@ -97,6 +97,8 @@ export const updatePocketSettings = (
 export const newPocket = (
   { payload }: ActionType<typeof ui.newPocket>
 ) => {
-  const id = uuid()
-  return pocketActions.newPocket({ id, settings: payload })
+  console.log('new pocket')
+  console.log(payload)
+  const pocketId = id()
+  return pocketActions.newPocket({ id: pocketId, settings: payload })
 }

@@ -1,22 +1,26 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { getOrderedTabs } from '../../redux/selectors'
-import { Pocket, SavedTab, State } from '../../types'
+import { makeGetOrderedTabs } from '../../redux/selectors'
+import { PocketID, SavedTab, State } from '../../types'
 
 import TabListItem from './tab-list-item'
 
 interface OwnProps {
-  pocket: Pocket
+  pocketId: PocketID
 }
 
 interface StateProps {
   tabs: SavedTab[]
 }
 
-const mapStateToProps = (state: State, { pocket }: OwnProps) => ({
-  tabs: getOrderedTabs(state, pocket)
-} as StateProps)
+const makeMapStateToProps = () => {
+  const getOrderedTabs = makeGetOrderedTabs()
+  const mapStateToProps = (state: State, { pocketId }: OwnProps) => ({
+    tabs: getOrderedTabs(state, pocketId)
+  } as StateProps)
+  return mapStateToProps
+}
 
 const TabList = ({ tabs }: StateProps) => (
   <ul id="pocket-list">
@@ -29,4 +33,4 @@ const TabList = ({ tabs }: StateProps) => (
   </ul>
 )
 
-export default connect(mapStateToProps)(TabList)
+export default connect(makeMapStateToProps)(TabList)

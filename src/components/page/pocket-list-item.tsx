@@ -27,7 +27,7 @@ const PocketListItem = ({ pocket, handleEdit }: Props) => {
         <span id="pocket-count"> {pocket.tabs.length} </span>
         <span onClick={() => handleEdit(pocket.id)}> edit </span>
 
-        <TabList pocket={pocket}/>
+        <TabList pocketId={pocket.id}/>
       </div>
     </li>
   )
