@@ -1,43 +1,31 @@
 import * as React from 'react'
-import { useState } from 'react'
 
-import { EditPocketRoute, NewPocketRoute, PocketID, PocketListRoute, RouterState } from '../../types'
+import { RouterState } from '../../types'
 
-import PocketConfig from './pocket-config'
 import PocketList from './pocket-list'
-
-export type RouteMap = {
-  newPocket: () => void,
-  pocketList: () => void,
-  editPocket: (id: PocketID) => void
-}
+import PocketSettings from './pocket-settings'
+import { route, useRouter } from './router'
 
 const App = () => {
-  const [router, setRouter] = useState({ route: 'POCKET_LIST' } as RouterState)
+  const [routerState, setRoute] = useRouter(route.pocketList())
 
-  const route = {
-    newPocket: () => setRouter({ route: 'NEW_POCKET' } as NewPocketRoute),
-    pocketList: () => setRouter({ route: 'POCKET_LIST' } as PocketListRoute),
-    editPocket: (id: PocketID) => setRouter({ id } as EditPocketRoute)
-  } as RouteMap
-
-  const selectComponent = (selectedRouter: RouterState) => {
-    switch (selectedRouter.route) {
+  const selectComponent = (currentRoute: RouterState) => {
+    switch (currentRoute.id) {
       case 'NEW_POCKET':
-        return <PocketConfig isNew={true} />
+        return <PocketSettings isNew={true} setRoute={setRoute} />
       case 'EDIT_POCKET':
-        return <PocketConfig id={selectedRouter.id} isNew={false} />
+        return <PocketSettings id={currentRoute.id} isNew={false} setRoute={setRoute} />
       case 'POCKET_LIST':
       default:
-        return <PocketList route={route} />
+        return <PocketList setRoute={setRoute} />
     }
   }
 
   return (
     <div>
       <p>CARGO SHORTS</p>
-      <p>route: {router.route}</p>
-      {selectComponent(router)}
+      <p>route: {routerState.id}</p>
+      {selectComponent(routerState)}
     </div>
   )
 

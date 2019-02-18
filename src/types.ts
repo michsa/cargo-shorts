@@ -1,5 +1,12 @@
+// --- utils --- //
+
+type Diff<T, U> = T extends U ? never : T
+
+type Without<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>
+
+// --- state --- //
+
 export type State = {
-  readonly router: RouterState,
   readonly pockets: PocketState,
   readonly tabs: TabState
 }
@@ -7,16 +14,16 @@ export type State = {
 // --- routes --- //
 
 export class NewPocketRoute {
-  route: 'NEW_POCKET'
+  id: 'NEW_POCKET'
 }
 
 export class EditPocketRoute {
-  route: 'EDIT_POCKET'
-  id: PocketID
+  id: 'EDIT_POCKET'
+  data: PocketID
 }
 
 export class PocketListRoute {
-  route: 'POCKET_LIST'
+  id: 'POCKET_LIST'
 }
 
 export type RouterState = (NewPocketRoute | EditPocketRoute | PocketListRoute)
@@ -34,6 +41,8 @@ export interface Pocket {
   icon: string,
   tabs: TabID[]
 }
+
+export type PocketSettings = Without<Pocket, 'id' | 'tabs'>
 
 export type PocketState = {
   readonly byId: PocketMap,
