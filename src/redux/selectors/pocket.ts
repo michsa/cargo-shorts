@@ -4,7 +4,7 @@ import { Pocket, PocketID, State } from '../../types'
 
 export const getPockets = (state: State) => state.pockets.byId
 
-export const getPocketById = (state: State, {id}: {id: PocketID}) => state.pockets.byId[id]
+export const getPocketById = (state: State, id: PocketID) => state.pockets.byId[id]
 
 export const getPocketIdList = (state: State) => state.pockets.idList
 

@@ -12,9 +12,9 @@ const App = () => {
   const selectComponent = (currentRoute: RouterState) => {
     switch (currentRoute.id) {
       case 'NEW_POCKET':
-        return <PocketSettings isNew={true} setRoute={setRoute} />
+        return <PocketSettings setRoute={setRoute} />
       case 'EDIT_POCKET':
-        return <PocketSettings id={currentRoute.id} isNew={false} setRoute={setRoute} />
+        return <PocketSettings id={currentRoute.id} setRoute={setRoute} />
       case 'POCKET_LIST':
       default:
         return <PocketList setRoute={setRoute} />

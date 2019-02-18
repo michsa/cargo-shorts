@@ -1,6 +1,6 @@
 import { createStandardAction as create } from 'typesafe-actions'
 
-import { Pocket, PocketID, PocketSettings, SavedTab, Tab } from '../../types'
+import { PocketID, PocketSettings, SavedTab, Tab } from '../../types'
 
 // --- ui actions --- //
 
@@ -14,6 +14,7 @@ export const removeTab = create('ui/REMOVE_TAB')<SavedTab>()
 
 export const requestCurrentTabInfo = create('ui/REQUEST_CURRENT_TAB_INFO')()
 
-export const modifyPocket = create('ui/MODIFY_POCKET')<Pocket>()
+export const updatePocketSettings = create('ui/UPDATE_POCKET_SETTINGS')
+  <{ id: PocketID, settings: PocketSettings }>()
 
 export const newPocket = create('ui/NEW_POCKET')<PocketSettings>()

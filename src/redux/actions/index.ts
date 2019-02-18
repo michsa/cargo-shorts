@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux'
 import { ActionType } from 'typesafe-actions'
 import { v4 as uuid } from 'uuid'
 import { browser, Tabs } from 'webextension-polyfill-ts'
@@ -6,16 +7,14 @@ import { Tab } from '../../types'
 
 import * as pocketActions from './pocket'
 import * as tabActions from './tab'
-import * as uiActions from './ui'
+import * as ui from './ui'
 
 interface BrowserTab extends Tabs.Tab { }
 
-// --- thunks --- //
-
-// getTabInfo: executed from the background store in response to
-// the API_REQUEST_TAB_INFO action (see store.tsx)
 export const getCurrentTabInfo = () => {
-  return async dispatch => {
+  return async (dispatch: Dispatch<ActionType<
+    typeof tabActions.updateCurrentTab
+  >>) => {
     // dispatch({ type: API_REQUEST_TAB_INFO })
     try {
       const tabs: BrowserTab[] = await browser.tabs.query({
@@ -25,7 +24,7 @@ export const getCurrentTabInfo = () => {
         const browserTab: BrowserTab = tabs[0]
         const tab: Tab | undefined = browserTab.url && browserTab.title ?
           { url: browserTab.url, title: browserTab.title } : undefined
-        return dispatch(tabActions.updateCurrentTab(tab))
+        dispatch(tabActions.updateCurrentTab(tab))
       }
     } catch (err) {
       console.log(`error getting tab info: `, err.message)
@@ -34,9 +33,12 @@ export const getCurrentTabInfo = () => {
 }
 
 export const newTab = (
-  { payload }: ActionType<typeof uiActions.newTab>
+  { payload }: ActionType<typeof ui.newTab>
 ) => {
-  return dispatch => {
+  return (dispatch: Dispatch<ActionType<
+    typeof tabActions.newTab
+    | typeof pocketActions.assignTab
+  >>) => {
     const newTabId = uuid()
     dispatch(tabActions.newTab({
       ...payload.tab,
@@ -51,9 +53,12 @@ export const newTab = (
 }
 
 export const removeTab = (
-  { payload }: ActionType<typeof uiActions.removeTab>
+  { payload }: ActionType<typeof ui.removeTab>
 ) => {
-  return dispatch => {
+  return (dispatch: Dispatch<ActionType<
+    typeof pocketActions.unassignTab
+    | typeof tabActions.deleteTab
+  >>) => {
     dispatch(pocketActions.unassignTab({
       pocketId: payload.pocket,
       tabId: payload.id
@@ -63,9 +68,13 @@ export const removeTab = (
 }
 
 export const moveTab = (
-  { payload }: ActionType<typeof uiActions.moveTab>
+  { payload }: ActionType<typeof ui.moveTab>
 ) => {
-  return dispatch => {
+  return (dispatch: Dispatch<ActionType<
+    typeof pocketActions.unassignTab
+    | typeof pocketActions.assignTab
+    | typeof tabActions.updateTabPocket
+  >>) => {
     dispatch(pocketActions.unassignTab({
       pocketId: payload.tab.pocket,
       tabId: payload.tab.id
@@ -79,4 +88,15 @@ export const moveTab = (
       tabId: payload.tab.id
     }))
   }
+}
+
+export const updatePocketSettings = (
+  { payload }: ActionType<typeof ui.updatePocketSettings>
+) => pocketActions.updatePocket(payload)
+
+export const newPocket = (
+  { payload }: ActionType<typeof ui.newPocket>
+) => {
+  const id = uuid()
+  return pocketActions.newPocket({ id, settings: payload })
 }
