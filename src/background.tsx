@@ -1,5 +1,3 @@
-//# sourceMappingURL=http://localhost:8080/background.js.map
-
 // import browser from 'webextension-polyfill'
 // window.browser = browser
 // import { requestCurrentTabInfo } from './redux/actions'

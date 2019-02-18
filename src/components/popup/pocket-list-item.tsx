@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { Pocket } from '../../types'
-import { PocketIcon } from '../shared/pocket-icon'
+import PocketIcon from '../shared/pocket-icon'
 
 interface Props {
   pocket: Pocket,

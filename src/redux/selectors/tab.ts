@@ -3,23 +3,36 @@ import { createSelector } from 'reselect'
 
 import { SavedTab, State, TabMap } from '../../types'
 
-export const tabsByIdSelector = ({tabs}: State) => tabs.byId
-export const currentTabInfoSelector = ({tabs}: State) => tabs.current
+import { getTabIdListForPocket } from './pocket'
 
-export const tabIdListSelector = createSelector(
-  tabsByIdSelector,
+export const getTabs = (state: State) => state.tabs.byId
+
+export const getCurrentTab = (state: State) => state.tabs.current
+
+export const getTabIdList = createSelector(
+  [getTabs],
   (tabs) => keys(tabs)
 )
 
-export const currentTabSelector = createSelector(
-  [tabsByIdSelector, currentTabInfoSelector],
+export const getCurrentSavedTab = createSelector(
+  [getTabs, getCurrentTab],
   (tabs, current) => compose<TabMap, SavedTab[], SavedTab | undefined>(
     find(eqProps('url', current)),
     values
   )(tabs)
 )
 
-export const currentTabIdSelector = createSelector(
-  [currentTabSelector],
+export const getCurrentPocketId = createSelector(
+  [getCurrentSavedTab],
+  (tab: SavedTab | undefined) => tab === undefined ? null : tab.pocket
+)
+
+export const getCurrentTabId = createSelector(
+  [getCurrentSavedTab],
   (tab: SavedTab | null) => tab ? tab.id : null
+)
+
+export const getOrderedTabs = createSelector(
+  [getTabIdListForPocket, getTabs],
+  (idList, tabs) => idList.map(id => tabs[id])
 )

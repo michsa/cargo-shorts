@@ -1,5 +1,5 @@
 import { ActionType } from 'typesafe-actions'
-import * as uuid from 'uuid'
+import { v4 as uuid } from 'uuid'
 import { browser, Tabs } from 'webextension-polyfill-ts'
 
 import { Tab } from '../../types'

@@ -19,7 +19,9 @@
     "typeRoots": [
       "node_modules/@types",
       "node_modules/web-ext-types"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",

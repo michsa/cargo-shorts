@@ -12,9 +12,7 @@ export class NewPocketRoute {
 
 export class EditPocketRoute {
   route: 'EDIT_POCKET'
-  data: {
-    id: PocketID
-  }
+  id: PocketID
 }
 
 export class PocketListRoute {

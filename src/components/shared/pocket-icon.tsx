@@ -5,7 +5,7 @@ type Props = {
   icon: string
 }
 
-export const PocketIcon = ({icon}: Props) => (
+export default ({icon}: Props) => (
   <span id="pocket-icon">{
     emoji.hasEmoji(icon)
       ? emoji.get(icon)

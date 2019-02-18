@@ -9,15 +9,15 @@ module.exports = {
     // For example, you could add a background script like:
     // background: './src/background.js',
     popup: './src/popup',
-    page: './src/page.tsx',
-    background: './src/background.tsx'
+    page: './src/page',
+    background: './src/background'
   },
 
   output: {
     // This copies each source entry into the extension dist folder named
     // after its entry config key.
     path: __dirname + "/extension/dist",
-    filename: '[name].js',
+    filename: '[name].js'
   },
 
 //  optimization: {
@@ -31,7 +31,7 @@ module.exports = {
   },
 
   // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
+  devtool: "inline-source-map",
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.

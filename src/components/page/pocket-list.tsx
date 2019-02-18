@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { orderedPocketSelector } from '../../redux/selectors'
-import { Pocket, PocketID, State } from '../../types'
+import { getOrderedPockets } from '../../redux/selectors'
+import { Pocket, State } from '../../types'
+import NewPocketButton from '../shared/new-pocket-button'
 
 import PocketListItem from './pocket-list-item'
 
@@ -11,36 +12,22 @@ interface Props {
 }
 
 const mapStateToProps = (state: State) => ({
-  pockets: orderedPocketSelector(state)
+  pockets: getOrderedPockets(state)
 } as Props)
 
-interface Handlers {
-  onNewPocket: () => void
-  onPocketEdit: (id: PocketID) => void
-}
+const PocketList = ({ pockets }: Props) => (
+  <ul className="pocket-list">
+    {pockets.map((pocket) =>
+      <PocketListItem
+        pocket={pocket}
+        key={pocket.id}
+        handleEdit={(x) => x}
+      />
+    )}
+    <li onClick={(x) => x}>
+      <NewPocketButton />
+    </li>
+  </ul>
+)
 
-const mapDispatchToProps = (dispatch) => ({
-  onNewPocket: () => {
-    console.log('new pocket!')
-    // dispatch(routeNewPocket())
-  },
-  onPocketEdit: (pocketId) => {
-    console.log(`pocket edit: ${pocketId}`)
-    // dispatch(routeEditPocket(pocketId))
-  }
-} as Handlers)
-
-const PocketListComponent = ({pockets}: Props & Handlers) => (
-    <ul id="pocket-list">
-      {pockets.map((pocket) =>
-        <PocketListItem
-          pocket={pocket}
-          key={pocket.id}
-          handleEdit={(x) => x}
-        />
-      )}
-      <li onClick={(x) => x}>+ New Pocket</li>
-    </ul>
-  )
-
-export default connect(mapStateToProps, mapDispatchToProps)(PocketListComponent)
+export default connect(mapStateToProps)(PocketList)
