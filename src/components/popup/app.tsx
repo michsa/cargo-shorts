@@ -14,7 +14,7 @@ const App = () => {
       case 'NEW_POCKET':
         return <PocketSettings setRoute={setRoute} />
       case 'EDIT_POCKET':
-        return <PocketSettings id={currentRoute.id} setRoute={setRoute} />
+        return <PocketSettings id={currentRoute.data} setRoute={setRoute} />
       case 'POCKET_LIST':
       default:
         return <PocketList setRoute={setRoute} />
@@ -23,8 +23,6 @@ const App = () => {
 
   return (
     <div>
-      <p>CARGO SHORTS</p>
-      <p>route: {routerState.id}</p>
       {selectComponent(routerState)}
     </div>
   )

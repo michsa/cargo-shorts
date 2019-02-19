@@ -11,8 +11,8 @@ interface Props {
 
 const TabInfo = ({tab}: Props) => (
   <div>
-    <p>url: {tab.url ? tab.url : '(none)'}</p>
-    <p>name: {tab.title ? tab.title : '(none)'}</p>
+    <p>{tab.title ? tab.title : '(none)'}</p>
+    <p>{tab.url ? tab.url : '(none)'}</p>
   </div>
 )
 

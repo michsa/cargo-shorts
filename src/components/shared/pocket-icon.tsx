@@ -6,7 +6,7 @@ type Props = {
 }
 
 export default ({icon}: Props) => (
-  <span id="pocket-icon">{
+  <span className="pocket-icon">{
     emoji.hasEmoji(icon)
       ? emoji.get(icon)
       : emoji.random().emoji

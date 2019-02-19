@@ -53,6 +53,10 @@ const PocketSettings = ({
 }: OwnProps & StateProps & Handlers) => {
   const [settings, updateSettings] = useSettings(initializeSettings(pocket))
 
+  console.log('pocket settings')
+  console.log(id)
+  console.log(pocket)
+
   const handleConfirm = () => {
     onConfirm(settings, id)
     setRoute(route.pocketList())
@@ -60,17 +64,16 @@ const PocketSettings = ({
 
   return (
     <form id="pocket-detail">
-      <header>{!!id ? 'New Pocket' : 'Edit Pocket'}</header>
+      <header>{id === undefined ? 'New' : 'Edit'} Pocket</header>
       <div>
-        <label>Name:</label>
         <input
           type="text"
           value={settings.name}
           onChange={(e) => updateSettings('name', e.target.value)}
+          placeholder="Memes"
         />
       </div>
       <div>
-        <label>Color:</label>
         <TwitterPicker
           color={settings.color as Color}
           onChangeComplete={(colorResult) => updateSettings('color', colorResult.hex)}
@@ -78,7 +81,6 @@ const PocketSettings = ({
         />
       </div>
       <div>
-        <label>Icon:</label>
         <div>(placeholder emoji picker)</div>
       </div>
       <nav>
