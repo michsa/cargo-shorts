@@ -20,3 +20,12 @@ export const route = {
   pocketList: () =>
     ({ id: 'POCKET_LIST', } as PocketListRoute)
 }
+
+export const useSettings = <T>(initialState: T) => {
+  const [settings, setSettings] = useState(initialState)
+
+  const update = <K extends keyof T>
+    (key: K, value: T[K]) => setSettings({ ...settings, [key]: value })
+
+  return [settings, update] as [T, typeof update]
+}

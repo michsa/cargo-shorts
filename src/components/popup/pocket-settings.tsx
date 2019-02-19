@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import EmojiPicker from 'emoji-picker-react'
+import React from 'react'
 import { Color, TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
 
@@ -6,7 +7,7 @@ import { newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
 import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
 
-import { route } from './router'
+import { route, useSettings } from './hooks'
 
 interface OwnProps {
   id?: PocketID,
@@ -32,30 +33,14 @@ const mapDispatchToProps = {
       : newPocket(settings)
 } as Handlers
 
-// todo: clean this mess
-const initializeSettings = (pocket?: Pocket) => ({
-  name: pocket ? pocket.name : '',
-  color: pocket ? pocket.color : '',
-  icon: pocket ? pocket.icon : ''
-} as PocketSettings)
-
-export const useSettings = (initialState: PocketSettings) => {
-  const [settings, setSettings] = useState(initialState)
-
-  const update = <K extends keyof PocketSettings>
-    (key: K, value: PocketSettings[K]) => setSettings({ ...settings, [key]: value })
-
-  return [settings, update] as [PocketSettings, Function]
-}
-
-const PocketSettings = ({
+const PocketSettingsComponent = ({
   id, setRoute, pocket, onConfirm
 }: OwnProps & StateProps & Handlers) => {
-  const [settings, updateSettings] = useSettings(initializeSettings(pocket))
-
-  console.log('pocket settings')
-  console.log(id)
-  console.log(pocket)
+  const [settings, updateSettings] = useSettings<PocketSettings>({
+    name: pocket ? pocket.name : '',
+    color: pocket ? pocket.color : '',
+    icon: pocket ? pocket.icon : ''
+  } as PocketSettings)
 
   const handleConfirm = () => {
     onConfirm(settings, id)
@@ -76,12 +61,20 @@ const PocketSettings = ({
       <div>
         <TwitterPicker
           color={settings.color as Color}
-          onChangeComplete={(colorResult) => updateSettings('color', colorResult.hex)}
+          onChangeComplete={
+            (colorResult) =>
+              updateSettings('color', colorResult.hex)
+          }
           triangle={'hide'}
         />
       </div>
       <div>
-        <div>(placeholder emoji picker)</div>
+        <EmojiPicker
+          onEmojiClick={
+            (code: string, emoji: {name: string}, e: Event) =>
+              updateSettings('icon', emoji.name)
+          }
+        />
       </div>
       <nav>
         <div
@@ -98,4 +91,7 @@ const PocketSettings = ({
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PocketSettings)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PocketSettingsComponent)

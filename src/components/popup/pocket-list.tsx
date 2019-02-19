@@ -5,10 +5,11 @@ import { moveTab, newTab, removeTab } from '../../redux/actions/ui'
 import { getCurrentSavedTab, getCurrentTab, getOrderedPockets } from '../../redux/selectors'
 import { EditPocketRoute, NewPocketRoute, Pocket, PocketID, SavedTab, State, Tab } from '../../types'
 import NewPocketButton from '../shared/new-pocket-button'
+import TabInfo from '../shared/tab-info'
+import { List } from '../shared/utils'
 
+import { route } from './hooks'
 import PocketInfo from './pocket-list-item'
-import { route } from './router'
-import TabInfo from './tab-info'
 
 interface OwnProps {
   setRoute: (route: NewPocketRoute | EditPocketRoute) => void
@@ -46,19 +47,21 @@ const mapDispatchToProps = {
 const PocketList = ({
   setRoute, pockets, savedTab, tab, onPocketClick
 }: OwnProps & StateProps & Handlers) => (
-    <ul id="pocket-list">
-      <li><TabInfo tab={tab} /></li>
-      {pockets.map((pocket) =>
-        <PocketInfo
-          pocket={pocket}
-          isActive={!!savedTab && savedTab.pocket === pocket.id}
-          key={pocket.id}
-          handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
-          handleEdit={() => setRoute(route.editPocket(pocket.id))}
-        />
-      )}
-      <li onClick={() => setRoute(route.newPocket())}><NewPocketButton /></li>
-    </ul>
+    <section className='pocketList'>
+      <TabInfo tab={tab} />
+      <List>
+        {pockets.map((pocket) =>
+          <PocketInfo
+            pocket={pocket}
+            isActive={!!savedTab && savedTab.pocket === pocket.id}
+            key={pocket.id}
+            handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
+            handleEdit={() => setRoute(route.editPocket(pocket.id))}
+          />
+        )}
+        <li onClick={() => setRoute(route.newPocket())}><NewPocketButton /></li>
+      </List>
+    </section>
   )
 
 export default connect(mapStateToProps, mapDispatchToProps)(PocketList)

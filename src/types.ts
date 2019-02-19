@@ -55,7 +55,8 @@ export type TabID = string
 
 export type Tab = {
   url: string,
-  title: string
+  title: string,
+  favicon: string
 }
 
 export type SavedTab = Tab & {

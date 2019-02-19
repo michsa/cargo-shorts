@@ -8,23 +8,8 @@ import * as pocket from '../actions/pocket'
 // --- initial state --- //
 
 const initialState: PocketState = {
-  byId: {
-    '1': {
-      id: '1',
-      name: 'HEY',
-      color: '#8cd1fc',
-      icon: 'pizza',
-      tabs: ['5']
-    },
-    '2': {
-      id: '2',
-      name: 'Mama',
-      color: '#EB144C',
-      icon: 'coffee',
-      tabs: []
-    }
-  } as PocketMap,
-  idList: ['2', '1'] as PocketID[]
+  byId: {} as PocketMap,
+  idList: [] as PocketID[]
 }
 
 // --- utilities --- //

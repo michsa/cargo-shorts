@@ -1,10 +1,15 @@
-import * as React from 'react'
+import React from 'react'
+import styled from 'styled-components'
 
 import { RouterState } from '../../types'
 
+import { route, useRouter } from './hooks'
 import PocketList from './pocket-list'
 import PocketSettings from './pocket-settings'
-import { route, useRouter } from './router'
+
+const AppHolder = styled.main`
+  padding: 8px;
+`
 
 const App = () => {
   const [routerState, setRoute] = useRouter(route.pocketList())
@@ -22,9 +27,9 @@ const App = () => {
   }
 
   return (
-    <div>
+    <AppHolder>
       {selectComponent(routerState)}
-    </div>
+    </AppHolder>
   )
 
 }

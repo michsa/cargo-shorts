@@ -22,8 +22,11 @@ export const getCurrentTabInfo = () => {
       })
       if (tabs && tabs.length) {
         const browserTab: BrowserTab = tabs[0]
-        const tab: Tab | undefined = browserTab.url && browserTab.title ?
-          { url: browserTab.url, title: browserTab.title } : undefined
+        const tab: Tab | undefined = browserTab.url ? {
+          url: browserTab.url,
+          title: browserTab.title || '',
+          favicon: browserTab.favIconUrl || ''
+        } : undefined
         dispatch(tabActions.updateCurrentTab(tab))
       }
     } catch (err) {

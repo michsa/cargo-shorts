@@ -8,14 +8,7 @@ import * as tab from '../actions/tab'
 // --- initial state --- //
 
 const initialState: TabState = {
-  byId: {
-    '5': {
-      url: 'https://michsa.me/',
-      title: 'michsa.me',
-      id: '5',
-      pocket: '1'
-    }
-  } as TabMap,
+  byId: {} as TabMap,
   current: {} as Tab
 }
 
