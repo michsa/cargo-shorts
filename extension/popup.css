@@ -8,38 +8,7 @@ body {
   width: 300px;
 }
 
-
 /* ------- */
-
-
-h1, h2 {
-  border-bottom: 1px solid;
-}
-
-.pocket-list-item {
-  position: relative;
-  height: 2.5em;
-  line-height: 2.5em;
-  margin: 6px 0;
-}
-
-  .pocket-list-item-details {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background-color: #fff;
-    /* border-ish */
-    /* box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 4px #fff; */
-    /* material-ish */
-    box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
-    flex: 1;
-    padding: 0 0.5em;
-    display: flex;
-    align-items: baseline;
-    z-index: 2;
-  }
 
     .pocket-icon {
       flex: 0 0 1.5em;

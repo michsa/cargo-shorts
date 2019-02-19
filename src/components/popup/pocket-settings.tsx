@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
 import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
+import { PopupHeader } from '../shared/utils'
 
 import { route, useSettings } from './hooks'
 
@@ -48,46 +49,44 @@ const PocketSettingsComponent = ({
   }
 
   return (
-    <form id="pocket-detail">
-      <header>{id === undefined ? 'New' : 'Edit'} Pocket</header>
-      <div>
+    <div id="pocket-detail">
+      <PopupHeader>
+        <h1>{id === undefined ? 'New' : 'Edit'} Pocket</h1>
+      </PopupHeader>
+      <section className="name-input">
         <input
           type="text"
           value={settings.name}
           onChange={(e) => updateSettings('name', e.target.value)}
           placeholder="Memes"
         />
-      </div>
-      <div>
+      </section>
+      <section className="color-picker">
         <TwitterPicker
           color={settings.color as Color}
           onChangeComplete={
             (colorResult) =>
-              updateSettings('color', colorResult.hex)
-          }
+              updateSettings('color', colorResult.hex)}
           triangle={'hide'}
         />
-      </div>
-      <div>
+      </section>
+      <section className="icon-picker">
         <EmojiPicker
           onEmojiClick={
-            (code: string, emoji: {name: string}, e: Event) =>
-              updateSettings('icon', emoji.name)
-          }
+            (code: string, emoji: { name: string }, e: Event) =>
+              updateSettings('icon', emoji.name)}
         />
-      </div>
+      </section>
       <nav>
         <div
           className="cancel"
-          onClick={() => {
-            setRoute(route.pocketList())
-          }}
+          onClick={() => setRoute(route.pocketList())}
         >
           &lt;--
         </div>
         <div className="confirm" onClick={handleConfirm}>--&gt;</div>
       </nav>
-    </form>
+    </div>
   )
 }
 

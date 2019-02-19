@@ -2,6 +2,9 @@
   "manifest_version": 2,
   "name": "Cargo Shorts",
   "version": "1.0",
+  "icons": {
+    "48": "icons/48/blue_lined.png"
+  },
   "browser_specific_settings": {
     "gecko": {
       "id": "cargo.shorts@michsa.me",
@@ -11,8 +14,7 @@
   "browser_action": {
     "browser_style": true,
     "default_icon": {
-      "48": "images/Watermelon-48.png",
-      "96": "images/Watermelon-96.png"
+      "48": "icons/48/blue_lined.png"
     },
     "default_title": "Cargo Shorts",
     "default_popup": "popup.html"

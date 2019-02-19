@@ -6,7 +6,7 @@ import { getCurrentSavedTab, getCurrentTab, getOrderedPockets } from '../../redu
 import { EditPocketRoute, NewPocketRoute, Pocket, PocketID, SavedTab, State, Tab } from '../../types'
 import NewPocketButton from '../shared/new-pocket-button'
 import TabInfo from '../shared/tab-info'
-import { List } from '../shared/utils'
+import { List, PopupHeader } from '../shared/utils'
 
 import { route } from './hooks'
 import PocketInfo from './pocket-list-item'
@@ -48,7 +48,9 @@ const PocketList = ({
   setRoute, pockets, savedTab, tab, onPocketClick
 }: OwnProps & StateProps & Handlers) => (
     <section className='pocketList'>
-      <TabInfo tab={tab} />
+      <PopupHeader>
+        <TabInfo tab={tab} />
+      </PopupHeader>
       <List>
         {pockets.map((pocket) =>
           <PocketInfo

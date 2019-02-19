@@ -4,6 +4,17 @@ type Diff<T, U> = T extends U ? never : T
 
 type Without<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>
 
+// --- theme --- //
+
+export interface Theme {
+  isDark: boolean
+  backgroundColor: string
+  primaryColor: string
+  secondaryColor: string
+  textColor: string
+  accentColor: string
+}
+
 // --- state --- //
 
 export type State = {
