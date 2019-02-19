@@ -45,7 +45,7 @@ const byId: Reducer<PocketMap> = (
 
     case getType(pocket.newPocket):
       const newState = assoc<Pocket, PocketMap, PocketID>(
-        action.payload.id, 
+        action.payload.id,
         {
           ...action.payload.settings,
           id: action.payload.id,
@@ -95,10 +95,10 @@ const idList: Reducer<PocketID[]> = (
 ): PocketID[] => {
   switch (action.type) {
     case getType(pocket.newPocket):
-      return append(action.payload)(state)
+      return append<PocketID>(action.payload.id)(state)
 
     case getType(pocket.deletePocket):
-      return without([action.payload], state)
+      return without<PocketID>([action.payload], state)
 
     default:
       return state
