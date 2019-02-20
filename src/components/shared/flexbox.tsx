@@ -1,11 +1,15 @@
+import { compose, concat, isNil, last, over, prop, reduce, replace, toLower, toPairs, toUpper, unless } from 'ramda'
 import React from 'react'
 import styled from 'styled-components'
+
+const kebabToCamel = replace(/-([a-z])/g, compose(toUpper, last))
+const camelToKebab = replace(/([A-Z])/g, compose(concat('-'), toLower))
 
 // The number `0` with no unit is a valid CSS length, see:
 //   https://www.w3.org/TR/CSS2/syndata.html#length-units
 // Though it might be inappropriate/avoidable in certain contexts, if it is
 // valid CSS, we should allow it.
-const isTruthyOrZero = <T extends unknown>(value: T) => value || value === 0
+// const isTruthyOrZero = <T extends unknown>(value: T) => value || value === 0
 
 type FlexboxProps = {
   alignContent?: 'center' | 'flex-end' | 'flex-start' | 'space-around' | 'space-between' | 'stretch',
@@ -14,6 +18,7 @@ type FlexboxProps = {
   children?: React.ReactNode,
   display?: 'flex' | 'inline-flex',
   element?: 'article' | 'aside' | 'div' | 'figure' | 'footer' | 'header' | 'main' | 'nav' | 'section',
+  htmlElement?: React.ReactNode,
   flex?: string | number,
   flexBasis?: string | number,
   flexDirection?: 'column-reverse' | 'column' | 'row-reverse' | 'row',
@@ -42,15 +47,14 @@ type FlexboxProps = {
   width?: string | number
 }
 
-// const Flexbox = styled(
-
 const createFlexbox = ({
   alignContent, alignItems, alignSelf,
   children,
-  display,
-  element,
+  display = 'flex',
+  element = 'div',
   flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap,
   height,
+  htmlElement,
   justifyContent,
   margin, marginBottom, marginLeft, marginRight, marginTop,
   maxHeight, maxWidth, minHeight, minWidth,
@@ -58,13 +62,9 @@ const createFlexbox = ({
   padding, paddingBottom, paddingLeft, paddingRight, paddingTop,
   width,
   ...props
-}: FlexboxProps) => React.createElement(element || 'div', props, children)
+}: FlexboxProps) => React.createElement(element, props, children)
 
-
-const defaultProps = {
-  display: 'flex',
-  element: 'div',
-}
+/*
 
 const addStyle = (
   key: keyof FlexboxProps,
@@ -76,18 +76,43 @@ const addStyle = (
       : defaultValue
 
 
+
+
+// styleName -> props -> string
+const createStyle = <K extends keyof FlexboxProps>(styleName: string) =>
+  compose<FlexboxProps, PropValue<K> | undefined, string>(
+    unless<PropValue<K> | undefined, string>(isNil, formatStyle(styleName)),
+    prop<string, PropValue<K> | undefined>(kebabToCamel(styleName))
+  )
+  */
+
+type PropValue<T extends keyof FlexboxProps> = FlexboxProps[T]
+
+
+const formatStyle = (styleName: string) => compose(
+  concat(`${styleName}: `), toString
+)
+
+const createStyleFromProps = (props: FlexboxProps) => compose(
+  reduce(
+    (acc, x) => concat(
+      `${acc}; `, compose(
+        join(': '),
+        over(lensIndex(0), camelToKebab)
+      )(x)
+    ),
+    ''
+  ),
+  toPairs,
+)
+
+// {[PropKey]: PropValue} -> 
+
 const Flexbox = styled(createFlexbox)`
-  ${addStyle('alignContent', 'align-content')}
-  ${addStyle('alignSelf', 'align-self')}
-  ${addStyle('alignItems', 'align-items')}
-  ${addStyle('display', 'display')}
+  ${createStyleFromProps}
 `
 
-const styleToProp = (styleName: string) => styleName.split('-')
-
-const Flexbox2 = styled(createFlexbox)`
-  ${props => (props.alignContent ? `align-content: ${props.alignContent};` : '')}
-  ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : '')}
+/*
   ${props => (props.alignItems ? `align-items: ${props.alignItems};` : '')}
   ${props => (props.display ? `display: ${props.display};` : '')}
   ${props => (isTruthyOrZero(props.flex) ? `flex: ${props.flex};` : '')}
@@ -114,6 +139,7 @@ const Flexbox2 = styled(createFlexbox)`
   ${props => (isTruthyOrZero(props.paddingRight) ? `padding-right: ${props.paddingRight};` : '')}
   ${props => (isTruthyOrZero(props.paddingTop) ? `padding-top: ${props.paddingTop};` : '')}
   ${props => (isTruthyOrZero(props.width) ? `width: ${props.width};` : '')}
-`
+])
+*/
 
 export default Flexbox

@@ -1,13 +1,15 @@
 // import Flexbox from 'flexbox-react'
 import React from 'react'
 
-import styled from '../../styled-components'
+// import styled from '../../styled-components'
 import { Tab } from '../../types'
+import Flexbox from '../shared/flexbox'
 
 interface Props {
   tab: Tab
 }
 
+/*
 const OneLine = styled.div`
   overflow: hidden;
   width: 100%;
@@ -18,9 +20,10 @@ const OneLine = styled.div`
 const TabTitle = styled(OneLine)`
   font-weight: bold;
 `
+*/
 
 const TabInfo = ({ tab }: Props) => (
-  <div>shit</div>
+  <Flexbox>test</Flexbox>
   /*
   <Flexbox flexDirection="column">
     <Flexbox element="figure" maxWidth="100px" flexGrow={0}>
