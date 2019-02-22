@@ -19,13 +19,32 @@ const PocketListItem = styled('li')`
   margin: 6px;
 `
 
+/*
+  background: linear-gradient(to right, ${props =>
+    props.isActive
+    ? `${props.color} 100%, ${props.theme.altBackgroundColor} 1%`
+    : `${props.color} 1%, ${props.theme.altBackgroundColor} 1%`
+  });
+  background: linear-gradient(to right, ${props =>
+    `${props.color} ${props.isActive ? '100%' : '100%'}, ${props.theme.altBackgroundColor} 1%`
+  });
+*/
+
 const PocketDetails = styled('div') <{ isActive: boolean, color: string }>`
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   top: 0;
-  background-color: ${props => props.isActive ? props.color : Color(props.color).whiten(0.5).hex()};
+  background-color: ${props =>
+    props.isActive
+      ? props.color
+      : props.theme.altBackgroundColor
+  };
+  background-image: linear-gradient(to right, ${props => props.color}bb 50.7%, transparent 0%);
+  background-size: 200% 100%;
+  background-position: ${props => props.isActive ? 'left' : 'right'} bottom;
+  transition: background-color 0.1s, background-position 0.6s;
   box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
   flex: 1;
   padding: 0 0.5em;
@@ -33,10 +52,19 @@ const PocketDetails = styled('div') <{ isActive: boolean, color: string }>`
   align-items: center;
   z-index: 2;
 
+  :hover {
+    background-color: ${props =>
+      props.isActive
+        ? props.theme.altBackgroundColor
+        : Color(props.theme.altBackgroundColor).mix(Color(props.color), 0.1).hex()
+    }
+  }
+
   .pocket-name {
-    color: ${props => 
+    font-size: 1.1em;
+    color: ${props =>
       props.isActive && Color(props.color).isDark() !== props.theme.isDark
-        ? Color(props.theme.textColor).negate().hex()
+        ? props.theme.altBackgroundColor
         : props.theme.textColor
     };
   }
@@ -54,10 +82,10 @@ const PopupPocketListItem = ({ pocket, isActive, handleEdit, handleClick }: Prop
         onClick={doClick}
       >
         <PocketIcon icon={pocket.icon} />
-        <div className="pocket-name">{pocket.name} </div>
-        <div className="pocket-count"> {pocket.tabs.length} </div>
+        <div className="pocket-name">{pocket.name}</div>
+        <div className="pocket-count">{pocket.tabs.length}</div>
       </PocketDetails>
-      <div className="edit-pocket" onClick={() => handleEdit(pocket.id)}> edit </div>
+      <div className="edit-pocket" onClick={() => handleEdit(pocket.id)}>edit</div>
     </PocketListItem>
   )
 }

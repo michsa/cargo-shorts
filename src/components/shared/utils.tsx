@@ -6,6 +6,12 @@ export const List = styled.ul`
   padding: 0;
 `
 
+export const Truncated = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 export const PopupHeader = styled('header')`
   text-align: center;
   margin: 10px 0;

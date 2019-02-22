@@ -1,40 +1,40 @@
-// import Flexbox from 'flexbox-react'
 import React from 'react'
 
-// import styled from '../../styled-components'
+import styled from '../../styled-components'
 import { Tab } from '../../types'
-import Flexbox from '../shared/flexbox'
+import { FlexChild, FlexParent } from '../shared/flexbox'
+import { Truncated } from '../shared/utils'
 
-interface Props {
-  tab: Tab
-}
+interface Props { tab: Tab }
 
-/*
-const OneLine = styled.div`
-  overflow: hidden;
-  width: 100%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+const BorderBox = styled(FlexParent)`
+  > * {
+    margin: 0 6px;
+  }
 `
 
-const TabTitle = styled(OneLine)`
-  font-weight: bold;
+type FaviconProps = { src: string }
+const Favicon = styled('div') <FaviconProps>`
+  width: 32px;
+  height: 32px;
+  background-image: url(${props => props.src});
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 `
-*/
 
-const TabInfo = ({ tab }: Props) => (
-  <Flexbox>test</Flexbox>
-  /*
-  <Flexbox flexDirection="column">
-    <Flexbox element="figure" maxWidth="100px" flexGrow={0}>
-      <img src={tab.favicon} />
-    </Flexbox>
-    <Flexbox flexDirection="row" flexGrow={1}>
-      <TabTitle className="tab-title">{tab.title}</TabTitle>
-      <OneLine className="tab-url">{tab.url}</OneLine>
-    </Flexbox>
-  </Flexbox>
-  */
+export default ({ tab }: Props) => (
+  <BorderBox flexDirection="row" alignItems="center" justifyContent="center">
+    <FlexChild flex={0}>
+      <Favicon src={tab.favicon} />
+    </FlexChild>
+    <FlexChild
+      flexDirection="column"
+      flex={1}
+      style={{ minWidth: 0, textAlign: 'left' }}
+    >
+      <Truncated style={{ fontWeight: 'bold', fontSize: '1.1em' }}>{tab.title}</Truncated>
+      <Truncated>{tab.url}</Truncated>
+    </FlexChild>
+  </BorderBox>
 )
-
-export default TabInfo
