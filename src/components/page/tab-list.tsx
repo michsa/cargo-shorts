@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { makeGetOrderedTabs } from '../../redux/selectors'
 import { PocketID, SavedTab, State } from '../../types'
+import { List } from '../shared/utils'
 
 import TabListItem from './tab-list-item'
 
@@ -23,14 +24,14 @@ const makeMapStateToProps = () => {
 }
 
 const TabList = ({ tabs }: StateProps) => (
-  <ul id="pocket-list">
+  <List>
     {tabs.map((tab) =>
       <TabListItem
         tab={tab}
         key={tab.id}
       />
     )}
-  </ul>
+  </List>
 )
 
 export default connect(makeMapStateToProps)(TabList)
