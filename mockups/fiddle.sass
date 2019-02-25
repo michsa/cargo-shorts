@@ -1,0 +1,122 @@
+$cyan: #00EFD1
+$skyblue: #00ACEA
+$yellow: #FEDB41
+$navy: #083863
+$bg: #FFFFFF
+$altbg: #FAFAFA
+
+$color1: #f78da7
+$color2: #0693e3
+
+/* --- layout (mostly) --- */
+
+html
+  width: 300px
+  height: 100%
+  margin: 0
+
+main
+  background-repeat: no-repeat
+  height: 200px
+  margin-bottom: 20px
+
+body
+  background: transparent
+  font-family: 'Verdana', sans-serif
+  color: $navy
+  margin: 0
+
+ul
+  list-style-type: none
+  margin: 0
+  padding: 4px 0
+
+.drag-handle
+  font-size: 11px
+  line-height: 8px
+  letter-spacing: -1px
+  width: 10px
+  text-align: center
+
+.pocket-icon
+  flex: 0
+  margin: 0 8px
+
+.pocket-name
+  flex: 1
+
+.pocket-count
+  margin: 0 8px
+  flex: 0
+
+
+/* --- A --- */
+
+main#a 
+  background: linear-gradient(to top right, $cyan, $skyblue)
+
+  .pocket-list-item
+    background: #fff9
+    padding: 3px
+    margin: 5px
+    border-radius: 2px
+    box-shadow: 1px 2px 2px #0004
+
+  .pocket-details
+    display: flex
+    align-items: center
+    padding: 6px 8px
+    border-radius: 1px
+    box-shadow: inset 0px 1px 2px #0002
+    &.p1
+      background: $color1
+    &.p2 
+      background: $color2
+
+  button 
+    outline: none
+    border: 2px solid $yellow
+    background: transparent
+    font-weight: 600
+    padding: 8px
+    min-width: 200px
+    color: $yellow
+
+
+/* --- B --- */
+
+main#b
+  background: #fff // linear-gradient(to bottom right, $cyan, $skyblue)
+
+  .pocket-list-item 
+    background: #fff9
+    padding: 0px
+    margin: 5px
+    border-radius: 2px
+    box-shadow: 1px 2px 2px #0003
+    // border-left: 1px solid $skyblue
+
+  .pocket-details 
+    display: flex
+    align-items: center
+    background: #fff
+    padding: 6px 5px
+    border-radius: 1px
+    box-shadow: inset 0px 1px 2px #0002
+    border-left: 8px solid #fff
+    &.p1
+      border-color: $color1
+    &.p2 
+      border-color: $color2
+
+
+  button 
+    outline: none
+    border: 2px solid #FEDB41
+    background: transparent
+    font-weight: 600
+    padding: 8px
+    min-width: 200px
+    color: #FEDB41
+
+
