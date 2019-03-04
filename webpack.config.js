@@ -20,14 +20,14 @@ module.exports = {
     filename: '[name].js'
   },
 
-//  optimization: {
-//    splitChunks: {
-//      chunks: 'all'
-//    }
-//  },
+  //  optimization: {
+  //    splitChunks: {
+  //      chunks: 'all'
+  //    }
+  //  },
 
   performance: {
-    hints: false
+    hints: "error"
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -36,10 +36,10 @@ module.exports = {
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-  //  alias: {
-  //    "react": "preact-compat",
-  //    "react-dom": "preact-compat"
-  //  }
+    //  alias: {
+    //    "react": "preact-compat",
+    //    "react-dom": "preact-compat"
+    //  }
   },
 
   module: {
@@ -48,16 +48,18 @@ module.exports = {
       { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+
+      { test: /\.css$/, use: ["style-loader", "css-loader"] }
     ]
   },
 
   plugins: [
     // Since some NodeJS modules expect to be running in Node, it is helpful
     // to set this environment var to avoid reference errors.
-//    new webpack.DefinePlugin({
-//      'process.env.NODE_ENV': JSON.stringify('production'),
-//    }),
+    //    new webpack.DefinePlugin({
+    //      'process.env.NODE_ENV': JSON.stringify('production'),
+    //    }),
     new CopyWebpackPlugin([
       { from: 'node_modules/webextension-polyfill/dist/' },
     ])

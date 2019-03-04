@@ -1,5 +1,6 @@
 import { compose, concat, join, lensIndex, map, merge, over, replace, toLower, toPairs } from 'ramda'
-import styled from 'styled-components'
+import styled, { AnyStyledComponent } from 'styled-components'
+import { FunctionComponent } from 'react';
 
 // --- createStyleFromProps --- //
 
@@ -58,6 +59,14 @@ type FlexboxProps = {
 }
 
 const defaultProps: FlexboxProps = { display: 'flex' }
+
+
+export const flexify = <T>(
+  x: FunctionComponent<T>,
+  isParent: boolean = false
+) => styled(x) <FlexboxProps>`
+  ${createStyleFromProps(isParent ? defaultProps : {})}
+`
 
 export const FlexParent = styled('div') <FlexboxProps>`
   ${createStyleFromProps(defaultProps)}

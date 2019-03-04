@@ -1,5 +1,5 @@
-import * as emoji from 'node-emoji'
-import * as React from 'react'
+import emoji from 'node-emoji'
+import React from 'react'
 
 type Props = {
   icon: string
