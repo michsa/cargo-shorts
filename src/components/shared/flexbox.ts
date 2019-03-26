@@ -1,6 +1,6 @@
 import { compose, concat, join, lensIndex, map, merge, over, replace, toLower, toPairs } from 'ramda'
-import styled, { AnyStyledComponent } from 'styled-components'
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react'
+import styled from 'styled-components'
 
 // --- createStyleFromProps --- //
 

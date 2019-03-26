@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default ({ tab }: Props) => (
-  <li key={tab.id}>
+  <li className="tab-list-item" key={tab.id}>
     <TabInfo tab={tab} />
   </li>
 )

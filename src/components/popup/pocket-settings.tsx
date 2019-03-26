@@ -5,12 +5,11 @@ import React from 'react'
 import { Color, GithubPicker as ColorPicker } from 'react-color'
 import { connect } from 'react-redux'
 
-import styled from '../../styled-components'
 import { newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
 import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
 import { getRandomOf } from '../../utils'
-import { FlexChild, flexify, FlexParent } from '../shared/flexbox'
+import { flexify, FlexParent } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
 import { PopupHeader } from '../shared/utils'
 
