@@ -8,36 +8,116 @@ body {
   width: 300px;
 }
 
-/* ------- */
+h1 {
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+}
 
-    .pocket-icon {
-      flex: 0 0 1.5em;
-      text-align: center;
-    }
+/* --- pocket settings --- */
 
-    .pocket-name {
-      flex: 1;
-      text-align: left;
-      font-weight: bold;
-      padding: 0 0.2em;
-    }
+#pocket-settings header {
+  padding: 0 16px;
+}
 
-    .pocket-count {
-      flex: 0;
-      background-color: rgba(255,255,255,0.65);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 0 4px #fff;
-      border-radius: 1px;
-      padding: 0.2em 0.6em;
-      font-size: 0.9em;
-      vertical-align: middle;
-      line-height: normal;
-    }
+#pocket-settings .title {
+  text-align: center;
+  font-weight: bold;
+}
 
-    .edit-pocket {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: #FFF;
-      z-index: 1;
-    }
+#pocket-settings .inputs .color {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: #F0F;
+}
+
+/* --- tab info --- */
+
+.tab-info {
+  margin: 0 8px;
+}
+
+.tab-info > * {
+  margin: 0 4px;
+}
+
+/* --- external components --- */
+
+.twitter-picker input {
+  width: 64px !important;
+}
+
+.emoji-mart .emoji-mart-scroll {
+  max-height: 160px !important;
+}
+
+.emoji-mart-bar .emoji-mart-anchor {
+  padding: 6px 4px !important;
+}
+
+.emoji-mart-bar .emoji-mart-preview {
+  height: 48px !important;
+}
+
+.emoji-mart-bar .emoji-mart-preview .emoji-mart-preview-data {
+  left: 48px;
+}
+
+.emoji-mart-bar .emoji-mart-preview .emoji-mart-preview-data * {
+  font-size: 1rem !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.emoji-mart-bar .emoji-mart-preview .emoji-mart-preview-data .emoji-mart-preview-emoticons {
+  display: none;
+}
+
+.emoji-mart-bar .emoji-mart-preview .emoji-mart-preview-emoji {
+  left: 4px !important;
+}
+
+.emoji-mart-bar .emoji-mart-preview .emoji-mart-preview-emoji span {
+  font-size: 24px !important;
+}
+
+.emoji-mart .emoji-mart-emoji {
+  padding: 4px !important;
+}
+
+
+
+
+.pocket-icon {
+  flex: 0 0 1.5em;
+  text-align: center;
+}
+
+.pocket-name {
+  flex: 1;
+  text-align: left;
+  font-weight: bold;
+  padding: 0 0.2em;
+}
+
+.pocket-count {
+  flex: 0;
+  background-color: rgba(255,255,255,0.65);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 0 4px #fff;
+  border-radius: 1px;
+  padding: 0.2em 0.6em;
+  font-size: 0.9em;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.edit-pocket {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #FFF;
+  z-index: 1;
+}

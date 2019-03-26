@@ -1,19 +1,18 @@
-import { Picker as EmojiPicker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
-import emoji from 'node-emoji'
-import React from 'react'
-import { Color, GithubPicker as ColorPicker } from 'react-color'
+import { Picker, EmojiData } from 'emoji-mart'
+import React, { useState } from 'react'
+import { Color, TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
 
 import { newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
 import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
 import { getRandomOf } from '../../utils'
-import { flexify, FlexParent } from '../shared/flexbox'
+import { FlexParent, FlexChild } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
-import { PopupHeader } from '../shared/utils'
 
 import { route, useSettings } from './hooks'
+import PopupHeader from './popup-header'
 
 // --- interfaces --- //
 
@@ -26,7 +25,9 @@ interface StateProps { pocket?: Pocket }
 
 interface Handlers { onConfirm: (pocket: PocketSettings, id?: PocketID) => void }
 
-// --- redux --- //
+type ActivePicker = 'icon' | 'color'
+
+// --- redux mappings --- //
 
 const mapStateToProps = (state: State, { id }: OwnProps) => ({
   pocket: id !== undefined ? getPocketById(state, id) : undefined
@@ -39,24 +40,43 @@ const mapDispatchToProps = {
       : newPocket(settings)
 } as Handlers
 
-// --- functions --- //
+// --- default settings --- //
 
 const defaultNames = [
   "Memes", "Cat photos", "Weird YouTube videos", "Articles", "Stuff",
   "Job listings", "Things"
 ]
 
-const FlexPocketIcon = flexify(PocketIcon)
+const emojis = [
+  ':sunglasses:', ':joy:', ':ok_hand:', ':muscle:', ':strawberry:',
+  ':pumpkin:', ':mage:', ':sparkles:', ':sun-with-face:', ':rainbow:',
+  ':floppy_disk:', ':phone:', ':candle:', ':books:', ':briefcase:',
+  ':shopping_trolley:', ':100:', ':nerd_face:', ':wink:', ':scream:',
+  ':heart_eyes:', ':grimacing:', ':japanese_goblin:', ':ghost:', 
+  ':alien:', ':space_invader:', ':merperson:', ':shrug:', ':dancers:',
+  ':pray:', ':sparkling_heart:', ':sweat_drops:', ':peach:', ':socks:',
+  ':eggplant:', ':high_heel:', ':crown:', ':lipstick:', ':lizard:', 
+  ':camel:', ':hatching_chick:', ':pig:', ':sheep:', ':unicorn_face:',
+  ':dragon:', ':squid:', ':snail:', ':tulip:', ':palm_tree:', ':whale:', 
+  ':mushroom:', ':pizza:', ':camera:', ':selfie:', ':joystick:', ':tada:'
+]
+
+const colors = [
+  "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
+  "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107",
+  "#ff9800", "#ff5722", "#795548"
+]
 
 // --- component --- //
 
 const PocketSettingsComponent = ({
   id, setRoute, pocket, onConfirm
 }: OwnProps & StateProps & Handlers) => {
-  const [settings, updateSettings] = useSettings<PocketSettings>({
+
+  const [settings, updateSettings] = useSettings({
     name: pocket ? pocket.name : getRandomOf(defaultNames),
-    color: pocket ? pocket.color : '',
-    icon: pocket ? pocket.icon : emoji.random().emoji
+    color: pocket ? pocket.color : getRandomOf(colors),
+    icon: pocket ? pocket.icon : getRandomOf(emojis)
   } as PocketSettings)
 
   const handleConfirm = () => {
@@ -64,44 +84,60 @@ const PocketSettingsComponent = ({
     setRoute(route.pocketList())
   }
 
+  const [activePicker, setPicker] = useState('icon' as ActivePicker)
+
   return (
-    <div id="pocket-detail">
+    <div id="pocket-settings">
       <PopupHeader>
-        <h1>{id === undefined ? 'New' : 'Edit'} Pocket</h1>
+        <FlexParent justifyContent="space-between" as="nav" alignItems="baseline">
+          <FlexChild className="button" flex={0} onClick={() => setRoute(route.pocketList())}>
+            Cancel
+          </FlexChild>
+          <FlexChild flex={1} as="h1" className="title">
+            {id === undefined ? 'New' : 'Edit'} Pocket
+          </FlexChild>
+          <FlexChild className="button" flex={0} onClick={handleConfirm}>
+            Save
+          </FlexChild>
+        </FlexParent>
       </PopupHeader>
-      <FlexParent as='section'>
-        <FlexPocketIcon icon={settings.icon} flex={1} />
-        <input
-          type="text"
-          value={settings.name}
-          onChange={(e) => updateSettings('name', e.target.value)}
-          placeholder="Pocket Name"
-        />
+
+      <FlexParent className="inputs" as="section" alignItems="center">
+        <FlexChild flex={0} onClick={() => setPicker('icon')}>
+          <PocketIcon icon={settings.icon} />
+        </FlexChild>
+        <FlexChild flex={1}>
+          <input
+            type="text"
+            value={settings.name}
+            onChange={(e) => updateSettings('name', e.target.value)}
+            placeholder="Memes"
+          />
+        </FlexChild>
+        <FlexChild flex={1} className="color" onClick={() => setPicker('color')} />
       </FlexParent>
-      <section className="picker">
-        <ColorPicker
-          color={settings.color as Color}
-          onChangeComplete={
-            (colorResult) =>
-              updateSettings('color', colorResult.hex)}
-          triangle={'hide'}
-        />
-        <EmojiPicker
-          perLine={7}
-          set='twitter'
-          showPreview={false}
-          onSelect={(em) => updateSettings('icon', em.id ? em.id : '')}
-        />
-      </section>
-      <nav>
-        <div
-          className="cancel"
-          onClick={() => setRoute(route.pocketList())}
-        >
-          &lt;--
-        </div>
-        <div className="confirm" onClick={handleConfirm}>--&gt;</div>
-      </nav>
+      <section className="pickers">{
+        activePicker === 'color'
+          ? <TwitterPicker
+            color={settings.color as Color}
+            colors={colors}
+            onChangeComplete={
+              (colorResult) =>
+                updateSettings('color', colorResult.hex)}
+            triangle={'hide'}
+          />
+          : <Picker
+            native={true}
+            emoji=":eye-in-speech-bubble:"
+            title="Pick an icon!"
+            emojiSize={18}
+            perLine={8}
+            exclude={['recent']}
+            onSelect={
+              (emoji: EmojiData) =>
+                updateSettings('icon', emoji.colons || '')}
+          />
+      }</section>
     </div>
   )
 }

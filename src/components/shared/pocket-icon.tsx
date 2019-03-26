@@ -1,4 +1,4 @@
-import emoji from 'node-emoji'
+import { Emoji } from 'emoji-mart'
 import React from 'react'
 
 type Props = {
@@ -6,9 +6,7 @@ type Props = {
 }
 
 export default ({icon}: Props) => (
-  <span className="pocket-icon">{
-    emoji.hasEmoji(icon)
-      ? emoji.get(icon)
-      : emoji.random().emoji
-  }</span>
+  <div className="pocket-icon">
+    <Emoji emoji={icon} native={true} size={16} />
+  </div>
 )

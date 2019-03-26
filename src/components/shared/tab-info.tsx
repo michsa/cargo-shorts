@@ -7,13 +7,8 @@ import { Truncated } from '../shared/utils'
 
 interface Props { tab: Tab }
 
-const BorderBox = styled(FlexParent)`
-  > * {
-    margin: 0 6px;
-  }
-`
-
 type FaviconProps = { src: string }
+
 const Favicon = styled('div') <FaviconProps>`
   width: 32px;
   height: 32px;
@@ -24,10 +19,17 @@ const Favicon = styled('div') <FaviconProps>`
 `
 
 export default ({ tab }: Props) => (
-  <BorderBox flexDirection="row" alignItems="center" justifyContent="center">
-    <FlexChild flex={0}>
-      <Favicon src={tab.favicon} />
-    </FlexChild>
+  <FlexParent
+    flexDirection="row"
+    alignItems="center"
+    justifyContent="center"
+    className="tab-info"
+  >
+    {tab.favicon &&
+      <FlexChild flex={0}>
+        <Favicon src={tab.favicon} />
+      </FlexChild>
+    }
     <FlexChild
       flexDirection="column"
       flex={1}
@@ -36,5 +38,5 @@ export default ({ tab }: Props) => (
       <Truncated style={{ fontWeight: 'bold', fontSize: '1.1em' }}>{tab.title}</Truncated>
       <Truncated>{tab.url}</Truncated>
     </FlexChild>
-  </BorderBox>
+  </FlexParent>
 )

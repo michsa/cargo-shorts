@@ -6,10 +6,11 @@ import { getCurrentSavedTab, getCurrentTab, getOrderedPockets } from '../../redu
 import { EditPocketRoute, NewPocketRoute, Pocket, PocketID, SavedTab, State, Tab } from '../../types'
 import NewPocketButton from '../shared/new-pocket-button'
 import TabInfo from '../shared/tab-info'
-import { List, PopupHeader } from '../shared/utils'
+import { List } from '../shared/utils'
 
 import { route } from './hooks'
 import PocketInfo from './pocket-list-item'
+import PopupHeader from './popup-header'
 
 interface OwnProps {
   setRoute: (route: NewPocketRoute | EditPocketRoute) => void
