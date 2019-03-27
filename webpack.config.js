@@ -19,15 +19,15 @@ module.exports = {
     path: __dirname + "/extension/dist",
     filename: '[name].js'
   },
-
-  //  optimization: {
-  //    splitChunks: {
-  //      chunks: 'all'
-  //    }
-  //  },
-
+/*
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
+*/
   performance: {
-    hints: "error"
+    hints: false
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -48,9 +48,7 @@ module.exports = {
       { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-
-      { test: /\.css$/, use: ["style-loader", "css-loader"] }
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]
   },
 

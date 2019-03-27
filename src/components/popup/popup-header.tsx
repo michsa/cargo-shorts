@@ -2,7 +2,11 @@ import styled from '../../styled-components'
 
 const PopupHeader = styled('header')`
 text-align: center;
-margin: 10px 0;
+padding: 16px 0;
+background-color: ${props => props.theme.secondaryColor};
+border-bottom: 2px solid ${props => props.theme.primaryColor};
+`
+/*
 :after {
   content: "";
   display: block;
@@ -12,5 +16,6 @@ margin: 10px 0;
   margin: 10px auto 0;
   background-color: ${props => props.theme.secondaryColor};
 }
-`
+*/
+
 export default PopupHeader

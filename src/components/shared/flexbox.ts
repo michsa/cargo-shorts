@@ -61,16 +61,26 @@ type FlexboxProps = {
 const defaultProps: FlexboxProps = { display: 'flex' }
 
 
-export const flexify = <T>(
-  x: FunctionComponent<T>,
-  isParent: boolean = false
-) => styled(x) <FlexboxProps>`
-  ${createStyleFromProps(isParent ? defaultProps : {})}
+export const flexify = (isParent: boolean = false, props: FlexboxProps = {}) =>
+  <T>(x: FunctionComponent<T> | 'div' = 'div') =>
+    styled(x) <FlexboxProps>`
+  ${createStyleFromProps({ ...props, ...(isParent && defaultProps) })}
 `
 
+export const flexifyCentered = flexify(true, {
+  justifyContent: 'center',
+  alignItems: 'center'
+})
+
+/*
 export const FlexParent = styled('div') <FlexboxProps>`
   ${createStyleFromProps(defaultProps)}
 `
+*/
+
+export const FlexParent = flexify(true)()
+
+export const FlexCenter = flexifyCentered()
 
 export const FlexChild = styled('div') <FlexboxProps>`
   ${createStyleFromProps({})}

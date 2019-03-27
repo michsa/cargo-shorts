@@ -25,8 +25,8 @@ const PocketList = ({ pockets }: Props) => (
         handleEdit={(x) => x}
       />
     )}
-    <li onClick={(x) => x}>
-      <NewPocketButton />
+    <li>
+      <NewPocketButton onClick={(x) => x} />
     </li>
   </List>
 )

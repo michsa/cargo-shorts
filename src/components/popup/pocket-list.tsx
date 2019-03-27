@@ -62,7 +62,7 @@ const PocketList = ({
             handleEdit={() => setRoute(route.editPocket(pocket.id))}
           />
         )}
-        <li onClick={() => setRoute(route.newPocket())}><NewPocketButton /></li>
+        <li><NewPocketButton onClick={() => setRoute(route.newPocket())} /></li>
       </List>
     </section>
   )
