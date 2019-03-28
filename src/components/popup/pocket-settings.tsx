@@ -5,7 +5,7 @@ import Color from 'color'
 import { TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
 
-import { newPocket, updatePocketSettings } from '../../redux/actions/ui'
+import { deletePocket, newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
 import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
 import { getRandomOf } from '../../utils'
@@ -26,7 +26,10 @@ interface OwnProps {
 
 interface StateProps { pocket?: Pocket }
 
-interface Handlers { onConfirm: (pocket: PocketSettings, id?: PocketID) => void }
+interface Handlers {
+  onConfirm: (pocket: PocketSettings, id?: PocketID) => void,
+  onDelete: (id: PocketID) => void
+}
 
 type ActivePicker = 'icon' | 'color'
 
@@ -40,14 +43,19 @@ const mapDispatchToProps = {
   onConfirm: (settings: PocketSettings, id?: PocketID) =>
     id !== undefined
       ? updatePocketSettings({ id, settings })
-      : newPocket(settings)
+      : newPocket(settings),
+  onDelete: (id: PocketID) => deletePocket(id)
 } as Handlers
 
 // --- default settings --- //
 
 const defaultNames = [
   "Memes", "Cat photos", "Weird YouTube videos", "Articles", "Stuff",
-  "Job listings", "Things", "Recipes"
+  "Job listings", "Things", "Recipes", "Insurance quotes", "Blogs",
+  "Totally legal downloads", "Tutorials", "Inspirational quotes",
+  "Food porn", "Vacation pics", "Horoscopes", "2019 calendars",
+  "Computer parts", "Groceries", "Free apps", "Flash games", "Podcasts",
+  "Webcomics", "Possible ARGs", "Books", "Let's plays", "TED talks"
 ]
 
 const emojis = [
@@ -70,26 +78,26 @@ const colors = [
   "#ff9800", "#ff5722", "#795548"
 ]
 
-const Inputs = styled(FlexCenter)<{color: string}>`
+const Inputs = styled(FlexCenter) <{ color: string }>`
   background-color: ${props => props.color};
   * {
     color: ${props =>
     Color(props.color).isDark() !== props.theme.isDark
       ? props.theme.altBackgroundColor
       : props.theme.textColor
-    };
+  };
     border-color: ${props =>
     Color(props.color).isDark() !== props.theme.isDark
       ? props.theme.altBackgroundColor
       : props.theme.textColor
-    };
+  };
   }
 `
 
 // --- component --- //
 
 const PocketSettingsComponent = ({
-  id, setRoute, pocket, onConfirm
+  id, setRoute, pocket, onConfirm, onDelete
 }: OwnProps & StateProps & Handlers) => {
 
   const [settings, updateSettings] = useSettings({
@@ -103,14 +111,21 @@ const PocketSettingsComponent = ({
     setRoute(route.pocketList())
   }
 
-  const [activePicker, setPicker] = useState('icon' as ActivePicker)
+  const handleDelete = (id: PocketID) => () => {
+    onDelete(id)
+    setRoute(route.pocketList())
+  }
+
+  const [activePicker, setPicker] = useState('color' as ActivePicker)
+  const [placeholder] = useState(getRandomOf(defaultNames) || 'Pocket Name')
+
 
   return (
     <div id="pocket-settings">
       <PopupHeader>
         <FlexCenter>
           <h1 className="title">
-            {id === undefined ? 'New' : 'Edit'} Pocket
+            {id ? 'Edit' : 'New'} Pocket
           </h1>
         </FlexCenter>
       </PopupHeader>
@@ -125,7 +140,8 @@ const PocketSettingsComponent = ({
             autoFocus={true}
             value={settings.name}
             onChange={(e) => updateSettings('name', e.target.value)}
-            placeholder={getRandomOf(defaultNames) || 'Pocket Name'}
+            placeholder={placeholder}
+            maxLength={40}
           />
         </FlexChild>
         <FlexChild className="input-color" flex={1} onClick={() => setPicker('color')}>
@@ -156,14 +172,28 @@ const PocketSettingsComponent = ({
           />
       }</FlexParent>
 
-      <FlexParent justifyContent="space-between" as="nav" alignItems="baseline">
-        <FlexChild>
-          <Button onClick={() => setRoute(route.pocketList())}>
+      <FlexParent
+        className="nav-buttons"
+        justifyContent="space-between"
+        as="nav"
+        alignItems="center"
+      >
+        <FlexChild flex={1}>
+          <Button icon=":x:" onClick={() => setRoute(route.pocketList())}>
             Cancel
           </Button>
         </FlexChild>
-        <FlexChild>
-          <Button onClick={handleConfirm}>
+        <FlexChild flex="0 1 16px" />
+        {id &&
+          <React.Fragment>
+            <FlexChild flex={1} className="delete-button">
+              <Button icon=":wastebasket:" onClick={handleDelete(id)} />
+            </FlexChild>
+            <FlexChild flex="0 1 16px" />
+          </React.Fragment>
+        }
+        <FlexChild flex={1}>
+          <Button icon=":heavy_check_mark:" onClick={handleConfirm}>
             Save
           </Button>
         </FlexChild>

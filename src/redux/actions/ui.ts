@@ -18,3 +18,5 @@ export const updatePocketSettings = create('ui/UPDATE_POCKET_SETTINGS')
   <{ id: PocketID, settings: PocketSettings }>()
 
 export const newPocket = create('ui/NEW_POCKET')<PocketSettings>()
+
+export const deletePocket = create('ui/DELETE_POCKET')<PocketID>()

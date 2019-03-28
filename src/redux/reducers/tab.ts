@@ -18,6 +18,9 @@ const byId: Reducer<TabMap> = (
   state: TabMap = initialState.byId,
   action: ActionType<typeof tab>
 ) => {
+  console.log(`tab.byId reducer | ${action.type}`)
+  console.log(action.payload)
+  console.log(state)
   switch (action.type) {
 
     case getType(tab.newTab):
@@ -46,6 +49,9 @@ const current: Reducer<Tab | undefined> = (
   state = initialState.current,
   action: ActionType<typeof tab.updateCurrentTab>
 ) => {
+  console.log(`tab.current reducer | ${action.type}`)
+  console.log(action.payload)
+  console.log(state)
   return (action.type === getType(tab.updateCurrentTab))
     ? action.payload
     : state

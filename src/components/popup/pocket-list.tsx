@@ -48,11 +48,11 @@ const mapDispatchToProps = {
 const PocketList = ({
   setRoute, pockets, savedTab, tab, onPocketClick
 }: OwnProps & StateProps & Handlers) => (
-    <section className='pocketList'>
+    <section id='pocket-list'>
       <PopupHeader>
         <TabInfo tab={tab} />
       </PopupHeader>
-      <List>
+      <List className="list">
         {pockets.map((pocket) =>
           <PocketInfo
             pocket={pocket}

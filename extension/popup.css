@@ -27,7 +27,6 @@ h1 {
   cursor: n-resize;
 }
 
-/*
 .button {
   border-width: 2px;
   border-style: dashed;
@@ -50,7 +49,7 @@ h1 {
 .button:active {
   box-shadow: none;
 }
-*/
+
 
 /* --- new pocket button --- */
 
@@ -58,14 +57,14 @@ h1 {
   margin: 8px;
 }
 
-.new-pocket > button {
+.new-pocket>button {
   width: 100%;
 }
 
 /* --- pocket settings --- */
 
 #pocket-settings header {
-  padding: 12px 16px;
+  padding: 8px 16px;
 }
 
 #pocket-settings .title {
@@ -74,7 +73,7 @@ h1 {
 }
 
 #pocket-settings .inputs {
-  margin: 8px 8px;
+  margin: 12px 8px 16px;
   padding: 0 8px;
   height: 40px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
@@ -84,6 +83,7 @@ h1 {
   border-bottom-style: dotted;
   border-bottom-width: 2px;
   height: 24px;
+  cursor: pointer;
 }
 
 #pocket-settings .inputs .name-input {
@@ -103,15 +103,65 @@ h1 {
   border: 0;
   outline: 0;
   background-color: transparent;
-/*
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.2);
-*/
 }
 
 #pocket-settings .inputs .input-color {
   text-align: right;
 }
+
+#pocket-settings .nav-buttons {
+  margin-top: 16px;
+}
+/*
+#pocket-settings .nav-buttons > div {
+  padding: 8px;
+}
+*/
+
+#pocket-settings .nav-buttons .button {
+  /*
+  background-color: #FEDB41;
+  border-style: solid;
+*/
+  border-bottom: 0;
+  
+  box-shadow: none;
+  width: 100%;
+  height: 40px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/*
+#pocket-settings .nav-buttons .button:hover {
+  background-color: #00EFD1;
+}
+*/
+
+#pocket-settings .nav-buttons .delete-button .button {
+  border-color: #F44336;
+}
+#pocket-settings .nav-buttons .delete-button .button:hover {
+  background-color: #FF5722;
+}
+
+#pocket-settings .nav-buttons div:first-child .button {
+  border-left: 0;
+  border-top-left-radius: 0;
+}
+
+#pocket-settings .nav-buttons div:last-child .button {
+  border-right: 0;
+  border-top-right-radius: 0;
+}
+
+
+/*
+#pocket-settings .nav-buttons > div:first-child {
+  border-right: 2px solid #00ACEA;
+}
+*/
+
 
 /* --- tab info --- */
 
@@ -123,6 +173,69 @@ h1 {
   margin: 0 4px;
 }
 
+/* --- pocket list --- */
+
+#pocket-list .list {
+  max-height: 384px;
+  overflow-y: auto;
+}
+
+.pocket-list-item {
+  position: relative;
+  height: 32px;
+  margin: 8px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  background-color: #FEDB41;
+}
+
+.pocket-list-item .details {
+  position: absolute;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-position: right bottom;
+  z-index: 2;
+  margin-right: 0px;
+  transition: color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s;
+}
+
+.pocket-list-item:hover .details {
+  margin-right: 32px;
+  transition: margin-right 0.3s ease 0.3s;
+}
+
+.pocket-list-item .details .pocket-name {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding-left: 4px;
+}
+
+.pocket-list-item .details .pocket-count {
+  border-radius: 1px;
+  padding: 0.2em 0.6em;
+  margin: 0 8px;
+  font-size: 0.9em;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.pocket-list-item .edit-pocket {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 32px;
+}
+
+.pocket-list-item .edit-pocket>* {
+  cursor: pointer;
+}
+
+
 /* --- external components --- */
 
 .twitter-picker input {
@@ -130,7 +243,7 @@ h1 {
 }
 
 .emoji-mart .emoji-mart-scroll {
-  max-height: 160px !important;
+  max-height: 136px !important;
 }
 
 .emoji-mart-bar .emoji-mart-anchor {
@@ -168,63 +281,6 @@ h1 {
   padding: 4px !important;
 }
 
-/* --- pocket list item --- */
-
-.pocket-list-item {
-  position: relative;
-  height: 32px;
-  margin: 8px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  background-color: #FEDB41;
-}
-
-.pocket-list-item .details {
-  position: absolute;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  background-position: right bottom;
-  z-index: 2;
-  margin-right: 0px;
-  transition: color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s;
-}
-
-.pocket-list-item:hover .details {
-  margin-right: 32px;
-  transition: margin-right 0.4s ease 0.3s;
-}
-
-.pocket-list-item .details .pocket-name {
-  text-align: left;
-  font-weight: bold;
-  font-size: 1.1em;
-  padding-left: 4px;
-}
-
-.pocket-list-item .details .pocket-count {
-/*  
-  background-color: rgba(255, 255, 255, 0.65);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, .15), 0 0 4px #fff;
-*/
-  border-radius: 1px;
-  padding: 0.2em 0.6em;
-  margin: 0 8px;
-  font-size: 0.9em;
-  vertical-align: middle;
-  line-height: normal;
-}
-
-.pocket-list-item .edit-pocket {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  width: 32px;
-}
-
-.pocket-list-item .edit-pocket > * {
-  cursor: pointer;
+.emoji-mart-emoji {
+  cursor: inherit;
 }

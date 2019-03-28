@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
+import { Emoji } from 'emoji-mart'
 
 import styled from '../../styled-components'
 
-import { FlexChild, flexifyCentered, FlexParent } from './flexbox'
+import { FlexCenter, FlexChild, flexifyCentered } from './flexbox'
 
 export const List = styled.ul`
   list-style-type: none;
@@ -17,20 +18,18 @@ export const Truncated = styled.div`
 `
 
 const DragHandleComponent = () => (
-  <FlexParent
+  <FlexCenter
     flexDirection="column"
     className="drag-handle"
-    justifyContent="center"
-    alignItems="center"
   >
     <FlexChild>::</FlexChild>
     <FlexChild>::</FlexChild>
-  </FlexParent>
+  </FlexCenter>
 )
 
 export const DragHandle = DragHandleComponent
 
-const StyledButton = styled('button')`
+export const StyledButton = styled('button')`
   border-color: ${props => props.theme.primaryColor};
   color: ${props => props.theme.primaryColor};
   background-color: ${props => props.theme.altBackgroundColor};
@@ -53,14 +52,39 @@ const StyledButton = styled('button')`
   transition: 0.1s;
   :hover {
     border-style: solid;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   }
   :active {
     box-shadow: none;
   }
 `
 
-export const Button = flexifyCentered(StyledButton)
+
+const StyledButton2 = styled('button')`
+  border-color: ${props => props.theme.primaryColor};
+  color: ${props => props.theme.primaryColor};
+  background-color: ${props => props.theme.altBackgroundColor};
+  :hover {
+    background-color: ${props => props.theme.accentColor};
+  }
+  :active {
+    background-color: ${props => props.theme.secondaryColor};
+  }
+`
+
+const FlexButton = flexifyCentered(StyledButton2)
+
+const IconButton: FunctionComponent<{ icon?: string, onClick: () => void }> = (props) => (
+  <FlexButton as="button" className="button" onClick={props.onClick}>
+    {props.icon && <Emoji emoji={props.icon} native={true} size={14} />}
+    {props.icon && props.children && <div style={{ width: "4px" }} />}
+    {props.children}
+  </FlexButton>
+)
+
+
+export const Button = IconButton
+
 
 
 /*

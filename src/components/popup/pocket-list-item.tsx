@@ -6,7 +6,7 @@ import styled from '../../styled-components'
 import { Pocket } from '../../types'
 import { FlexChild, FlexParent } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
-import { DragHandle } from '../shared/utils'
+import { DragHandle, Truncated } from '../shared/utils'
 
 interface Props {
   pocket: Pocket,
@@ -14,28 +14,6 @@ interface Props {
   handleEdit: (id: string) => void,
   handleClick: (id: string) => void
 }
-
-/*
-  background: linear-gradient(to right, ${props =>
-    props.isActive
-    ? `${props.color} 100%, ${props.theme.altBackgroundColor} 1%`
-    : `${props.color} 1%, ${props.theme.altBackgroundColor} 1%`
-  });
-  background: linear-gradient(to right, ${props =>
-    `${props.color} ${props.isActive ? '100%' : '100%'}, ${props.theme.altBackgroundColor} 1%`
-  });
-*/
-
-/*
-const transitionStyles = {
-  entering: {
-    backgroundPosition: 'right bottom'
-  },
-  entered: {
-    backgroundPosition: 'left bottom'
-  },
-}
-*/
 
 const PocketDetails = styled(FlexParent) <{ isActive: boolean, color: string }>`
   background-color: ${props =>
@@ -93,8 +71,8 @@ const PopupPocketListItem = ({ pocket, isActive, handleEdit, handleClick }: Prop
         <FlexChild flex={0}>
           <PocketIcon icon={pocket.icon} />
         </FlexChild>
-        <FlexChild className="pocket-name" flex={1}>
-          {pocket.name}
+        <FlexChild style={{ minWidth: 0, textAlign: 'left' }} className="pocket-name" flex={1}>
+          <Truncated>{pocket.name}</Truncated>
         </FlexChild>
         <FlexChild className="pocket-count" flex={0}>
           {pocket.tabs.length}

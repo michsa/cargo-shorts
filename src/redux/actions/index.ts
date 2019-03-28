@@ -4,6 +4,7 @@ import { ActionType } from 'typesafe-actions'
 import { browser, Tabs } from 'webextension-polyfill-ts'
 
 import { Tab } from '../../types'
+import { getTabIdListForPocket } from '../selectors'
 
 import * as pocketActions from './pocket'
 import * as tabActions from './tab'
@@ -15,7 +16,6 @@ export const getCurrentTabInfo = () => {
   return async (dispatch: Dispatch<ActionType<
     typeof tabActions.updateCurrentTab
   >>) => {
-    // dispatch({ type: API_REQUEST_TAB_INFO })
     try {
       const tabs: BrowserTab[] = await browser.tabs.query({
         active: true, currentWindow: true
@@ -100,8 +100,21 @@ export const updatePocketSettings = (
 export const newPocket = (
   { payload }: ActionType<typeof ui.newPocket>
 ) => {
-  console.log('new pocket')
-  console.log(payload)
   const pocketId = id()
   return pocketActions.newPocket({ id: pocketId, settings: payload })
+}
+
+export const deletePocket = (
+  { payload }: ActionType<typeof ui.deletePocket>
+) => {
+  return (dispatch: Dispatch<ActionType<
+    typeof pocketActions.deletePocket
+    | typeof tabActions.deleteTab
+  >>, getState) => {
+    const tabIds = getTabIdListForPocket(getState(), payload)
+    for (const id of tabIds) {
+      dispatch(tabActions.deleteTab(id))
+    }
+    dispatch(pocketActions.deletePocket(payload))
+  }
 }

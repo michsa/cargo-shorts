@@ -21,11 +21,15 @@ const insertOrAppend = (tabId: TabID, position?: number) =>
 
 // --- reducer: pockets by id --- //
 
+// const isAcceptedAction = <T>(action: ActionType<T>, t: T): action is ActionType<T> => typeof action === ActionType<T>
+
 const byId: Reducer<PocketMap> = (
   state: PocketMap = initialState.byId,
   action: ActionType<typeof pocket>
 ): PocketMap => {
   console.log(`pocket.byId reducer | ${action.type}`)
+  console.log(action.payload)
+  console.log(state)
   switch (action.type) {
 
     case getType(pocket.newPocket):
