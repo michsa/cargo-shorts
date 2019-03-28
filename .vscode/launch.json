@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Launch add-on",
+            "addonType": "webExtension",
+            "addonPath": "${workspaceFolder}\\extension",
+            "skipFiles": [
+                "${workspaceFolder}\\node_modules\\**"
+            ],
+            "pathMappings": [
+                {
+                  "url": "webpack:///",
+                  "path": "${workspaceFolder}/"
+                }
+            ],
+            "log": {
+                "fileName": "${workspaceFolder}\\vscode-firefox-debug.log",
+                "fileLevel": {
+                    "PathConversion": "Debug",
+                    "default": "Debug"
+                },
+                "consoleLevel": {
+                    "PathConversion": "Info",
+                    "default": "Error"
+                }
+            },
+            "profile": "debugging",
+            "keepProfileChanges": true
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "test",
+            "file": "${workspaceFolder}\\extension\\page.html"
+        }
+    ]
+}
