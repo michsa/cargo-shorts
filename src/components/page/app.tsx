@@ -4,7 +4,7 @@ import PocketList from './pocket-list'
 
 
 const App = () => (
-  <div>
+  <div id="page">
     <PocketList />
   </div>
 )

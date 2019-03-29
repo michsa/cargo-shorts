@@ -1,10 +1,9 @@
 import * as React from 'react'
+import Snuggle from 'react-snuggle'
 import { connect } from 'react-redux'
 
 import { getOrderedPockets } from '../../redux/selectors'
 import { Pocket, State } from '../../types'
-import NewPocketButton from '../shared/new-pocket-button'
-import { List } from '../shared/utils'
 
 import PocketListItem from './pocket-list-item'
 
@@ -17,7 +16,7 @@ const mapStateToProps = (state: State) => ({
 } as Props)
 
 const PocketList = ({ pockets }: Props) => (
-  <List className="pocket-list">
+  <Snuggle className="pocket-list">
     {pockets.map((pocket) =>
       <PocketListItem
         pocket={pocket}
@@ -25,10 +24,7 @@ const PocketList = ({ pockets }: Props) => (
         handleEdit={(x) => x}
       />
     )}
-    <li>
-      <NewPocketButton onClick={(x) => x} />
-    </li>
-  </List>
+  </Snuggle>
 )
 
 export default connect(mapStateToProps)(PocketList)

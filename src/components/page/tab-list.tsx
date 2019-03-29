@@ -24,7 +24,7 @@ const makeMapStateToProps = () => {
 }
 
 const TabList = ({ tabs }: StateProps) => (
-  <List id="pocket-list">
+  <List className="tab-list">
     {tabs.map((tab) =>
       <TabListItem
         tab={tab}

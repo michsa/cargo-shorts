@@ -17,9 +17,9 @@ const style = (color: string) => ({
 
 const PocketListItem = ({ pocket, handleEdit }: Props) => {
   return (
-    <li id="pocket-list-item" key={pocket.id}>
+    <div className="pocket-list-item" key={pocket.id}>
       <div
-        id="pocket-list-item-details"
+        className="pocket-list-item-details"
         style={style(pocket.color)}
       >
         <PocketIcon icon={pocket.icon} />
@@ -29,7 +29,7 @@ const PocketListItem = ({ pocket, handleEdit }: Props) => {
 
         <TabList pocketId={pocket.id}/>
       </div>
-    </li>
+    </div>
   )
 }
 
