@@ -19,6 +19,22 @@ const tabsLens = (pocketId: PocketID) => lensPath([pocketId, 'tabs'])
 const insertOrAppend = (tabId: TabID, position?: number) =>
   position !== undefined ? insert(position, tabId) : append(tabId)
 
+const shuffle = <T>(xs: T[]) => {
+  let a = [...xs]
+  let counter = xs.length
+  while (counter > 0) {
+      // Pick a random index
+      const index = Math.floor(Math.random() * counter)
+      // Decrease counter by 1
+      counter--
+      // And swap the last element with it
+      let temp = a[counter]
+      a[counter] = a[index]
+      a[index] = temp
+  }
+  return a
+}
+
 // --- reducer: pockets by id --- //
 
 // const isAcceptedAction = <T>(action: ActionType<T>, t: T): action is ActionType<T> => typeof action === ActionType<T>
@@ -27,9 +43,6 @@ const byId: Reducer<PocketMap> = (
   state: PocketMap = initialState.byId,
   action: ActionType<typeof pocket>
 ): PocketMap => {
-  console.log(`pocket.byId reducer | ${action.type}`)
-  console.log(action.payload)
-  console.log(state)
   switch (action.type) {
 
     case getType(pocket.newPocket):
@@ -42,7 +55,6 @@ const byId: Reducer<PocketMap> = (
         },
         state
       )
-      console.log(newState)
       return newState
 
     case getType(pocket.deletePocket):
@@ -88,6 +100,12 @@ const idList: Reducer<PocketID[]> = (
 
     case getType(pocket.deletePocket):
       return without<PocketID>([action.payload], state)
+    
+    case getType(pocket.shufflePockets):
+      console.log(`pre-shuffle ${state}`)
+      const newState = shuffle(state)
+      console.log(`post-shuffle ${newState}`)
+      return newState
 
     default:
       return state

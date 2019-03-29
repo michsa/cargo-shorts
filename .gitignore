@@ -5,6 +5,7 @@ node_modules
 
 # testing
 coverage
+vscode-firefox-debug.log
 
 # production
 build

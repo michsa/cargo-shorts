@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { moveTab, newTab, removeTab } from '../../redux/actions/ui'
+import { moveTab, newTab, removeTab, shufflePockets } from '../../redux/actions/ui'
 import { getCurrentSavedTab, getCurrentTab, getOrderedPockets } from '../../redux/selectors'
 import { EditPocketRoute, NewPocketRoute, Pocket, PocketID, SavedTab, State, Tab } from '../../types'
 import NewPocketButton from '../shared/new-pocket-button'
@@ -27,7 +27,8 @@ interface Handlers {
     pocketId: PocketID,
     tab: Tab,
     savedTab: SavedTab | undefined
-  ) => void
+  ) => void,
+  onNewPocket: () => void
 }
 
 const mapStateToProps = (state: State) => ({
@@ -42,11 +43,12 @@ const mapDispatchToProps = {
       ? savedTab.pocket === pocketId
         ? removeTab(savedTab)
         : moveTab({ tab: savedTab, pocketId })
-      : newTab({ tab, pocketId })
+      : newTab({ tab, pocketId }),
+  onNewPocket: () => shufflePockets()
 } as Handlers
 
 const PocketList = ({
-  setRoute, pockets, savedTab, tab, onPocketClick
+  setRoute, pockets, savedTab, tab, onPocketClick, onNewPocket
 }: OwnProps & StateProps & Handlers) => (
     <section id='pocket-list'>
       <PopupHeader>
@@ -62,7 +64,11 @@ const PocketList = ({
             handleEdit={() => setRoute(route.editPocket(pocket.id))}
           />
         )}
-        <li><NewPocketButton onClick={() => setRoute(route.newPocket())} /></li>
+        <li><NewPocketButton onClick={() => {
+          console.log("new pocket button: shuffling (?)")
+          onNewPocket()
+          setRoute(route.newPocket())
+        }} /></li>
       </List>
     </section>
   )
