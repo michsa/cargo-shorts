@@ -8,7 +8,37 @@
             "type": "firefox",
             "request": "launch",
             "reAttach": true,
-            "name": "Launch add-on",
+            "name": "Add-on (Linux)",
+            "addonType": "webExtension",
+            "addonPath": "${workspaceFolder}/extension",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**"
+            ],
+            "pathMappings": [
+                {
+                    "url": "webpack:///",
+                    "path": "${workspaceFolder}/"
+                }
+            ],
+            "log": {
+                "fileName": "${workspaceFolder}/vscode-firefox-debug.log",
+                "fileLevel": {
+                    "PathConversion": "Debug",
+                    "default": "Debug"
+                },
+                "consoleLevel": {
+                    "PathConversion": "Info",
+                    "default": "Error"
+                }
+            },
+            "profile": "debugging",
+            "keepProfileChanges": true
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Add-on (Windows)",
             "addonType": "webExtension",
             "addonPath": "${workspaceFolder}\\extension",
             "skipFiles": [
@@ -16,8 +46,8 @@
             ],
             "pathMappings": [
                 {
-                  "url": "webpack:///",
-                  "path": "${workspaceFolder}/"
+                    "url": "webpack:///",
+                    "path": "${workspaceFolder}/"
                 }
             ],
             "log": {

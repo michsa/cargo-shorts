@@ -1,6 +1,6 @@
 import * as React from 'react'
-import Snuggle from 'react-snuggle'
 import { connect } from 'react-redux'
+import Snuggle from 'react-snuggle'
 
 import { getOrderedPockets } from '../../redux/selectors'
 import { Pocket, State } from '../../types'

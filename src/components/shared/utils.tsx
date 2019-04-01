@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react'
 import { Emoji } from 'emoji-mart'
+import React, { FunctionComponent } from 'react'
 
 import styled from '../../styled-components'
 

@@ -1,18 +1,18 @@
+import Color from 'color'
 import { Emoji, EmojiData, Picker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
 import React, { useState } from 'react'
-import Color from 'color'
 import { TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
 
 import { deletePocket, newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
+import styled from '../../styled-components'
 import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
 import { getRandomOf } from '../../utils'
 import { FlexCenter, FlexChild, FlexParent } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
 import { Button } from '../shared/utils'
-import styled from '../../styled-components'
 
 import { route, useSettings } from './hooks'
 import PopupHeader from './popup-header'
@@ -52,10 +52,10 @@ const mapDispatchToProps = {
 const defaultNames = [
   "Memes", "Cat photos", "Weird YouTube videos", "Articles", "Stuff",
   "Job listings", "Things", "Recipes", "Insurance quotes", "Blogs",
-  "Totally legal downloads", "Tutorials", "Inspirational quotes",
-  "Food porn", "Vacation pics", "Horoscopes", "2019 calendars",
-  "Computer parts", "Groceries", "Free apps", "Flash games", "Podcasts",
-  "Webcomics", "Possible ARGs", "Books", "Let's plays", "TED talks"
+  "Totally legal downloads", "Let's plays", "Inspirational quotes",
+  "Possible ARGs", "Vacation pics", "Reaction GIFs", "Computer parts",
+  "Groceries", "Free apps", "Flash games", "Podcasts", "Webcomics",
+  "Food porn", "Books", "Tutorials", "TED talks", "Research papers"
 ]
 
 const emojis = [
@@ -111,14 +111,13 @@ const PocketSettingsComponent = ({
     setRoute(route.pocketList())
   }
 
-  const handleDelete = (id: PocketID) => () => {
-    onDelete(id)
+  const handleDelete = () => {
     setRoute(route.pocketList())
+    return id && onDelete(id)
   }
 
   const [activePicker, setPicker] = useState('color' as ActivePicker)
   const [placeholder] = useState(getRandomOf(defaultNames) || 'Pocket Name')
-
 
   return (
     <div id="pocket-settings">
@@ -187,7 +186,7 @@ const PocketSettingsComponent = ({
         {id &&
           <React.Fragment>
             <FlexChild flex={1} className="delete-button">
-              <Button icon=":wastebasket:" onClick={handleDelete(id)} />
+              <Button icon=":wastebasket:" onClick={handleDelete} />
             </FlexChild>
             <FlexChild flex="0 1 16px" />
           </React.Fragment>

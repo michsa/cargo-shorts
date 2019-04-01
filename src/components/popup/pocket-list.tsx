@@ -56,19 +56,24 @@ const PocketList = ({
       </PopupHeader>
       <List className="list">
         {pockets.map((pocket) =>
-          <PocketInfo
-            pocket={pocket}
-            isActive={!!savedTab && savedTab.pocket === pocket.id}
-            key={pocket.id}
-            handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
-            handleEdit={() => setRoute(route.editPocket(pocket.id))}
-          />
+          <li key={pocket.id}>
+            <PocketInfo
+              pocket={pocket}
+              isActive={!!savedTab && savedTab.pocket === pocket.id}
+              handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
+              handleEdit={() => setRoute(route.editPocket(pocket.id))}
+            />
+          </li>
         )}
-        <li><NewPocketButton onClick={() => {
-          console.log("new pocket button: shuffling (?)")
-          onNewPocket()
-          setRoute(route.newPocket())
-        }} /></li>
+        <li>
+          <NewPocketButton
+            onClick={() => {
+              console.log("new pocket button: shuffling (?)")
+              onNewPocket()
+              setRoute(route.newPocket())
+            }}
+          />
+        </li>
       </List>
     </section>
   )

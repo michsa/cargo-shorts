@@ -114,8 +114,8 @@ export const deletePocket = (
     | typeof tabActions.deleteTab
   >>, getState) => {
     const tabIds = getTabIdListForPocket(getState(), payload)
-    for (const id of tabIds) {
-      dispatch(tabActions.deleteTab(id))
+    for (const tabId of tabIds) {
+      dispatch(tabActions.deleteTab(tabId))
     }
     dispatch(pocketActions.deletePocket(payload))
   }
