@@ -1,6 +1,7 @@
 import Color from 'color'
-import { Emoji, EmojiData, Picker } from 'emoji-mart'
+import { NimbleEmoji, NimblePicker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
+import data from 'emoji-mart/data/twitter.json'
 import React, { useState } from 'react'
 import { TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
@@ -144,7 +145,7 @@ const PocketSettingsComponent = ({
           />
         </FlexChild>
         <FlexChild className="input-color" flex={1} onClick={() => setPicker('color')}>
-          <Emoji emoji=":art:" size={16} native={true} />
+          <NimbleEmoji emoji=":art:" size={16} native={true} data={data} />
         </FlexChild>
       </Inputs>
 
@@ -158,15 +159,16 @@ const PocketSettingsComponent = ({
                 updateSettings('color', colorResult.hex)}
             triangle={'hide'}
           />
-          : <Picker
+          : <NimblePicker
             native={true}
+            data={data}
             emoji=":eye-in-speech-bubble:"
             title="Pick an icon!"
             emojiSize={18}
             perLine={8}
             exclude={['recent']}
             onSelect={
-              (emoji: EmojiData) =>
+              (emoji) =>
                 updateSettings('icon', emoji.colons || '')}
           />
       }</FlexParent>
