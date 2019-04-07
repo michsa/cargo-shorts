@@ -63,13 +63,6 @@
             },
             "profile": "debugging",
             "keepProfileChanges": true
-        },
-        {
-            "type": "firefox",
-            "request": "launch",
-            "reAttach": true,
-            "name": "test",
-            "file": "${workspaceFolder}\\extension\\page.html"
         }
     ]
 }
