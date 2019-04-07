@@ -56,7 +56,7 @@ const PocketList = ({
       </PopupHeader>
       <List className="list">
         {pockets.map((pocket) =>
-          <li key={pocket.id}>
+          <li key={pocket.id} className="pocket-list-item">
             <PocketInfo
               pocket={pocket}
               isActive={!!savedTab && savedTab.pocket === pocket.id}

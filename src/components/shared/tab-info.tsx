@@ -35,7 +35,7 @@ export default ({ tab }: Props) => (
       flex={1}
       style={{ minWidth: 0, textAlign: 'left' }}
     >
-      <Truncated style={{ fontWeight: 'bold', fontSize: '1.1em' }}>{tab.title}</Truncated>
+      <Truncated style={{ fontWeight: 600, fontSize: '1.1rem' }}>{tab.title}</Truncated>
       <Truncated>{tab.url}</Truncated>
     </FlexChild>
   </FlexParent>

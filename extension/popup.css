@@ -15,12 +15,7 @@ body {
 /* --- pocket settings --- */
 
 #pocket-settings header {
-  padding: 8px 16px;
-}
-
-#pocket-settings .title {
-  text-align: center;
-  font-weight: bold;
+  padding: 12px 16px;
 }
 
 #pocket-settings .inputs {
@@ -157,9 +152,10 @@ body {
 }
 
 .pocket-list-item .details .pocket-name {
+  font-family: "Open Sans", sans-serif;
   text-align: left;
-  font-weight: bold;
-  font-size: 1.1em;
+  font-weight: 600;
+  font-size: 1em;
   padding-left: 4px;
 }
 

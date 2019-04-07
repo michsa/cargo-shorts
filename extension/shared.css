@@ -1,11 +1,36 @@
+
+@import url('https://fonts.googleapis.com/css?family=\
+Catamaran:400,600,800|\
+Dosis:400,500,600|\
+Exo+2:400,500,600|\
+Hind:400,500,600|\
+Nunito:300,400,600,700,800|\
+Open+Sans:400,600');
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@-moz-document url-prefix() {
+  body {
+    font-weight: lighter !important;
+  }
+}
+
 html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  font-family: "Nunito", sans-serif;
+  font-size: 10pt;
+  font-weight: 400;
 }
 
 h1 {
-  font-size: 1.3rem;
+  font-size: 17px;
+  font-weight: 700;
   padding: 0;
   margin: 0;
   text-transform: uppercase;
@@ -20,21 +45,24 @@ h1 {
   letter-spacing: 0px;
   width: 20px;
   height: 16px;
-  cursor: n-resize;
+  cursor: grab;
+  font-family: "Hind" !important;
+  font-weight: 500 !important;
 }
 
 .button {
   border-width: 2px;
   border-style: dashed;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1.1em;
-  letter-spacing: 0.1em;
+  letter-spacing: 1px;
   padding: 4px 16px;
   text-align: center;
   border-radius: 4px;
   cursor: pointer;
   height: 32px;
   transition: 0.1s;
+  font-family: "Nunito", sans-serif;
 }
 
 .button:hover {
