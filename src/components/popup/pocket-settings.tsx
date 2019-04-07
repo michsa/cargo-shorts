@@ -1,19 +1,19 @@
 import Color from 'color'
-import { NimbleEmoji, NimblePicker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
-import data from 'emoji-mart/data/twitter.json'
 import React, { useState } from 'react'
 import { TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
 
+import { pocketDefaults as defaults } from '../../constants'
 import { deletePocket, newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
 import styled from '../../styled-components'
 import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
 import { getRandomOf } from '../../utils'
+import { IconButton } from '../shared/button'
+import { Emoji, Picker } from '../shared/emoji'
 import { FlexCenter, FlexChild, FlexParent } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
-import { Button } from '../shared/utils'
 
 import { route, useSettings } from './hooks'
 import PopupHeader from './popup-header'
@@ -48,36 +48,6 @@ const mapDispatchToProps = {
   onDelete: (id: PocketID) => deletePocket(id)
 } as Handlers
 
-// --- default settings --- //
-
-const defaultNames = [
-  "Memes", "Cat photos", "Weird YouTube videos", "Articles", "Stuff",
-  "Job listings", "Things", "Recipes", "Insurance quotes", "Blogs",
-  "Totally legal downloads", "Let's plays", "Inspirational quotes",
-  "Possible ARGs", "Vacation pics", "Reaction GIFs", "Computer parts",
-  "Groceries", "Free apps", "Flash games", "Podcasts", "Webcomics",
-  "Food porn", "Books", "Tutorials", "TED talks", "Research papers"
-]
-
-const emojis = [
-  ':sunglasses:', ':joy:', ':ok_hand:', ':muscle:', ':strawberry:',
-  ':pumpkin:', ':mage:', ':sparkles:', ':sun_with_face:', ':rainbow:',
-  ':floppy_disk:', ':phone:', ':candle:', ':books:', ':briefcase:',
-  ':shopping_trolley:', ':100:', ':nerd_face:', ':wink:', ':scream:',
-  ':heart_eyes:', ':grimacing:', ':japanese_goblin:', ':ghost:',
-  ':alien:', ':space_invader:', ':merperson:', ':shrug:', ':dancers:',
-  ':pray:', ':sparkling_heart:', ':sweat_drops:', ':peach:', ':socks:',
-  ':eggplant:', ':high_heel:', ':crown:', ':lipstick:', ':lizard:',
-  ':camel:', ':hatching_chick:', ':pig:', ':sheep:', ':unicorn_face:',
-  ':dragon:', ':squid:', ':snail:', ':tulip:', ':palm_tree:', ':whale:',
-  ':mushroom:', ':pizza:', ':camera:', ':selfie:', ':joystick:', ':tada:'
-]
-
-const colors = [
-  "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
-  "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107",
-  "#ff9800", "#ff5722", "#795548"
-]
 
 const Inputs = styled(FlexCenter) <{ color: string }>`
   background-color: ${props => props.color};
@@ -103,8 +73,8 @@ const PocketSettingsComponent = ({
 
   const [settings, updateSettings] = useSettings({
     name: pocket ? pocket.name : '',
-    color: pocket ? pocket.color : getRandomOf(colors),
-    icon: pocket ? pocket.icon : getRandomOf(emojis)
+    color: pocket ? pocket.color : getRandomOf(defaults.color),
+    icon: pocket ? pocket.icon : getRandomOf(defaults.icon)
   } as PocketSettings)
 
   const handleConfirm = () => {
@@ -118,7 +88,7 @@ const PocketSettingsComponent = ({
   }
 
   const [activePicker, setPicker] = useState('color' as ActivePicker)
-  const [placeholder] = useState(getRandomOf(defaultNames) || 'Pocket Name')
+  const [placeholder] = useState(getRandomOf(defaults.name) || 'Pocket Name')
 
   return (
     <div id="pocket-settings">
@@ -145,7 +115,7 @@ const PocketSettingsComponent = ({
           />
         </FlexChild>
         <FlexChild className="input-color" flex={1} onClick={() => setPicker('color')}>
-          <NimbleEmoji emoji=":art:" size={16} native={true} data={data} />
+          <Emoji emoji=":art:" size={16} />
         </FlexChild>
       </Inputs>
 
@@ -153,23 +123,16 @@ const PocketSettingsComponent = ({
         activePicker === 'color'
           ? <TwitterPicker
             color={settings.color}
-            colors={colors}
+            colors={defaults.color}
             onChangeComplete={
               (colorResult) =>
                 updateSettings('color', colorResult.hex)}
             triangle={'hide'}
           />
-          : <NimblePicker
-            native={true}
-            data={data}
-            emoji=":eye-in-speech-bubble:"
-            title="Pick an icon!"
-            emojiSize={18}
-            perLine={8}
-            exclude={['recent']}
-            onSelect={
-              (emoji) =>
-                updateSettings('icon', emoji.colons || '')}
+          : <Picker
+            onSelect={(emoji) =>
+              updateSettings('icon', emoji.colons || '')
+            }
           />
       }</FlexParent>
 
@@ -180,23 +143,23 @@ const PocketSettingsComponent = ({
         alignItems="center"
       >
         <FlexChild flex={1}>
-          <Button icon=":x:" onClick={() => setRoute(route.pocketList())}>
+          <IconButton icon=":x:" onClick={() => setRoute(route.pocketList())}>
             Cancel
-          </Button>
+          </IconButton>
         </FlexChild>
         <FlexChild flex="0 1 16px" />
         {id &&
           <React.Fragment>
             <FlexChild flex={1} className="delete-button">
-              <Button icon=":wastebasket:" onClick={handleDelete} />
+              <IconButton icon=":wastebasket:" onClick={handleDelete} />
             </FlexChild>
             <FlexChild flex="0 1 16px" />
           </React.Fragment>
         }
         <FlexChild flex={1}>
-          <Button icon=":heavy_check_mark:" onClick={handleConfirm}>
+          <IconButton icon=":heavy_check_mark:" onClick={handleConfirm}>
             Save
-          </Button>
+          </IconButton>
         </FlexChild>
       </FlexParent>
     </div>

@@ -1,6 +1,8 @@
 import * as React from 'react'
 
 import { Pocket } from '../../types'
+import { Emoji } from '../shared/emoji'
+import { FlexCenter, FlexChild } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
 
 import TabList from './tab-list'
@@ -15,22 +17,25 @@ const style = (color: string) => ({
   backgroundColor: color
 })
 
-const PocketListItem = ({ pocket, handleEdit }: Props) => {
+export default ({ pocket, handleEdit }: Props) => {
   return (
     <div className="pocket-list-item" key={pocket.id}>
-      <div
-        className="pocket-list-item-details"
+      <FlexCenter
+        className="pocket-details"
         style={style(pocket.color)}
       >
         <PocketIcon icon={pocket.icon} />
-        <span id="pocket-name">{pocket.name} </span>
-        <span id="pocket-count"> {pocket.tabs.length} </span>
-        <span onClick={() => handleEdit(pocket.id)}> edit </span>
-
-        <TabList pocketId={pocket.id}/>
-      </div>
+        <FlexChild className="pocket-name">
+          {pocket.name}
+        </FlexChild>
+        <FlexChild className="pocket-count">
+          {pocket.tabs.length}
+        </FlexChild>
+        <FlexChild onClick={() => handleEdit(pocket.id)}>
+          <Emoji emoji=":pencil2:" size={16} />
+        </FlexChild>
+      </FlexCenter>
+      <TabList pocketId={pocket.id} />
     </div>
   )
 }
-
-export default PocketListItem

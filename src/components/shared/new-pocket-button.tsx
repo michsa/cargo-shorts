@@ -1,14 +1,11 @@
-import { Emoji } from 'emoji-mart'
 import * as React from 'react'
 
-import { Button } from './utils'
+import { IconButton } from './button'
 
 export default ({ onClick }) => (
   <div className="new-pocket">
-    <Button onClick={onClick}>
-      <Emoji emoji=":baby:" native={true} size={14}/>
-      <div style={{width: "4px"}} />
+    <IconButton onClick={onClick} icon=":baby:">
       New Pocket
-    </Button>
+    </IconButton>
   </div>
 )
