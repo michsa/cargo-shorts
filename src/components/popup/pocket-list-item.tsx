@@ -3,9 +3,9 @@ import React from 'react'
 
 import styled from '../../styled-components'
 import { Pocket } from '../../types'
+import { Emoji } from '../shared/emoji'
 import { FlexChild, FlexParent } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
-import { Emoji } from '../shared/emoji'
 import { DragHandle, Truncated } from '../shared/utils'
 
 interface Props {

@@ -1,11 +1,16 @@
 import * as React from 'react'
+import { ThemeProvider } from 'styled-components'
+
+import theme from '../../theme'
 
 import PocketList from './pocket-list'
 
 const App = () => (
-  <div id="page">
-    <PocketList />
-  </div>
+  <ThemeProvider theme={theme}>
+    <div id="page">
+      <PocketList />
+    </div>
+  </ThemeProvider>
 )
 
 export default App
