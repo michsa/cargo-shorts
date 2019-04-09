@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=\
 Catamaran:400,600,800|\
-Dosis:400,500,600|\
+Dosis:400,500,600,700,800|\
 Exo+2:400,500,600|\
 Hind:400,500,600|\
 Nunito:300,400,600,700,800|\
@@ -122,3 +122,8 @@ h1 {
 .emoji-mart-emoji {
   cursor: inherit;
 }
+
+.emoji-mart-emoji {
+  vertical-align: middle !important;
+}
+

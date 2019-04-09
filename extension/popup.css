@@ -128,7 +128,6 @@ body {
   right: 0;
   bottom: 0;
   top: 0;
-  background-position: right bottom;
   z-index: 2;
   margin-right: 0px;
   transition: color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s;
@@ -140,11 +139,12 @@ body {
 }
 
 .pocket-list-item .details .pocket-name {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Catamaran", sans-serif;
   text-align: left;
   font-weight: 600;
-  font-size: 1em;
-  padding-left: 4px;
+  font-size: 1.1em;
+  margin-left: 8px;
+  padding-top: 0.2em;
 }
 
 .pocket-list-item .details .pocket-count {

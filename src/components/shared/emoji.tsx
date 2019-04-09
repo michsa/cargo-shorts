@@ -35,20 +35,20 @@ filter:
   drop-shadow(1px 1px 0 ${props => props.theme.textColor});
 `
 */
-const x = "1px"
+
+const a = "1px"
+const b = "0.5px"
 export const DropShadow = styled('span')`
 filter:
-  drop-shadow(-${x} -${x} 0 ${props => props.theme.textColor}EE)
-  drop-shadow(-${x} ${x} 0 ${props => props.theme.textColor}EE)
-  drop-shadow(${x} -${x} 0 ${props => props.theme.textColor}EE)
-  drop-shadow(${x} ${x} 0 ${props => props.theme.textColor}EE);
-  padding: 2px 4px;
+  drop-shadow(-${b} -${b} 0 ${props => props.theme.textColor}CC)
+  drop-shadow(-${b} ${a} 0 ${props => props.theme.textColor}FF)
+  drop-shadow(${a} -${b} 0 ${props => props.theme.textColor}FF)
+  drop-shadow(${a} ${a} 0 ${props => props.theme.textColor}FF);
 `
-
 
 export const Emoji: FunctionComponent<EmojiProps> =
   ({ emoji, size }: EmojiProps) => (
     <DropShadow className="drop-shadow">
-      <NimbleEmoji emoji={emoji} size={size || 16} data={data} set="twitter" />
+      <NimbleEmoji emoji={emoji} size={size || 16} data={data} set="twitter" native={true} />
     </DropShadow>
   )
