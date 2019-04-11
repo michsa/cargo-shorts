@@ -25,4 +25,3 @@ export const DragHandle = () => (
     <FlexChild>::</FlexChild>
   </FlexCenter>
 )
-

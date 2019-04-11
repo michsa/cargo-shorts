@@ -2,6 +2,7 @@
   "manifest_version": 2,
   "name": "Cargo Shorts",
   "version": "1.0",
+  "author": "Michelle Saad",
   "icons": {
     "48": "icons/48/blue_lined.png"
   },
@@ -23,7 +24,8 @@
     "scripts": [
       "dist/browser-polyfill.js",
       "dist/background.js"
-    ]
+    ],
+    "persistent": true
   },
   "chrome_url_overrides": {
     "newtab": "page.html"

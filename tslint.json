@@ -47,7 +47,7 @@
         "no-string-literal": true,
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": false,
-        "no-unused-expression": true,
+        "no-unused-expression": false,
         "object-literal-sort-keys": [false],
         "one-line": [
             true,
