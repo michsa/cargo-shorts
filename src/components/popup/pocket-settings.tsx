@@ -8,7 +8,7 @@ import { pocketDefaults as defaults } from '../../constants'
 import { deletePocket, newPocket, updatePocketSettings } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
 import styled from '../../styled-components'
-import { Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
+import { Args, Pocket, PocketID, PocketListRoute, PocketSettings, State } from '../../types'
 import { getRandomOf } from '../../utils'
 import { IconButton } from '../shared/button'
 import { Emoji, Picker } from '../shared/emoji'
@@ -62,8 +62,23 @@ const Inputs = styled(FlexCenter) <{ color: string }>`
       ? props.theme.altBackgroundColor
       : props.theme.textColor
   };
+    &::placeholder {
+      color: ${props =>
+    Color(
+      Color(props.color).isDark() !== props.theme.isDark
+        ? props.theme.altBackgroundColor
+        : props.theme.textColor
+    ).alpha(0.5).string()
+  };
+    }
   }
 `
+
+const PickerPlaceholder = () => (
+  <FlexCenter>
+    <div>Pick your thing!</div>
+  </FlexCenter>
+)
 
 // --- component --- //
 
@@ -87,7 +102,29 @@ const PocketSettingsComponent = ({
     return id && onDelete(id)
   }
 
-  const [activePicker, setPicker] = useState('color' as ActivePicker)
+  const nameInput = React.createRef<HTMLInputElement>()
+
+
+  const updateAndRefocus: typeof updateSettings = (...args) => {
+    if (nameInput.current) { nameInput.current.focus() }
+    return updateSettings(...args)
+  }
+
+  const callAndRefocus = <T extends Function, never>(fn: T, ...args: Args<T>) => {
+    if (nameInput.current) { nameInput.current.focus() }
+    return fn(...args)
+  }
+
+  // const refocusAnd = (x: unknown) => nameInput.current && nameInput.current.focus()
+  const [activePicker, setPicker] = useState('' as ActivePicker)
+
+  /*
+  const setPickerAndRefocus: typeof setPicker = (...args) => {
+    if (nameInput.current) { nameInput.current.focus() }
+    setPicker(...args)
+  }
+  */
+
   const [placeholder] = useState(getRandomOf(defaults.name) || 'Pocket Name')
 
   return (
@@ -101,12 +138,17 @@ const PocketSettingsComponent = ({
       </PopupHeader>
 
       <Inputs color={settings.color} className="inputs" as="section">
-        <FlexChild className="icon-input" flex={0} onClick={() => setPicker('icon')}>
+        <FlexChild
+          className="icon-input"
+          flex={0}
+          onClick={() => setPicker('icon')}
+        >
           <PocketIcon icon={settings.icon} />
         </FlexChild>
         <FlexChild flex={5} className="name-input">
           <input
             type="text"
+            ref={nameInput}
             autoFocus={true}
             value={settings.name}
             onChange={(e) => updateSettings('name', e.target.value)}
@@ -114,26 +156,28 @@ const PocketSettingsComponent = ({
             maxLength={40}
           />
         </FlexChild>
-        <FlexChild className="input-color" flex={1} onClick={() => setPicker('color')}>
-          <Emoji emoji=":art:" size={16} />
+        <FlexChild className="input-color" flex={0} onClick={() => callAndRefocus(setPicker, 'color')}>
+          <Emoji emoji="🎨" size={19} />
         </FlexChild>
       </Inputs>
 
       <FlexParent as="section" className="pickers" justifyContent="center">{
-        activePicker === 'color'
-          ? <TwitterPicker
+        activePicker === 'color' ?
+          <TwitterPicker
             color={settings.color}
             colors={defaults.color}
-            onChangeComplete={
-              (colorResult) =>
-                updateSettings('color', colorResult.hex)}
-            triangle={'hide'}
-          />
-          : <Picker
-            onSelect={(emoji) =>
-              updateSettings('icon', emoji.colons || '')
+            triangle={'top-right'}
+            onChangeComplete={(colorResult) =>
+              updateAndRefocus('color', colorResult.hex)
             }
           />
+        : activePicker === 'icon' ?
+          <Picker
+            onSelect={(emoji) =>
+              updateAndRefocus('icon', emoji.native)
+            }
+          />
+        : <PickerPlaceholder />
       }</FlexParent>
 
       <FlexParent
@@ -143,21 +187,21 @@ const PocketSettingsComponent = ({
         alignItems="center"
       >
         <FlexChild flex={1}>
-          <IconButton icon=":x:" onClick={() => setRoute(route.pocketList())}>
+          <IconButton icon="❌" onClick={() => setRoute(route.pocketList())}>
             Cancel
           </IconButton>
         </FlexChild>
         <FlexChild flex="0 1 16px" />
         {id &&
           <React.Fragment>
-            <FlexChild flex={1} className="delete-button">
-              <IconButton icon=":wastebasket:" onClick={handleDelete} />
+            <FlexChild flex={0} className="delete-button">
+              <IconButton icon="🗑️" onClick={handleDelete} />
             </FlexChild>
             <FlexChild flex="0 1 16px" />
           </React.Fragment>
         }
         <FlexChild flex={1}>
-          <IconButton icon=":heavy_check_mark:" onClick={handleConfirm}>
+          <IconButton icon="👌" onClick={handleConfirm}>
             Save
           </IconButton>
         </FlexChild>
@@ -165,6 +209,8 @@ const PocketSettingsComponent = ({
     </div>
   )
 }
+
+// ❌⛔️️🗑
 
 export default connect(
   mapStateToProps,

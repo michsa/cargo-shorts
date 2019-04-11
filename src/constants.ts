@@ -9,7 +9,8 @@ export const pocketDefaults = {
         "Groceries", "Free apps", "Flash games", "Podcasts", "Webcomics",
         "Food porn", "Books", "Tutorials", "TED talks", "Research papers"
     ],
-    icon: [
+    icon: ['👶'],
+    old_icon: [
         ':sunglasses:', ':joy:', ':ok_hand:', ':muscle:', ':strawberry:',
         ':pumpkin:', ':mage:', ':sparkles:', ':sun_with_face:', ':rainbow:',
         ':floppy_disk:', ':phone:', ':candle:', ':books:', ':briefcase:',
@@ -25,7 +26,10 @@ export const pocketDefaults = {
     color: [
         "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
         "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107",
-        "#ff9800", "#ff5722", "#795548"
+        "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
+        "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107",
+        "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
+        "#ff9800", "#ff5722", "#795548", "#e91e63"
     ]
 }
 

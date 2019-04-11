@@ -74,7 +74,7 @@ const PopupPocketListItem = ({ pocket, isActive, handleEdit, handleClick }: Prop
       justifyContent="center"
       alignItems="center"
     >
-      <Emoji emoji=":pencil2:" size={13} />
+      <Emoji emoji="✏️" size={13} />
     </FlexParent>
   </React.Fragment>
 )

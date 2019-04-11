@@ -1,20 +1,24 @@
-import { EmojiData, NimbleEmoji, NimblePicker } from 'emoji-mart'
+import { BaseEmoji, NimbleEmoji, NimblePicker } from 'emoji-mart'
 import data from 'emoji-mart/data/twitter.json'
 import React, { FunctionComponent } from 'react'
+import twemoji from 'twemoji'
 
 import styled from '../../styled-components'
 
-export const Picker: FunctionComponent<{ onSelect: (emoji: EmojiData) => void }> =
+export const Picker: FunctionComponent<{ onSelect: (emoji: BaseEmoji) => void }> =
   ({ onSelect }) => (
     <NimblePicker
-      native={true}
+      native={false}
       data={data}
-      emoji=":eye-in-speech-bubble:"
+      set="twitter"
+      emoji="eyes"
       title="Pick an icon!"
-      emojiSize={18}
+      emojiSize={19}
       perLine={8}
       exclude={['recent']}
       onSelect={onSelect}
+      autoFocus={true}
+      style={{width: '276px'}}
     />
   )
 
@@ -36,19 +40,77 @@ filter:
 `
 */
 
-const a = "1px"
-const b = "0.5px"
+export const Emoji00: FunctionComponent<EmojiProps> =
+  ({ emoji, size }: EmojiProps) => {
+    return (
+      <DropShadow>
+        <NimbleEmoji emoji={emoji} size={size || 16} data={data} set="twitter" native={false} />
+      </DropShadow>
+    )
+  }
+
+export const Emoji01: FunctionComponent<EmojiProps> =
+  ({ emoji, size }: EmojiProps) => (
+    <DropShadow>
+      {NimbleEmoji({
+        html: true,
+        set: 'twitter',
+        emoji: '',
+        native: true,
+        size: 1 || 16,
+        data: data
+      })}
+    </DropShadow>
+  )
+
+
+
+export const Emoji03: FunctionComponent<EmojiProps> =
+  ({ emoji, size }: EmojiProps) => (
+    <DropShadow>
+      <NimbleEmoji emoji={emoji} size={size || 16} data={data} set="twitter" native={true} />
+    </DropShadow>
+  )
+/*
+export const Emoji: FunctionComponent<EmojiProps> =
+  ({ emoji, size }: EmojiProps) => (
+    <DropShadow>
+      {NimbleEmoji({
+        html: true,
+        set: 'twitter',
+        emoji: emoji,
+        native: true,
+        size: size || 16,
+        data: data
+      })}
+    </DropShadow>
+  )
+*/
+
 export const DropShadow = styled('span')`
 filter:
-  drop-shadow(-${b} -${b} 0 ${props => props.theme.textColor}CC)
-  drop-shadow(-${b} ${a} 0 ${props => props.theme.textColor}FF)
-  drop-shadow(${a} -${b} 0 ${props => props.theme.textColor}FF)
-  drop-shadow(${a} ${a} 0 ${props => props.theme.textColor}FF);
+  drop-shadow(0 -1px ${props => props.theme.textColor}88)
+  drop-shadow(-1px 1px ${props => props.theme.textColor}AA)
+  drop-shadow(1px 0.5px ${props => props.theme.textColor});
+.emoji {
+  width: auto;
+  height: 100%;
+}
 `
 
 export const Emoji: FunctionComponent<EmojiProps> =
   ({ emoji, size }: EmojiProps) => (
-    <DropShadow className="drop-shadow">
-      <NimbleEmoji emoji={emoji} size={size || 16} data={data} set="twitter" native={true} />
-    </DropShadow>
+    <DropShadow
+      style={{
+        width: `${size || 16}px`,
+        height: `${size || 16}px`,
+        display: 'block'
+      }}
+      dangerouslySetInnerHTML={{
+        __html: twemoji.parse(emoji, {
+          folder: 'svg', 
+          ext: '.svg'
+        })
+      }}
+    />
   )
