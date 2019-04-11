@@ -1,8 +1,10 @@
 // --- utils --- //
 
-type Diff<T, U> = T extends U ? never : T
+export type Diff<T, U> = T extends U ? never : T
 
-type Without<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>
+export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>
+
+export type Args<T> = T extends (...xs: infer A) => unknown ? A : never
 
 // --- state --- //
 
@@ -42,7 +44,7 @@ export interface Pocket {
   tabs: TabID[]
 }
 
-export type PocketSettings = Without<Pocket, 'id' | 'tabs'>
+export type PocketSettings = Omit<Pocket, 'id' | 'tabs'>
 
 export type PocketState = {
   readonly byId: PocketMap,
