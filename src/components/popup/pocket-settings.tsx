@@ -14,6 +14,7 @@ import { IconButton } from '../shared/button'
 import { Emoji, Picker } from '../shared/emoji'
 import { FlexCenter, FlexChild, FlexParent } from '../shared/flexbox'
 import PocketIcon from '../shared/pocket-icon'
+import { Triangle } from '../shared/triangle'
 
 import { route, useSettings } from './hooks'
 import PopupHeader from './popup-header'
@@ -75,9 +76,11 @@ const Inputs = styled(FlexCenter) <{ color: string }>`
 `
 
 const PickerPlaceholder = () => (
-  <FlexCenter>
-    <div>Pick your thing!</div>
-  </FlexCenter>
+  <div style={{position: 'relative', width: '100%'}}>
+    <div style={{position: 'absolute', top: '32%', left: '12%'}}>pick an icon</div>
+    <div style={{position: 'absolute', top: '8%', left: '24%'}}>give it a name</div>
+    <div style={{position: 'absolute', top: '28%', right: '12%'}}>choose a color</div>
+  </div>
 )
 
 // --- component --- //
@@ -103,28 +106,12 @@ const PocketSettingsComponent = ({
   }
 
   const nameInput = React.createRef<HTMLInputElement>()
-
-
-  const updateAndRefocus: typeof updateSettings = (...args) => {
-    if (nameInput.current) { nameInput.current.focus() }
-    return updateSettings(...args)
-  }
-
   const callAndRefocus = <T extends Function, never>(fn: T, ...args: Args<T>) => {
     if (nameInput.current) { nameInput.current.focus() }
     return fn(...args)
   }
 
-  // const refocusAnd = (x: unknown) => nameInput.current && nameInput.current.focus()
-  const [activePicker, setPicker] = useState('' as ActivePicker)
-
-  /*
-  const setPickerAndRefocus: typeof setPicker = (...args) => {
-    if (nameInput.current) { nameInput.current.focus() }
-    setPicker(...args)
-  }
-  */
-
+  const [activePicker, setPicker] = useState('color' as ActivePicker)
   const [placeholder] = useState(getRandomOf(defaults.name) || 'Pocket Name')
 
   return (
@@ -156,29 +143,44 @@ const PocketSettingsComponent = ({
             maxLength={40}
           />
         </FlexChild>
-        <FlexChild className="input-color" flex={0} onClick={() => callAndRefocus(setPicker, 'color')}>
+        <FlexChild
+          className="input-color"
+          flex={0}
+          onClick={() => callAndRefocus(setPicker, 'color')}
+        >
           <Emoji emoji="🎨" size={19} />
         </FlexChild>
       </Inputs>
 
-      <FlexParent as="section" className="pickers" justifyContent="center">{
+      <FlexParent
+        className="pickers"
+        justifyContent="center" 
+        flexWrap="wrap"
+      >{
         activePicker === 'color' ?
-          <TwitterPicker
-            color={settings.color}
-            colors={defaults.color}
-            triangle={'top-right'}
-            onChangeComplete={(colorResult) =>
-              updateAndRefocus('color', colorResult.hex)
-            }
-          />
-        : activePicker === 'icon' ?
-          <Picker
-            onSelect={(emoji) =>
-              updateAndRefocus('icon', emoji.native)
-            }
-          />
-        : <PickerPlaceholder />
-      }</FlexParent>
+          <React.Fragment>
+            <Triangle side="right" margin={6} />
+            <TwitterPicker
+              color={settings.color}
+              colors={defaults.color}
+              triangle="hide"
+              onChangeComplete={(colorResult) =>
+                callAndRefocus(updateSettings, 'color', colorResult.hex)
+              }
+            />
+          </React.Fragment>
+          : activePicker === 'icon' ?
+            <React.Fragment>
+              <Triangle margin={4} width={9} />
+              <Picker
+                onSelect={(emoji) =>
+                  callAndRefocus(updateSettings, 'icon', emoji.native)
+                }
+              />
+            </React.Fragment>
+            : <PickerPlaceholder />
+      }
+      </FlexParent>
 
       <FlexParent
         className="nav-buttons"
@@ -187,7 +189,7 @@ const PocketSettingsComponent = ({
         alignItems="center"
       >
         <FlexChild flex={1}>
-          <IconButton icon="❌" onClick={() => setRoute(route.pocketList())}>
+          <IconButton icon="🙅" onClick={() => setRoute(route.pocketList())}>
             Cancel
           </IconButton>
         </FlexChild>
@@ -210,7 +212,8 @@ const PocketSettingsComponent = ({
   )
 }
 
-// ❌⛔️️🗑
+// 🙅
+// ❌
 
 export default connect(
   mapStateToProps,
