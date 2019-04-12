@@ -16,15 +16,17 @@ const mapStateToProps = (state: State) => ({
 } as Props)
 
 const PocketList = ({ pockets }: Props) => (
-  <Snuggle className="pocket-list">
-    {pockets.map((pocket) =>
-      <PocketListItem
-        pocket={pocket}
-        key={pocket.id}
-        handleEdit={(x) => x}
-      />
-    )}
-  </Snuggle>
+  <div className="pocket-list">
+    <Snuggle columnWidth={300}>
+      {pockets.map((pocket) =>
+        <PocketListItem
+          pocket={pocket}
+          key={pocket.id}
+          handleEdit={(x) => x}
+        />
+      )}
+    </Snuggle>
+  </div>
 )
 
 export default connect(mapStateToProps)(PocketList)

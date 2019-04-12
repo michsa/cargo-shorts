@@ -37,6 +37,16 @@ h1 {
   letter-spacing: 1px;
 }
 
+/* --- tab info --- */
+
+.tab-info {
+  margin: 0 8px;
+}
+
+.tab-info>* {
+  margin: 0 4px;
+}
+
 /* --- misc --- */
 
 .drag-handle {
@@ -132,4 +142,3 @@ h1 {
 .emoji-mart-emoji {
   vertical-align: middle !important;
 }
-

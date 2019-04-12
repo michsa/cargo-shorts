@@ -2,16 +2,6 @@ body {
   width: 300px;
 }
 
-/* --- tab info --- */
-
-.tab-info {
-  margin: 0 8px;
-}
-
-.tab-info>* {
-  margin: 0 4px;
-}
-
 /* --- pocket list --- */
 
 #pocket-list .list {
