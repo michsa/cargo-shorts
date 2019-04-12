@@ -1,6 +1,11 @@
-import { compose, concat, join, lensIndex, map, merge, over, replace, toLower, toPairs } from 'ramda'
-import { FunctionComponent } from 'react'
+import {
+  compose, concat, includes, join, lensIndex, map,
+  merge, over, pickBy, replace, toLower, toPairs
+} from 'ramda'
+// import { FunctionComponent } from 'react'
 import styled from 'styled-components'
+
+// import { Diff } from '../../types'
 
 // --- createStyleFromProps --- //
 
@@ -14,14 +19,26 @@ const pairToStyle = <T>(pair: Pair<T>) =>
     join(': '), over(lensIndex(0), camelToKebab)
   )(pair)
 
-const createStyleFromProps = <T>(defaults: T) => (props: T) => compose<
-  T, { [K in keyof T]: T[K] }, Pair<T>[], string[], string
->(
-  join('; '),
-  map(pairToStyle),
-  toPairs,
-  merge<T>(defaults)
-)
+const createStyleCreatorFromAllowedProps = <T extends {[K: string]: unknown}>(allowedProps: Array<keyof T>) =>
+  <P extends object>(defaultProps: Partial<T>) =>
+    compose<P, T, T, { [K in keyof T]: T[K] }, Pair<T>[], string[], string>(
+      join('; '),
+      map(pairToStyle),
+      toPairs,
+      merge<Partial<T>>(defaultProps),
+      (x) => { 
+        console.log("stylify props after filtering")
+        console.log(x)
+        return x
+      },
+      pickBy((v, k) => includes(k, allowedProps))
+    )
+
+const stylify = <T extends object>(allowedProps: Array<keyof T>) =>
+  (defaultProps: Partial<T> = {}) =>
+    (x) => styled(x) <T>`
+      ${createStyleCreatorFromAllowedProps(allowedProps)(defaultProps)}
+    `
 
 // --- flexbox --- //
 
@@ -30,7 +47,7 @@ type FlexboxProps = {
   alignItems?: 'baseline' | 'center' | 'flex-end' | 'flex-start' | 'stretch',
   alignSelf?: 'baseline' | 'center' | 'flex-end' | 'flex-start' | 'stretch',
   display?: 'flex' | 'inline-flex',
-  flex?: string | number,
+  flex: string | number,
   flexBasis?: string | number,
   flexDirection?: 'column-reverse' | 'column' | 'row-reverse' | 'row',
   flexGrow?: string | number,
@@ -57,31 +74,55 @@ type FlexboxProps = {
   style?: object,
   width?: string | number
 }
+const flexboxKeys: Array<keyof FlexboxProps> = [
+  'alignContent', 'alignItems', 'alignSelf', 'display', 'flex', 'flexBasis',
+  'flexDirection', 'flexGrow', 'flexShrink', 'flexWrap', 'height', 'inline',
+  'justifyContent', 'margin', 'marginBottom', 'marginLeft', 'marginRight',
+  'marginTop', 'maxHeight', 'maxWidth', 'minHeight', 'minWidth', 'order',
+  'padding', 'paddingBottom', 'paddingLeft', 'paddingRight', 'paddingTop',
+  'style', 'width'
+]
 
-const defaultProps: FlexboxProps = { display: 'flex' }
 
 
-export const flexify = (isParent: boolean = false, props: FlexboxProps = {}) =>
+const flexify = stylify<FlexboxProps>(flexboxKeys)
+
+flexify({ minWidth: 400 })(flexify({ justifyContent: 'center' })('div'))
+
+flexify()('div')
+
+/*
+const flexify = (isParent: boolean = false, props: FlexboxProps = {}) =>
   <T>(x: FunctionComponent<T> | 'div' = 'div') =>
     styled(x) <FlexboxProps>`
   ${createStyleFromProps({ ...props, ...(isParent && defaultProps) })}
 `
+*/
 
-export const flexifyCentered = flexify(true, {
+export const flexifyCentered = flexify({
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  display: 'flex'
 })
+
+export const FlexParent = flexify({ display: 'flex' })('div')
+export const FlexChild = flexify()('div')
+export const FlexCenter = flexifyCentered('div')
 
 /*
 export const FlexParent = styled('div') <FlexboxProps>`
-  ${createStyleFromProps(defaultProps)}
+  ${createStyleFromProps<FlexboxProps>(defaultProps)}
 `
-*/
 
-export const FlexParent = flexify(true)()
-
-export const FlexCenter = flexifyCentered()
+export const FlexCenter = styled('div') <FlexboxProps>`
+  ${createStyleFromProps<FlexboxProps>({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+})}
+`
 
 export const FlexChild = styled('div') <FlexboxProps>`
-  ${createStyleFromProps({})}
+  ${createStyleFromProps<FlexboxProps>({})}
 `
+*/
