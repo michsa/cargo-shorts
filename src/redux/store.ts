@@ -32,6 +32,7 @@ export default createBackgroundStore({
     [getType(ui.moveTab)]: actions.moveTab,
     [getType(ui.newPocket)]: actions.newPocket,
     [getType(ui.deletePocket)]: actions.deletePocket,
+    [getType(ui.movePocket)]: actions.movePocket,
     [getType(ui.updatePocketSettings)]: actions.updatePocketSettings,
     [getType(ui.shufflePockets)]: actions.shufflePockets
   }

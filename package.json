@@ -49,7 +49,9 @@
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
+    "@types/react-beautiful-dnd": "^10.1.1",
     "json-loader": "^0.5.7",
+    "react-beautiful-dnd": "^11.0.0-beta.3",
     "react-twemoji": "^0.1.0",
     "twemoji": "^12.0.0"
   }

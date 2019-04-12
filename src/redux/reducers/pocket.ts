@@ -1,4 +1,4 @@
-import { append, assoc, insert, lensPath, omit, over, without } from 'ramda'
+import { append, assoc, insert, lensPath, move, omit, over, without } from 'ramda'
 import { combineReducers, Reducer } from 'redux'
 import { ActionType, getType } from 'typesafe-actions'
 
@@ -36,8 +36,6 @@ const shuffle = <T>(xs: T[]) => {
 }
 
 // --- reducer: pockets by id --- //
-
-// const isAcceptedAction = <T>(action: ActionType<T>, t: T): action is ActionType<T> => typeof action === ActionType<T>
 
 const byId: Reducer<PocketMap> = (
   state: PocketMap = initialState.byId,
@@ -95,6 +93,7 @@ const idList: Reducer<PocketID[]> = (
   action: ActionType<typeof pocket>
 ): PocketID[] => {
   switch (action.type) {
+
     case getType(pocket.newPocket):
       return append<PocketID>(action.payload.id)(state)
 
@@ -102,10 +101,10 @@ const idList: Reducer<PocketID[]> = (
       return without<PocketID>([action.payload], state)
     
     case getType(pocket.shufflePockets):
-      console.log(`pre-shuffle ${state}`)
-      const newState = shuffle(state)
-      console.log(`post-shuffle ${newState}`)
-      return newState
+      return shuffle(state)
+    
+    case getType(pocket.movePocket):
+      return move(action.payload.start, action.payload.end, state)
 
     default:
       return state

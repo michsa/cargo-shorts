@@ -17,6 +17,9 @@ export const requestCurrentTabInfo = create('ui/REQUEST_CURRENT_TAB_INFO')()
 export const updatePocketSettings = create('ui/UPDATE_POCKET_SETTINGS')
   <{ id: PocketID, settings: PocketSettings }>()
 
+export const movePocket = create('ui/MOVE_POCKET')
+  <{ start: number, end: number }>()
+
 export const newPocket = create('ui/NEW_POCKET')<PocketSettings>()
 
 export const deletePocket = create('ui/DELETE_POCKET')<PocketID>()

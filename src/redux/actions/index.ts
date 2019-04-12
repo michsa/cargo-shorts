@@ -99,6 +99,13 @@ export const updatePocketSettings = (
   { payload }: ActionType<typeof ui.updatePocketSettings>
 ) => pocketActions.updatePocket(payload)
 
+export const movePocket = (
+  { payload }: ActionType<typeof ui.movePocket>
+) => {
+  console.log("actions movePocket")
+  return pocketActions.movePocket(payload)
+}
+
 export const newPocket = (
   { payload }: ActionType<typeof ui.newPocket>
 ) => {

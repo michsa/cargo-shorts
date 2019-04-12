@@ -46,7 +46,7 @@ const current: Reducer<Tab | undefined> = (
   action: ActionType<typeof tab.updateCurrentTab>
 ) => {
   return (action.type === getType(tab.updateCurrentTab))
-    ? action.payload
+    ? action.payload || state
     : state
 }
 

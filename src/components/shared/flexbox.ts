@@ -21,16 +21,11 @@ const pairToStyle = <T>(pair: Pair<T>) =>
 
 const createStyleCreatorFromAllowedProps = <T extends {[K: string]: unknown}>(allowedProps: Array<keyof T>) =>
   <P extends object>(defaultProps: Partial<T>) =>
-    compose<P, T, T, { [K in keyof T]: T[K] }, Pair<T>[], string[], string>(
+    compose<P, T, { [K in keyof T]: T[K] }, Pair<T>[], string[], string>(
       join('; '),
       map(pairToStyle),
       toPairs,
       merge<Partial<T>>(defaultProps),
-      (x) => { 
-        console.log("stylify props after filtering")
-        console.log(x)
-        return x
-      },
       pickBy((v, k) => includes(k, allowedProps))
     )
 
