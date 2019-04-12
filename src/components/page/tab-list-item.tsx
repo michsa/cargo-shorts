@@ -9,6 +9,8 @@ interface Props {
 
 export default ({ tab }: Props) => (
   <li className="tab-list-item" key={tab.id}>
-    <TabInfo tab={tab} />
+    <a href={tab.url}>
+      <TabInfo tab={tab} />
+    </a>
   </li>
 )
