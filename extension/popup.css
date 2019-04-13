@@ -35,24 +35,6 @@ body {
   transition: margin-right 0.3s ease 0.3s;
 }
 
-.pocket-list-item .details .pocket-name {
-  font-family: "Nunito", sans-serif;
-  text-align: left;
-  font-weight: 600;
-  font-size: 1em;
-  margin-left: 8px;
-  /* padding-top: 0.2em; */
-}
-
-.pocket-list-item .details .pocket-count {
-  border-radius: 1px;
-  padding: 0.2em 0.6em;
-  margin: 0 8px;
-  font-size: 0.9em;
-  vertical-align: middle;
-  line-height: normal;
-}
-
 .pocket-list-item .edit-pocket {
   position: absolute;
   right: 0;

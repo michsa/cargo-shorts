@@ -1,8 +1,7 @@
 import Color from 'color'
 
 import styled from '../../styled-components'
-
-import { FlexParent } from './flexbox'
+import { FlexParent } from '../shared/flexbox'
 
 export default styled(FlexParent) <{ isActive: boolean, color: string }>`
   background-color: ${props =>

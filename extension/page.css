@@ -1,5 +1,5 @@
-.pocket-list .pocket-list-item .pocket-details {
-  display: flex;
+html, body {
+  height: 100%;
 }
 
 .pocket-list {
@@ -8,18 +8,36 @@
   margin: 0 auto;
 }
 
-.tab-list-item a {
+.pocket-list .pocket-list-item {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.pocket-list .pocket-list-item .details {
+  height: 32px;
+}
+
+.pocket-list .pocket-list-item .details .pocket-name {
+  font-size: 1.2em;
+}
+
+.pocket-list .pocket-list-item .tab-list {
+  margin: 8px 4px;
+}
+
+.pocket-list .pocket-list-item .tab-list .tab-list-item a {
   text-decoration: none;
   color: inherit;
 }
 
-.tab-list-item {
+.pocket-list .pocket-list-item .tab-list .tab-list-item {
   background-color: #FEFEFE;
   margin: 4px 4px 0;
   padding: 4px 0;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-.tab-list-item .tab-info {
+.pocket-list .pocket-list-item .tab-list .tab-list-item .tab-info {
   font-size: 0.9em;
+  margin-left: 0;
 }

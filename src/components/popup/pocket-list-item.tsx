@@ -4,9 +4,10 @@ import { Draggable } from 'react-beautiful-dnd'
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
 import { FlexChild, FlexParent } from '../shared/flexbox'
-import PocketDetails from '../shared/pocket-details'
 import PocketIcon from '../shared/pocket-icon'
 import { DragHandle, Truncated } from '../shared/utils'
+
+import PocketDetails from './pocket-details'
 
 interface Props {
   pocket: Pocket,
