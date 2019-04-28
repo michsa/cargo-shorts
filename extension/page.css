@@ -1,28 +1,118 @@
-html, body {
+html, body, #root, #page {
   height: 100%;
 }
 
-.pocket-list {
-  max-width: 1000px;
-  width: 1000px;
-  margin: 0 auto;
+.page-header {
+  background-color: #00efd1;
+  border-bottom: 2px solid #00ACEA;
+  padding: 0 16px;
 }
 
-.pocket-list .pocket-list-item {
+.page-header .title {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #083863;
+}
+
+.page-header .shorts {
+  display: inline-block;
+  height: 22px;
+  width: 22px;
+  vertical-align: sub;
+  margin-right: 8px;
+  background-image: url('icons/blue_lined.svg');
+}
+
+.page-header .icons {
+  text-align: center;
+}
+
+.page-header .icons .pocket-icon {
+  display: inline-block;
+  margin: 4px;
+}
+
+.page-header .buttons {
+  text-align: right;
+}
+
+.pocket-list {
+  padding: 8px 8px 0;
+  overflow-x: auto;
+}
+
+.pocket-list .pocket-list-item-holder {
+  position: relative;
+  flex: 0 0 304px;
+}
+
+.pocket-list .pocket-list-item-holder .pocket-list-item-holder-scrollfix {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  flex: 0;
+}
+
+.pocket-list .pocket-list-item-holder .pocket-list-item {
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  height: auto;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  /* for Firefox */
+  min-height: 0;
+}
+
+.pocket-list .pocket-list-item .pocket-info {
+  position: relative;
+  height: 32px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .pocket-list .pocket-list-item .details {
-  height: 32px;
+  position: absolute;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 2;
+  margin-right: 0px;
+  transition: color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s;
+}
+
+.pocket-list .pocket-list-item .pocket-info:hover .details {
+  margin-right: 32px;
+  transition: margin-right 0.3s ease 0.3s;
 }
 
 .pocket-list .pocket-list-item .details .pocket-name {
   font-size: 1.2em;
 }
 
+.pocket-list .pocket-list-item .edit-pocket {
+  width: 32px;
+  height: 32px;
+  background-color: #FEDB41;
+  float: right;
+}
+
+.pocket-list .pocket-list-item .details .drag-handle {
+  width: 24px;
+}
+
 .pocket-list .pocket-list-item .tab-list {
-  margin: 8px 4px;
+  overflow: auto;
+  padding-bottom: 4px;
+  flex-grow: 1;
+  overflow: auto;
+  /* for Firefox */
+  min-height: 0;
 }
 
 .pocket-list .pocket-list-item .tab-list .tab-list-item a {
@@ -40,4 +130,10 @@ html, body {
 .pocket-list .pocket-list-item .tab-list .tab-list-item .tab-info {
   font-size: 0.9em;
   margin-left: 0;
+  margin-right: 4px;
+}
+
+.pocket-list .pocket-list-item .tab-list .tab-list-item .drag-handle {
+  width: 12px;
+  padding-left: 4px;
 }

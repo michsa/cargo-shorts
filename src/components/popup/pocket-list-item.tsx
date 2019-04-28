@@ -4,6 +4,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
 import { FlexChild, FlexParent } from '../shared/flexbox'
+import PocketCount from '../shared/pocket-count'
 import PocketIcon from '../shared/pocket-icon'
 import { DragHandle, Truncated } from '../shared/utils'
 
@@ -43,9 +44,7 @@ export default ({ pocket, isActive, index, handleEdit, handleClick }: Props) => 
           <FlexChild style={{ minWidth: 0, textAlign: 'left' }} className="pocket-name" flex={1}>
             <Truncated>{pocket.name}</Truncated>
           </FlexChild>
-          <FlexChild className="pocket-count" flex={0}>
-            {pocket.tabs.length}
-          </FlexChild>
+          <PocketCount count={pocket.tabs.length} />
         </PocketDetails>
         <FlexParent
           className="edit-pocket"

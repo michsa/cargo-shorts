@@ -1,10 +1,12 @@
 import Color from 'color'
 import * as React from 'react'
+import { Draggable } from 'react-beautiful-dnd'
 
 import styled from '../../styled-components'
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
 import { FlexChild, FlexParent } from '../shared/flexbox'
+import PocketCount from '../shared/pocket-count'
 import PocketIcon from '../shared/pocket-icon'
 import { DragHandle, Truncated } from '../shared/utils'
 
@@ -12,46 +14,65 @@ import PocketDetails from './pocket-details'
 import TabList from './tab-list'
 
 interface Props {
-  pocket: Pocket
+  pocket: Pocket,
+  index: number,
   handleEdit: (id: string) => void
 }
 
-const PocketListItem = styled.div<{color: string}>`
-border: 2px solid ${props => props.color};
-background-color: ${props => Color(props.color).alpha(0.1).string()}
+const PocketListItem = styled.div<{ color: string }>`
+background-color: ${props =>
+    Color(props.theme.altBackgroundColor)
+      .mix(Color(props.color), 0.3).hex()
+  }
 `
 
-export default ({ pocket, handleEdit }: Props) => {
+export default ({ pocket, handleEdit, index }: Props) => {
   return (
-    <PocketListItem className="pocket-list-item" key={pocket.id} color={pocket.color}>
-      <PocketDetails
-        className="details"
-        color={pocket.color}
-        alignItems="center"
-      >
-        <FlexChild flex={0}>
-          <DragHandle />
-        </FlexChild>
-        <FlexChild flex={0}>
-          <PocketIcon icon={pocket.icon} />
-        </FlexChild>
-        <FlexChild style={{ minWidth: 0, textAlign: 'left' }} className="pocket-name" flex={1}>
-          <Truncated>{pocket.name}</Truncated>
-        </FlexChild>
-        <FlexChild className="pocket-count" flex={0}>
-          {pocket.tabs.length}
-        </FlexChild>
-        <FlexParent
-          className="edit-pocket"
-          onClick={() => handleEdit(pocket.id)}
-          justifyContent="center"
-          alignItems="center"
+    <Draggable draggableId={pocket.id} index={index}>
+      {(provided) => (
+        <div
+          className="pocket-list-item-holder"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
         >
-          <Emoji emoji="✏️" size={13} />
-        </FlexParent>
-      </PocketDetails>
+          <div className="pocket-list-item-holder-scrollfix">
+            <PocketListItem
+              className="pocket-list-item"
+              key={pocket.id}
+              color={pocket.color}
+            >
+              <div className="pocket-info">
+                <PocketDetails
+                  className="details"
+                  color={pocket.color}
+                  alignItems="center"
+                >
+                  <FlexChild flex={0} {...provided.dragHandleProps}>
+                    <DragHandle />
+                  </FlexChild>
+                  <FlexChild flex={0}>
+                    <PocketIcon icon={pocket.icon} />
+                  </FlexChild>
+                  <FlexChild style={{ minWidth: 0, textAlign: 'left' }} className="pocket-name" flex={1}>
+                    <Truncated>{pocket.name}</Truncated>
+                  </FlexChild>
+                  <PocketCount count={pocket.tabs.length} />
 
-      <TabList pocketId={pocket.id} />
-    </PocketListItem>
+                </PocketDetails>
+                <FlexParent
+                  className="edit-pocket"
+                  onClick={() => handleEdit(pocket.id)}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Emoji emoji="✏️" size={13} />
+                </FlexParent>
+              </div>
+              <TabList pocketId={pocket.id} color={pocket.color} />
+            </PocketListItem>
+          </div>
+        </div>
+      )}
+    </Draggable>
   )
 }

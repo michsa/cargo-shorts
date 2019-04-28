@@ -89,9 +89,9 @@ export const Emoji: FunctionComponent<EmojiProps> =
 
 export const DropShadow = styled('span')`
 filter:
-  drop-shadow(0 -1px ${props => props.theme.textColor}88)
-  drop-shadow(-1px 1px ${props => props.theme.textColor}AA)
-  drop-shadow(1px 0.5px ${props => props.theme.textColor});
+  drop-shadow(0 -1px ${props => props.theme.textColor}99)
+  drop-shadow(-1px 1px ${props => props.theme.textColor}99)
+  drop-shadow(1px 0.5px ${props => props.theme.textColor}CC);
 .emoji {
   width: auto;
   height: 100%;
