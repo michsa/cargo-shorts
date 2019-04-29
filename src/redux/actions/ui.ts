@@ -2,7 +2,12 @@ import { createStandardAction as create } from 'typesafe-actions'
 
 import { PocketID, PocketSettings, SavedTab, Tab } from '../../types'
 
-// --- ui actions --- //
+// --- browser api stuff --- //
+
+export const requestCurrentTabInfo = create('ui/REQUEST_CURRENT_TAB_INFO')()
+
+
+// --- tab stuff --- //
 
 export const newTab = create('ui/NEW_TAB')
   <{ tab: Tab, pocketId: PocketID }>()
@@ -12,15 +17,16 @@ export const moveTab = create('ui/MOVE_TAB')
 
 export const removeTab = create('ui/REMOVE_TAB')<SavedTab>()
 
-export const requestCurrentTabInfo = create('ui/REQUEST_CURRENT_TAB_INFO')()
+
+// --- pocket stuff --- //
+
+export const newPocket = create('ui/NEW_POCKET')<PocketSettings>()
 
 export const updatePocketSettings = create('ui/UPDATE_POCKET_SETTINGS')
   <{ id: PocketID, settings: PocketSettings }>()
 
 export const movePocket = create('ui/MOVE_POCKET')
   <{ start: number, end: number }>()
-
-export const newPocket = create('ui/NEW_POCKET')<PocketSettings>()
 
 export const deletePocket = create('ui/DELETE_POCKET')<PocketID>()
 
