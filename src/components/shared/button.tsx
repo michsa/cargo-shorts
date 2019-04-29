@@ -18,7 +18,7 @@ export const Button = flexifyCentered(styled('button')`
 `)
 
 export const IconButton: FunctionComponent<{ icon?: string, onClick: () => void }> = (props) => (
-  <Button as="button" className="button" onClick={props.onClick}>
+  <Button as="button" onClick={props.onClick}>
     {props.icon && <Emoji emoji={props.icon} size={14} />}
     {props.icon && props.children && <FlexChild flex="0 0 0.4em" />}
     {props.children}

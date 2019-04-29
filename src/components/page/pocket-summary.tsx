@@ -21,13 +21,16 @@ const IconHolder = styled(FlexCenter) <{ color: string }>`
 `
 
 const PocketIcons = ({ pockets }: Props) => (
-  <FlexCenter>
+  <FlexCenter className="pocket-summary">
     {pockets.map(pocket =>
-      <IconHolder color={pocket.color} key={pocket.id}>
+      <IconHolder
+        color={pocket.color}
+        key={pocket.id}
+        className="pocket-summary-item"
+      >
         <PocketIcon icon={pocket.icon} />
-        <PocketCount count={pocket.tabs.length} />
+        <PocketCount count={pocket.tabs.length} margin={0} />
       </IconHolder>
-
     )}
   </FlexCenter>
 )

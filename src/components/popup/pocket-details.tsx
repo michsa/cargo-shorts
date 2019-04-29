@@ -18,7 +18,7 @@ export default styled(FlexParent) <{ isActive: boolean, color: string }>`
   :hover {
     background-color: ${props =>
     Color(props.theme.altBackgroundColor).mix(
-      Color(props.color), props.isActive ? 0.8 : 0.1
+      Color(props.color), props.isActive ? 0.8 : 0.15
     ).hex()
   };
   }

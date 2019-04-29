@@ -60,10 +60,15 @@ h1 {
 .pocket-count {
   border-radius: 1px;
   padding: 0.2em 0.6em;
+  padding: 1px 6px;
   margin: 0 8px;
   font-size: 0.9em;
   vertical-align: middle;
   line-height: normal;
+}
+
+.edit-pocket {
+  cursor: pointer;
 }
 
 /* --- misc --- */
