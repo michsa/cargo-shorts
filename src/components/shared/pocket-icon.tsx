@@ -6,6 +6,6 @@ type Props = { icon: string }
 
 export default ({icon}: Props) => (
   <div className="pocket-icon">
-    <Emoji emoji={icon} size={17} />
+    <Emoji emoji={icon} size={16} />
   </div>
 )

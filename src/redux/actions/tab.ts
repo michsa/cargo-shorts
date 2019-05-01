@@ -2,7 +2,6 @@ import { createStandardAction as create } from 'typesafe-actions'
 
 import { PocketID, SavedTab, Tab, TabID } from '../../types'
 
-// --- atomic actions --- //
 
 export const updateCurrentTab = create('tab/UPDATE_CURRENT')
   <Tab | undefined>()
