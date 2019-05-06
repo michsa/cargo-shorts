@@ -19,18 +19,19 @@ const tabsLens = (pocketId: PocketID) => lensPath([pocketId, 'tabs'])
 const insertOrAppend = (tabId: TabID, position?: number) =>
   position !== undefined ? insert(position, tabId) : append(tabId)
 
+// fisher-yates shuffle, cribbed from somewhere or other
 const shuffle = <T>(xs: T[]) => {
   let a = [...xs]
   let counter = xs.length
   while (counter > 0) {
-      // Pick a random index
-      const index = Math.floor(Math.random() * counter)
-      // Decrease counter by 1
-      counter--
-      // And swap the last element with it
-      let temp = a[counter]
-      a[counter] = a[index]
-      a[index] = temp
+    // pick a random index
+    const index = Math.floor(Math.random() * counter)
+    // decrease counter by 1
+    counter--
+    // and swap the last element with it
+    let temp = a[counter]
+    a[counter] = a[index]
+    a[index] = temp
   }
   return a
 }
@@ -99,10 +100,10 @@ const idList: Reducer<PocketID[]> = (
 
     case getType(pocket.deletePocket):
       return without<PocketID>([action.payload], state)
-    
+
     case getType(pocket.shufflePockets):
       return shuffle(state)
-    
+
     case getType(pocket.movePocket):
       return move(action.payload.start, action.payload.end, state)
 

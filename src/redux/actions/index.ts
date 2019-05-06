@@ -3,8 +3,8 @@ import { Dispatch } from 'redux'
 import { ActionType } from 'typesafe-actions'
 import { browser, Tabs } from 'webextension-polyfill-ts'
 
-import { Tab } from '../../types'
-import { getTabIdListForPocket } from '../selectors'
+import { State, Tab } from '../../types'
+import { getTabIdListForPocket, getTabPocket } from '../selectors'
 
 import * as pocketActions from './pocket'
 import * as tabActions from './tab'
@@ -79,19 +79,14 @@ export const moveTab = (
     typeof pocketActions.unassignTab
     | typeof pocketActions.assignTab
     | typeof tabActions.updateTabPocket
-  >>) => {
+  >>, getState: () => State) => {
+    const oldPocket = getTabPocket(getState(), payload.tabId)
     dispatch(pocketActions.unassignTab({
-      pocketId: payload.tab.pocket,
-      tabId: payload.tab.id
+      pocketId: oldPocket,
+      tabId: payload.tabId
     }))
-    dispatch(pocketActions.assignTab({
-      pocketId: payload.pocketId,
-      tabId: payload.tab.id
-    }))
-    dispatch(tabActions.updateTabPocket({
-      pocketId: payload.pocketId,
-      tabId: payload.tab.id
-    }))
+    dispatch(pocketActions.assignTab(payload))
+    dispatch(tabActions.updateTabPocket(payload))
   }
 }
 
@@ -119,7 +114,7 @@ export const deletePocket = (
   return (dispatch: Dispatch<ActionType<
     typeof pocketActions.deletePocket
     | typeof tabActions.deleteTab
-  >>, getState) => {
+  >>, getState: () => State) => {
     const tabIds = getTabIdListForPocket(getState(), payload)
     for (const tabId of tabIds) {
       dispatch(tabActions.deleteTab(tabId))

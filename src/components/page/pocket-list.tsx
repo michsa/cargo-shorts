@@ -3,7 +3,7 @@ import * as React from 'react'
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
-import { movePocket } from '../../redux/actions/ui'
+import { movePocket, moveTab } from '../../redux/actions/ui'
 import { getOrderedPockets } from '../../redux/selectors'
 import { Pocket, State } from '../../types'
 import { FlexChild, FlexParent } from '../shared/flexbox'
@@ -24,10 +24,18 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {
   onDragEnd: (result: DropResult) => (
-    result.destination && movePocket({
-      start: result.source.index,
-      end: result.destination.index
-    })
+    result.destination && (
+      result.type === 'COLUMN'
+        ? movePocket({
+          start: result.source.index,
+          end: result.destination.index
+        })
+        : moveTab({
+          tabId: result.draggableId,
+          pocketId: result.destination.droppableId,
+          position: result.destination.index
+        })
+    )
   )
 } as Handlers
 

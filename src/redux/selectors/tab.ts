@@ -1,13 +1,20 @@
 import { compose, eqProps, find, keys, values } from 'ramda'
 import { createSelector } from 'reselect'
 
-import { SavedTab, State, TabMap } from '../../types'
+import { SavedTab, State, TabID, TabMap } from '../../types'
 
 import { getTabIdListForPocket } from './pocket'
 
 export const getTabs = (state: State) => state.tabs.byId
 
+export const getTabById = (state: State, id: TabID) => state.tabs.byId[id]
+
 export const getCurrentTab = (state: State) => state.tabs.current
+
+export const getTabPocket = createSelector(
+  [getTabById],
+  (tab) => tab.pocket
+)
 
 export const getTabIdList = createSelector(
   [getTabs],

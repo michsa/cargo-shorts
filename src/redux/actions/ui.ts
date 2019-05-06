@@ -1,6 +1,6 @@
 import { createStandardAction as create } from 'typesafe-actions'
 
-import { PocketID, PocketSettings, SavedTab, Tab } from '../../types'
+import { PocketID, PocketSettings, SavedTab, Tab, TabID } from '../../types'
 
 // --- browser api stuff --- //
 
@@ -13,7 +13,7 @@ export const newTab = create('ui/NEW_TAB')
   <{ tab: Tab, pocketId: PocketID }>()
 
 export const moveTab = create('ui/MOVE_TAB')
-  <{ tab: SavedTab, pocketId: PocketID, position?: number }>()
+  <{ tabId: TabID, pocketId: PocketID, position?: number }>()
 
 export const removeTab = create('ui/REMOVE_TAB')<SavedTab>()
 

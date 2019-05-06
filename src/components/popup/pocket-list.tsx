@@ -48,7 +48,7 @@ const mapDispatchToProps = {
     savedTab
       ? savedTab.pocket === pocketId
         ? removeTab(savedTab)
-        : moveTab({ tab: savedTab, pocketId })
+        : moveTab({ tabId: savedTab.id, pocketId })
       : newTab({ tab, pocketId })
   ),
   onDragEnd: (result: DropResult) => (
