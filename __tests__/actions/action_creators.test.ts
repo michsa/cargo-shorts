@@ -35,7 +35,7 @@ describe('UI Actions', () => {
       tab: tab, pocketId: pocket.id
     }
     expect(uiActions.newTab(payload)).toEqual({
-      type: 'uiActions/NEW_TAB', payload
+      type: 'ui/NEW_TAB', payload
     })
   })
 
@@ -44,20 +44,20 @@ describe('UI Actions', () => {
       tabId: savedTab.id, pocketId: pocket.id, position: 2
     }
     expect(uiActions.moveTab(payload)).toEqual({
-      type: 'uiActions/MOVE_TAB', payload
+      type: 'ui/MOVE_TAB', payload
     })
   })
 
   it('removeTab', () => {
     const payload: SavedTab = savedTab
     expect(uiActions.removeTab(payload)).toEqual({
-      type: 'uiActions/REMOVE_TAB', payload
+      type: 'ui/REMOVE_TAB', payload
     })
   })
 
   it('requestCurrentTabInfo', () => {
     expect(uiActions.requestCurrentTabInfo()).toEqual({
-      type: 'uiActions/REQUEST_CURRENT_TAB_INFO'
+      type: 'ui/REQUEST_CURRENT_TAB_INFO'
     })
   })
 
@@ -66,14 +66,14 @@ describe('UI Actions', () => {
       id: pocket.id, settings: pocketSettings
     }
     expect(uiActions.updatePocketSettings(payload)).toEqual({
-      type: 'uiActions/UPDATE_POCKET_SETTINGS', payload
+      type: 'ui/UPDATE_POCKET_SETTINGS', payload
     })
   })
 
   it('newPocket', () => {
     const payload: PocketSettings = pocketSettings
     expect(uiActions.newPocket(payload)).toEqual({
-      type: 'uiActions/NEW_POCKET', payload
+      type: 'ui/NEW_POCKET', payload
     })
   })
 
@@ -82,20 +82,20 @@ describe('UI Actions', () => {
       start: 1, end: 2
     }
     expect(uiActions.movePocket(payload)).toEqual({
-      type: 'uiActions/MOVE_POCKET', payload
+      type: 'ui/MOVE_POCKET', payload
     })
   })
 
   it('deletePocket', () => {
     const payload: PocketID = pocket.id
     expect(uiActions.deletePocket(payload)).toEqual({
-      type: 'uiActions/DELETE_POCKET', payload
+      type: 'ui/DELETE_POCKET', payload
     })
   })
 
   it('shufflePockets', () => {
     expect(uiActions.shufflePockets()).toEqual({
-      type: 'uiActions/SHUFFLE_POCKETS'
+      type: 'ui/SHUFFLE_POCKETS'
     })
   })
 })
@@ -144,7 +144,7 @@ describe('Pocket Actions', () => {
       pocketId: pocket.id, tabId: savedTab.id, position: 4
     }
     expect(pocketActions.assignTab(payload)).toEqual({
-      type: 'pocket/UPDATE', payload
+      type: 'pocket/ASSIGN_TAB', payload
     })
   })
 

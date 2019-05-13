@@ -12,8 +12,6 @@ import * as ui from './ui'
 
 interface BrowserTab extends Tabs.Tab { }
 
-export { shufflePockets } from './pocket'
-
 export const getCurrentTabInfo = () => {
   return async (dispatch: Dispatch<ActionType<
     typeof tabActions.updateCurrentTab

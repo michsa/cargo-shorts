@@ -35,7 +35,7 @@ const makeMapStateToProps = () => {
 
 const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
   <Droppable
-    droppableId={`${pocketId}-tabList`}
+    droppableId={pocketId}
     direction="vertical"
     type="LIST"
   >
