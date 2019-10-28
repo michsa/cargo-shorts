@@ -34,6 +34,5 @@ export default createBackgroundStore({
     [getType(ui.deletePocket)]: actions.deletePocket,
     [getType(ui.movePocket)]: actions.movePocket,
     [getType(ui.updatePocketSettings)]: actions.updatePocketSettings,
-    [getType(ui.shufflePockets)]: actions.shufflePockets
   }
 })
