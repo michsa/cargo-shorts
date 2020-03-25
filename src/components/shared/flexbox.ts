@@ -9,7 +9,7 @@ import styled from 'styled-components'
 
 // --- createStyleFromProps --- //
 
-type Pair<T> = [string, T[keyof T]]
+type Pair<T> = [keyof T, T[keyof T]]
 
 // const kebabToCamel = replace(/-([a-z])/g, compose(toUpper, last))
 const camelToKebab = replace(/([A-Z])/g, compose(concat('-'), toLower))
@@ -21,7 +21,7 @@ const pairToStyle = <T>(pair: Pair<T>) =>
 
 const createStyleCreatorFromAllowedProps = <T extends {[K: string]: unknown}>(allowedProps: Array<keyof T>) =>
   <P extends object>(defaultProps: Partial<T>) =>
-    compose<P, T, { [K in keyof T]: T[K] }, Pair<T>[], string[], string>(
+    compose<P, T, unknown, Pair<T>[], string[], string>(
       join('; '),
       map(pairToStyle),
       toPairs,
@@ -29,7 +29,7 @@ const createStyleCreatorFromAllowedProps = <T extends {[K: string]: unknown}>(al
       pickBy((v, k) => includes(k, allowedProps))
     )
 
-const stylify = <T extends object>(allowedProps: Array<keyof T>) =>
+const stylify = <T extends {[K: string]: unknown}>(allowedProps: Array<keyof T>) =>
   (defaultProps: Partial<T> = {}) =>
     (x) => styled(x) <T>`
       ${createStyleCreatorFromAllowedProps(allowedProps)(defaultProps)}
