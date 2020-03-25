@@ -1,4 +1,4 @@
-import { createStandardAction as create } from 'typesafe-actions'
+import { createAction as create } from 'typesafe-actions'
 
 import { PocketID, SavedTab, Tab, TabID } from '../../types'
 

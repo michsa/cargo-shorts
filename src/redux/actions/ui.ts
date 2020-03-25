@@ -1,6 +1,7 @@
-import { createStandardAction as create } from 'typesafe-actions'
+import { createAction as create } from 'typesafe-actions'
 
 import { PocketID, PocketSettings, SavedTab, Tab, TabID } from '../../types'
+
 
 // --- browser api stuff --- //
 
