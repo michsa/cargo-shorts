@@ -1,6 +1,6 @@
-import { BaseEmoji, NimbleEmoji, NimblePicker } from 'emoji-mart'
+import { BaseEmoji, NimblePicker } from 'emoji-mart'
 import data from 'emoji-mart/data/twitter.json'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import twemoji from 'twemoji'
 
 import styled from '../../styled-components'
@@ -40,7 +40,6 @@ filter:
   drop-shadow(1px -1px 0 ${props => props.theme.textColor})
   drop-shadow(1px 1px 0 ${props => props.theme.textColor});
 `
-*/
 
 export const Emoji00: FunctionComponent<EmojiProps> =
   ({ emoji, size }: EmojiProps) => {
@@ -65,15 +64,13 @@ export const Emoji01: FunctionComponent<EmojiProps> =
     </DropShadow>
   )
 
-
-
 export const Emoji03: FunctionComponent<EmojiProps> =
   ({ emoji, size }: EmojiProps) => (
     <DropShadow>
       <NimbleEmoji emoji={emoji} size={size || 16} data={data} set="twitter" native={true} />
     </DropShadow>
   )
-/*
+
 export const Emoji: FunctionComponent<EmojiProps> =
   ({ emoji, size }: EmojiProps) => (
     <DropShadow>
@@ -100,19 +97,18 @@ filter:
 }
 `
 
-export const Emoji: FunctionComponent<EmojiProps> =
-  ({ emoji, size }: EmojiProps) => (
-    <DropShadow
-      style={{
-        width: `${size || 16}px`,
-        height: `${size || 16}px`,
-        display: 'block'
-      }}
-      dangerouslySetInnerHTML={{
-        __html: twemoji.parse(emoji, {
-          folder: 'svg', 
-          ext: '.svg'
-        })
-      }}
-    />
-  )
+export const Emoji = ({ emoji, size }: EmojiProps) => (
+  <DropShadow
+    style={{
+      width: `${size || 16}px`,
+      height: `${size || 16}px`,
+      display: 'block'
+    }}
+    dangerouslySetInnerHTML={{
+      __html: twemoji.parse(emoji, {
+        folder: 'svg',
+        ext: '.svg'
+      })
+    }}
+  />
+)
