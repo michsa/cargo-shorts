@@ -5,8 +5,10 @@ import twemoji from 'twemoji'
 
 import styled from '../../styled-components'
 
-export const Picker: FunctionComponent<{ onSelect: (emoji: BaseEmoji) => void }> =
-  ({ onSelect }) => (
+type PickerProps = { onSelect: (emoji: BaseEmoji) => void }
+
+export const Picker =
+  ({ onSelect }: PickerProps) => (
     <NimblePicker
       native={false}
       data={data}
@@ -23,7 +25,7 @@ export const Picker: FunctionComponent<{ onSelect: (emoji: BaseEmoji) => void }>
   )
 
 interface EmojiProps {
-  emoji: string
+  emoji: string,
   size?: number
 }
 

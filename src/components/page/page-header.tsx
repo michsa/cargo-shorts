@@ -11,7 +11,7 @@ const PageHeaderButton = styled(IconButton)`
   color: ${props => props.theme.textColor};
 `
 
-export default () => (
+const PageHeader = () => (
       <FlexParent
         className="page-header"
         alignItems="center"
@@ -29,3 +29,4 @@ export default () => (
         </FlexParent>
       </FlexParent>
 )
+export default PageHeader

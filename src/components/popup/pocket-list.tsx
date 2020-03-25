@@ -1,8 +1,7 @@
 import { move } from 'ramda'
 import * as React from 'react'
 import {
-  DragDropContext, Droppable, DroppableProvided,
-  DroppableStateSnapshot, DropResult
+  DragDropContext, Droppable, DroppableProvided, DropResult
 } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
@@ -80,10 +79,7 @@ const PocketList = ({
         <Droppable
           droppableId={'popupPocketList'}
         >
-          {(
-            provided: DroppableProvided,
-            snapshot: DroppableStateSnapshot,
-          ) => (
+          {(provided: DroppableProvided) => (
               <div
                 className="list"
                 ref={provided.innerRef}

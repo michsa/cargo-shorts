@@ -18,9 +18,9 @@ interface Props {
   handleClick: (id: string) => void
 }
 
-export default ({ pocket, isActive, index, handleEdit, handleClick }: Props) => (
+const PocketListItem = ({ pocket, isActive, index, handleEdit, handleClick }: Props) => (
   <Draggable draggableId={pocket.id} index={index}>
-    {(provided, snapshot) => (
+    {(provided) => (
       <div
         className="pocket-list-item"
         ref={provided.innerRef}
@@ -58,3 +58,4 @@ export default ({ pocket, isActive, index, handleEdit, handleClick }: Props) => 
     )}
   </Draggable>
 )
+export default PocketListItem

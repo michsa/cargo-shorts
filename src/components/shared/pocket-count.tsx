@@ -17,8 +17,7 @@ const PocketCountStyle = styled(FlexChild) <{ margin: number }>`
 }
 `
 
-const PocketCount: React.FunctionComponent<{ count: number, margin?: number }> =
-  ({ count, margin }) => (
+const PocketCount = ({ count, margin }: { count: number, margin?: number }) => (
     <PocketCountStyle
       className="pocket-count"
       flex={0}

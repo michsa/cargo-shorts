@@ -11,7 +11,7 @@ interface Props {
   index: number
 }
 
-export default ({ tab, index }: Props) => (
+const TabListItem = ({ tab, index }: Props) => (
   <Draggable draggableId={tab.id} index={index}>
     {(provided) => (
       <li
@@ -36,3 +36,4 @@ export default ({ tab, index }: Props) => (
     )}
   </Draggable>
 )
+export default TabListItem

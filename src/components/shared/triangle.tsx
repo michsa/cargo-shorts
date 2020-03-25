@@ -4,12 +4,12 @@ import styled from '../../styled-components'
 import { Omit } from '../../types'
 
 interface TriangleProps {
-  bgColor?: string
-  width: number
-  height: number
-  borderColor?: string
-  margin: number
-  borderWidth: number
+  bgColor?: string,
+  width: number,
+  height: number,
+  borderColor?: string,
+  margin: number,
+  borderWidth: number,
   side: 'left' | 'right'
 }
 

@@ -19,7 +19,7 @@ const Favicon = styled('div') <{ src: string, iconSize: number }>`
   background-repeat: no-repeat;
 `
 
-export default ({ tab, iconSize = 32 }: Props) => (
+const TabInfo = ({ tab, iconSize = 32 }: Props) => (
   <FlexParent
     flexDirection="row"
     alignItems="center"
@@ -41,3 +41,4 @@ export default ({ tab, iconSize = 32 }: Props) => (
     </FlexChild>
   </FlexParent>
 )
+export default TabInfo

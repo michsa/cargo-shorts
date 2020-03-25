@@ -26,7 +26,7 @@ background-color: ${props =>
   }
 `
 
-export default ({ pocket, handleEdit, index }: Props) => {
+const PocketListItemWrapper = ({ pocket, handleEdit, index }: Props) => {
   return (
     <Draggable draggableId={pocket.id} index={index}>
       {(provided) => (
@@ -76,3 +76,4 @@ export default ({ pocket, handleEdit, index }: Props) => {
     </Draggable>
   )
 }
+export default PocketListItemWrapper
