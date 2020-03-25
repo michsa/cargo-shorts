@@ -1,24 +1,27 @@
 import Color from 'color'
+import { prop } from 'ramda'
 
 import styled from '../../styled-components'
-import { FlexParent } from '../shared/flexbox'
 
-export default styled(FlexParent) <{ isActive: boolean, color: string }>`
+export default styled.div <{ isActive: boolean, color: string }>`
+  display: flex;
+  flex: 1;
+  align-items: center;
   background-color: ${props =>
     props.isActive
       ? props.color
       : props.theme.altBackgroundColor
   };
-  color: ${props =>
-    props.isActive && Color(props.color).isDark() !== props.theme.isDark
-      ? props.theme.altBackgroundColor
-      : props.theme.textColor
+  color: ${({ isActive, color, theme}) =>
+    isActive && Color(color).isDark() !== theme.isDark
+      ? theme.altBackgroundColor
+      : theme.textColor
   };
-  border-left: 8px solid ${props => props.color};
+  border-left: 8px solid ${prop('color')};
   :hover {
-    background-color: ${props =>
-    Color(props.theme.altBackgroundColor).mix(
-      Color(props.color), props.isActive ? 0.8 : 0.15
+    background-color: ${({ isActive, color, theme }) =>
+    Color(theme.altBackgroundColor).mix(
+      Color(color), isActive ? 0.8 : 0.15
     ).hex()
   };
   }
