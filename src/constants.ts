@@ -10,7 +10,7 @@ export const pocketDefaults = {
         "Food porn", "Books", "Tutorials", "TED talks", "Research papers"
     ],
     icon: ['👶'],
-    old_icon: [
+    oldIcon: [
         ':sunglasses:', ':joy:', ':ok_hand:', ':muscle:', ':strawberry:',
         ':pumpkin:', ':mage:', ':sparkles:', ':sun_with_face:', ':rainbow:',
         ':floppy_disk:', ':phone:', ':candle:', ':books:', ':briefcase:',

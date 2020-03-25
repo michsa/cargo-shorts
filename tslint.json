@@ -25,7 +25,6 @@
         "no-any": true,
         "no-arg": true,
         "no-bitwise": true,
-        /*
         "no-console": [
             true,
             "log",
@@ -36,10 +35,9 @@
             "timeEnd",
             "trace"
         ],
-        */
         "no-consecutive-blank-lines": false,
         "no-construct": true,
-        /* "no-debugger": true, */
+        "no-debugger": true,
         "no-duplicate-variable": true,
         "no-empty": true,
         "no-eval": true,

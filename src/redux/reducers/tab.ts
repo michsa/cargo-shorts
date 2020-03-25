@@ -21,8 +21,7 @@ const byId: Reducer<TabMap> = (
   switch (action.type) {
 
     case getType(tab.newTab):
-      const newState = assoc(action.payload.id, action.payload, state)
-      return newState
+      return assoc(action.payload.id, action.payload, state)
 
     case getType(tab.deleteTab):
       return omit([action.payload], state)

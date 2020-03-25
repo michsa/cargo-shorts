@@ -20,8 +20,8 @@ const insertOrAppend = (tabId: TabID, position?: number) =>
   position !== undefined ? insert(position, tabId) : append(tabId)
 
 // fisher-yates shuffle, cribbed from somewhere or other
-const shuffle = <T>(xs: T[]) => {
-  let a = [...xs]
+const shuffle = <T>(xs: T[]): T[] => {
+  const a = [...xs]
   let counter = xs.length
   while (counter > 0) {
     // pick a random index
@@ -29,7 +29,7 @@ const shuffle = <T>(xs: T[]) => {
     // decrease counter by 1
     counter--
     // and swap the last element with it
-    let temp = a[counter]
+    const temp = a[counter]
     a[counter] = a[index]
     a[index] = temp
   }
@@ -43,9 +43,8 @@ const byId: Reducer<PocketMap> = (
   action: ActionType<typeof pocket>
 ): PocketMap => {
   switch (action.type) {
-
     case getType(pocket.newPocket):
-      const newState = assoc<Pocket, PocketMap, PocketID>(
+      return assoc<Pocket, PocketMap, PocketID>(
         action.payload.id,
         {
           ...action.payload.settings,
@@ -54,7 +53,6 @@ const byId: Reducer<PocketMap> = (
         },
         state
       )
-      return newState
 
     case getType(pocket.deletePocket):
       return omit([action.payload], state)

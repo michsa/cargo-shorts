@@ -10,7 +10,7 @@ import * as pocketActions from './pocket'
 import * as tabActions from './tab'
 import * as ui from './ui'
 
-interface BrowserTab extends Tabs.Tab { }
+type BrowserTab = Tabs.Tab
 
 export const getCurrentTabInfo = () => {
   return async (dispatch: Dispatch<ActionType<
