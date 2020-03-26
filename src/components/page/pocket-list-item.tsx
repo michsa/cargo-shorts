@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { Flex } from 'reflexbox'
 
-import styled from '../../styled-components'
+import styled from "../../styled"
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
 import PocketCount from '../shared/pocket-count'

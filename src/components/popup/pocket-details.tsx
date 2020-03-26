@@ -1,9 +1,10 @@
 import Color from 'color'
 import { prop } from 'ramda'
+import { Flex } from 'reflexbox'
 
-import styled from '../../styled-components'
+import styled from "../../styled"
 
-export default styled.div<{ isActive: boolean; color: string }>`
+export default styled(Flex)<{ isActive: boolean; color: string }>`
   display: flex;
   flex: 1;
   align-items: center;

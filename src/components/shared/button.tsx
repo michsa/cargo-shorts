@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex } from 'reflexbox'
 
-import styled from '../../styled-components'
+import styled from "../../styled"
 
 import { Emoji } from './emoji'
 
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export const IconButton = ({ icon, children, onClick }: Props) => (
-  <Button as="button" className="button" onClick={onClick}>
+  <Button className="button" onClick={onClick}>
     {icon && <Emoji emoji={icon} size={14} />}
     {icon && children && <Flex flex="0 0 0.4em" />}
     {children}

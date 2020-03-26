@@ -1,7 +1,7 @@
+import { ThemeProvider } from 'emotion-theming'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import styled from '../../styled-components'
+import styled from '../../styled'
 import theme from '../../theme'
 import { RouterState } from '../../types'
 

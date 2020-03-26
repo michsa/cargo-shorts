@@ -3,7 +3,7 @@ import data from 'emoji-mart/data/twitter.json'
 import React from 'react'
 import twemoji from 'twemoji'
 
-import styled from '../../styled-components'
+import styled from "../../styled"
 
 type PickerProps = { onSelect: (emoji: BaseEmoji) => void }
 

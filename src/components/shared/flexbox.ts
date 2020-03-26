@@ -12,7 +12,7 @@ import {
   toLower,
   toPairs
 } from 'ramda'
-import styled from 'styled-components'
+import styled from "styled"
 
 // --- createStyleFromProps --- //
 

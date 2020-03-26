@@ -3,7 +3,7 @@ import { Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { makeGetOrderedTabs } from '../../redux/selectors'
-import styled from '../../styled-components'
+import styled from "../../styled"
 import { PocketID, SavedTab, State } from '../../types'
 import { List } from '../shared/utils'
 

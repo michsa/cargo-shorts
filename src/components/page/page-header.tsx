@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Flex } from 'reflexbox'
 
-import styled from '../../styled-components'
+import styled from "../../styled"
 import { IconButton } from '../shared/button'
 
 import PocketIcons from './pocket-summary'

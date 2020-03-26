@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Flex } from 'reflexbox'
 
 import { getOrderedPockets } from '../../redux/selectors'
-import styled from '../../styled-components'
+import styled from "../../styled"
 import { Pocket, State } from '../../types'
 import PocketCount from '../shared/pocket-count'
 import PocketIcon from '../shared/pocket-icon'

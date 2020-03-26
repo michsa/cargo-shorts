@@ -12,7 +12,7 @@ import {
   updatePocketSettings
 } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
-import styled from '../../styled-components'
+import styled from "../../styled"
 import {
   Args,
   Pocket,

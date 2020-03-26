@@ -33,7 +33,6 @@ const PocketListItem = ({
         {...provided.draggableProps}
       >
         <PocketDetails
-          pocket={pocket}
           isActive={isActive}
           onClick={() => handleClick(pocket.id)}
           className="details"

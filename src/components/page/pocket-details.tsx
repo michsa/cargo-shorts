@@ -1,7 +1,7 @@
 import Color from 'color'
 import { Flex } from 'reflexbox'
 
-import styled from '../../styled-components'
+import styled from "../../styled"
 
 export default styled(Flex)<{ color: string }>`
   background-color: ${props => props.color};

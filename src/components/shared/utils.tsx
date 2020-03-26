@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex } from 'reflexbox'
 
-import styled from '../../styled-components'
+import styled from "../../styled"
 
 export const List = styled.ul`
   list-style-type: none;
