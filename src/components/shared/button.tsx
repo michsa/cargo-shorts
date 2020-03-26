@@ -1,21 +1,9 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 
-import styled from '../../styled'
 import Flex from '../shared/flex'
 
 import { Emoji } from './emoji'
-
-export const Button = styled('button')`
-  border-color: ${props => props.theme.colors.primary};
-  color: ${props => props.theme.colors.primary};
-  background-color: ${props => props.theme.colors.altBackground};
-  :hover {
-    background-color: ${props => props.theme.colors.accent};
-  }
-  :active {
-    background-color: ${props => props.theme.colors.secondary};
-  }
-`
 
 interface Props {
   icon?: string
@@ -24,9 +12,23 @@ interface Props {
 }
 
 export const IconButton = ({ icon, children, onClick }: Props) => (
-  <Button className="button" onClick={onClick}>
+  <Flex
+    as="button"
+    center
+    gap="0.4em"
+    className="button"
+    onClick={onClick}
+    css={theme => ({
+      borderColor: theme.colors.primary,
+      color: theme.colors.primary,
+      backgroundColor: theme.colors.altBackground,
+      ':hover': { backgroundColor: theme.colors.accent },
+      ':active': { backgroundColor: theme.colors.secondary }
+    })}
+  >
     {icon && <Emoji emoji={icon} size={14} />}
-    {icon && children && <Flex flex="0 0 0.4em" />}
-    {children}
-  </Button>
+    <span>{children}</span>
+  </Flex>
 )
+
+export const Button = IconButton

@@ -10,22 +10,17 @@ interface Props {
   iconSize?: number
 }
 
-const Favicon = styled('div')<{ src: string; iconSize: number }>`
-  width: ${props => props.iconSize}px;
-  height: ${props => props.iconSize}px;
-  background-image: url(${props => props.src});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-`
+const Favicon = styled.div<{ src: string; iconSize: number }>(props => ({
+  width: props.iconSize,
+  height: props.iconSize,
+  backgroundImage: `url(${props.src})`,
+  backgroundSize: 'contain',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat'
+}))
 
 const TabInfo = ({ tab, iconSize = 32 }: Props) => (
-  <Flex
-    alignItems="center"
-    justifyContent="center"
-    className="tab-info"
-    flex={1}
-  >
+  <Flex center className="tab-info" flex={1}>
     {tab.favicon && (
       <Flex flex={0}>
         <Favicon src={tab.favicon} iconSize={iconSize} />

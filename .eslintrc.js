@@ -27,6 +27,6 @@ module.exports = {
     'no-unused-vars': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
     // change this to 1 after migration is done
-    'emotion/syntax-preference': [0, 'object'],
+    'emotion/syntax-preference': [1, 'object'],
   },
 }

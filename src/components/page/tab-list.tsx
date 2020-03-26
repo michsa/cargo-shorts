@@ -3,7 +3,7 @@ import { Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { makeGetOrderedTabs } from '../../redux/selectors'
-import styled from "../../styled"
+import styled from '../../styled'
 import { PocketID, SavedTab, State } from '../../types'
 import { List } from '../shared/utils'
 
@@ -18,12 +18,13 @@ interface StateProps {
   tabs: SavedTab[]
 }
 
-const StyledList = styled(List)<{ color: string }>`
-  border: 0px dashed ${props => props.color};
-  border-top: 0;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-`
+const StyledList = styled(List)<{ color: string }>(({ color }) => ({
+  border: '0px dashed',
+  borderColor: color,
+  borderTop: 0,
+  borderBottomLeftRadius: 4,
+  borderBottomRightRadius: 4
+}))
 
 const makeMapStateToProps = () => {
   const getOrderedTabs = makeGetOrderedTabs()

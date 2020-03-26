@@ -1,19 +1,12 @@
 import { ThemeProvider } from 'emotion-theming'
 import React from 'react'
 
-import styled from '../../styled'
 import theme from '../../theme'
 import { RouterState } from '../../types'
 
 import { route, useRouter } from './hooks'
 import PocketList from './pocket-list'
 import PocketSettings from './pocket-settings'
-
-const AppHolder = styled.main`
-  margin: 0;
-  padding: 0;
-  color: ${props => props.theme.colors.text};
-`
 
 const App = () => {
   const [routerState, setRoute] = useRouter(route.pocketList())
@@ -32,7 +25,11 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppHolder>{selectComponent(routerState)}</AppHolder>
+      <main
+        css={theme => ({ margin: 0, padding: 0, color: theme.colors.text })}
+      >
+        {selectComponent(routerState)}
+      </main>
     </ThemeProvider>
   )
 }

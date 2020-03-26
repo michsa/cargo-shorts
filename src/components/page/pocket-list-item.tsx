@@ -2,7 +2,7 @@ import Color from 'color'
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
-import styled from "../../styled"
+import styled from '../../styled'
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
 import Flex from '../shared/flex'
@@ -19,12 +19,11 @@ interface Props {
   handleEdit: (id: string) => void
 }
 
-const PocketListItem = styled.div<{ color: string }>`
-  background-color: ${props =>
-    Color(props.theme.colors.altBackground)
-      .mix(Color(props.color), 0.3)
-      .hex()};
-`
+const PocketListItem = styled.div<{ color: string }>(props => ({
+  backgroundColor: Color(props.theme.colors.altBackground)
+    .mix(Color(props.color), 0.3)
+    .hex()
+}))
 
 const PocketListItemWrapper = ({ pocket, handleEdit, index }: Props) => {
   return (
@@ -54,7 +53,7 @@ const PocketListItemWrapper = ({ pocket, handleEdit, index }: Props) => {
                     <PocketIcon icon={pocket.icon} />
                   </Flex>
                   <Flex
-                    style={{ minWidth: 0, textAlign: 'left' }}
+                    css={{ minWidth: 0, textAlign: 'left' }}
                     className="pocket-name"
                     flex={1}
                   >

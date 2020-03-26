@@ -1,8 +1,8 @@
-import * as React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { connect } from 'react-redux'
 
 import { getOrderedPockets } from '../../redux/selectors'
-import styled from "../../styled"
 import { Pocket, State } from '../../types'
 import Flex from '../shared/flex'
 import PocketCount from '../shared/pocket-count'
@@ -17,21 +17,18 @@ const mapStateToProps = (state: State) =>
     pockets: getOrderedPockets(state)
   } as Props)
 
-const IconHolder = styled(Flex)<{ color: string }>`
-  background-color: ${props => props.color};
-`
-
 const PocketIcons = ({ pockets }: Props) => (
-  <Flex className="pocket-summary" justifyContent="center" alignItems="center">
+  <Flex className="pocket-summary" center>
     {pockets.map(pocket => (
-      <IconHolder
-        color={pocket.color}
+      <Flex
+        center
+        css={{ backgroundColor: pocket.color }}
         key={pocket.id}
         className="pocket-summary-item"
       >
         <PocketIcon icon={pocket.icon} />
-        <PocketCount count={pocket.tabs.length} margin={0} />
-      </IconHolder>
+        <PocketCount count={pocket.tabs.length} css={{ margin: 0 }} />
+      </Flex>
     ))}
   </Flex>
 )

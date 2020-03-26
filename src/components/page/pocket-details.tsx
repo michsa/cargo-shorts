@@ -1,12 +1,13 @@
 import Color from 'color'
 
-import styled from "../../styled"
+import styled from '../../styled'
 import Flex from '../shared/flex'
 
-export default styled(Flex)<{ color: string }>`
-  background-color: ${props => props.color};
-  color: ${props =>
-    Color(props.color).isDark() !== props.theme.isDark
-      ? props.theme.colors.altBackground
-      : props.theme.colors.text};
-`
+const PocketDetails = styled(Flex)<{ color: string }>(({ color, theme }) => ({
+  backgroundColor: color,
+  color:
+    Color(color).isDark() !== theme.isDark
+      ? theme.colors.altBackground
+      : theme.colors.text
+}))
+export default PocketDetails
