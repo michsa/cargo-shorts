@@ -25,8 +25,8 @@ module.exports = {
     '@typescript-eslint/member-delimiter-style': [
       2,
       {
-        multiline: { delimiter: 'comma', requireLast: false },
-        singleline: { delimiter: 'comma', requireLast: false },
+        multiline: { delimiter: 'none', requireLast: false },
+        singleline: { delimiter: 'semi', requireLast: false },
       },
     ],
     '@typescript-eslint/explicit-function-return-type': 0,
