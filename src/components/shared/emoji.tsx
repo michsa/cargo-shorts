@@ -7,25 +7,24 @@ import styled from '../../styled-components'
 
 type PickerProps = { onSelect: (emoji: BaseEmoji) => void }
 
-export const Picker =
-  ({ onSelect }: PickerProps) => (
-    <NimblePicker
-      native={false}
-      data={data}
-      set="twitter"
-      emoji="eyes"
-      title="Pick an icon!"
-      emojiSize={19}
-      perLine={8}
-      exclude={['recent']}
-      onSelect={onSelect}
-      autoFocus={true}
-      style={{width: '276px'}}
-    />
-  )
+export const Picker = ({ onSelect }: PickerProps) => (
+  <NimblePicker
+    native={false}
+    data={data}
+    set="twitter"
+    emoji="eyes"
+    title="Pick an icon!"
+    emojiSize={19}
+    perLine={8}
+    exclude={['recent']}
+    onSelect={onSelect}
+    autoFocus={true}
+    style={{ width: '276px' }}
+  />
+)
 
 interface EmojiProps {
-  emoji: string,
+  emoji: string
   size?: number
 }
 
@@ -87,14 +86,14 @@ export const Emoji: FunctionComponent<EmojiProps> =
 */
 
 export const DropShadow = styled('span')({
-filter: `
+  filter: `
   drop-shadow(0 -1px ${props => props.theme.textColor}99)
   drop-shadow(-1px 1px ${props => props.theme.textColor}99)
   drop-shadow(1px 0.5px ${props => props.theme.textColor}CC)`,
-'& .emoji': {
-  width: 'auto',
-  height: '100%'
-}
+  '& .emoji': {
+    width: 'auto',
+    height: '100%'
+  }
 })
 
 export const Emoji = ({ emoji, size }: EmojiProps) => (

@@ -7,27 +7,24 @@ import TabInfo from '../shared/tab-info'
 import { DragHandle } from '../shared/utils'
 
 interface Props {
-  tab: SavedTab,
+  tab: SavedTab
   index: number
 }
 
 const TabListItem = ({ tab, index }: Props) => (
   <Draggable draggableId={tab.id} index={index}>
-    {(provided) => (
+    {provided => (
       <li
         className="tab-list-item"
         ref={provided.innerRef}
         {...provided.draggableProps}
       >
         <FlexCenter>
-          <FlexChild
-            {...provided.dragHandleProps}
-            flex={0}
-          >
+          <FlexChild {...provided.dragHandleProps} flex={0}>
             <DragHandle />
           </FlexChild>
           <FlexChild flex={1} style={{ minWidth: 0, textAlign: 'left' }}>
-            <a href={tab.url} >
+            <a href={tab.url}>
               <TabInfo tab={tab} iconSize={24} />
             </a>
           </FlexChild>

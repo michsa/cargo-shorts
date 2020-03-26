@@ -13,20 +13,23 @@ import * as ui from './ui'
 type BrowserTab = Tabs.Tab
 
 export const getCurrentTabInfo = () => {
-  return async (dispatch: Dispatch<ActionType<
-    typeof tabActions.updateCurrentTab
-  >>) => {
+  return async (
+    dispatch: Dispatch<ActionType<typeof tabActions.updateCurrentTab>>
+  ) => {
     try {
       const tabs: BrowserTab[] = await browser.tabs.query({
-        active: true, currentWindow: true
+        active: true,
+        currentWindow: true
       })
       if (tabs && tabs.length) {
         const browserTab: BrowserTab = tabs[0]
-        const tab: Tab | undefined = browserTab.url ? {
-          url: browserTab.url,
-          title: browserTab.title || '',
-          favicon: browserTab.favIconUrl || ''
-        } : undefined
+        const tab: Tab | undefined = browserTab.url
+          ? {
+              url: browserTab.url,
+              title: browserTab.title || '',
+              favicon: browserTab.favIconUrl || ''
+            }
+          : undefined
         dispatch(tabActions.updateCurrentTab(tab))
       }
     } catch (err) {
@@ -35,84 +38,94 @@ export const getCurrentTabInfo = () => {
   }
 }
 
-export const newTab = (
-  { payload }: ActionType<typeof ui.newTab>
-) => {
-  return (dispatch: Dispatch<ActionType<
-    typeof tabActions.newTab
-    | typeof pocketActions.assignTab
-  >>) => {
+export const newTab = ({ payload }: ActionType<typeof ui.newTab>) => {
+  return (
+    dispatch: Dispatch<
+      ActionType<typeof tabActions.newTab | typeof pocketActions.assignTab>
+    >
+  ) => {
     const newTabId = id()
-    dispatch(tabActions.newTab({
-      ...payload.tab,
-      id: newTabId,
-      pocket: payload.pocketId
-    }))
-    dispatch(pocketActions.assignTab({
-      pocketId: payload.pocketId,
-      tabId: newTabId
-    }))
+    dispatch(
+      tabActions.newTab({
+        ...payload.tab,
+        id: newTabId,
+        pocket: payload.pocketId
+      })
+    )
+    dispatch(
+      pocketActions.assignTab({
+        pocketId: payload.pocketId,
+        tabId: newTabId
+      })
+    )
   }
 }
 
-export const removeTab = (
-  { payload }: ActionType<typeof ui.removeTab>
-) => {
-  return (dispatch: Dispatch<ActionType<
-    typeof pocketActions.unassignTab
-    | typeof tabActions.deleteTab
-  >>) => {
-    dispatch(pocketActions.unassignTab({
-      pocketId: payload.pocket,
-      tabId: payload.id
-    }))
+export const removeTab = ({ payload }: ActionType<typeof ui.removeTab>) => {
+  return (
+    dispatch: Dispatch<
+      ActionType<typeof pocketActions.unassignTab | typeof tabActions.deleteTab>
+    >
+  ) => {
+    dispatch(
+      pocketActions.unassignTab({
+        pocketId: payload.pocket,
+        tabId: payload.id
+      })
+    )
     dispatch(tabActions.deleteTab(payload.id))
   }
 }
 
-export const moveTab = (
-  { payload }: ActionType<typeof ui.moveTab>
-) => {
-  return (dispatch: Dispatch<ActionType<
-    typeof pocketActions.unassignTab
-    | typeof pocketActions.assignTab
-    | typeof tabActions.updateTabPocket
-  >>, getState: () => State) => {
+export const moveTab = ({ payload }: ActionType<typeof ui.moveTab>) => {
+  return (
+    dispatch: Dispatch<
+      ActionType<
+        | typeof pocketActions.unassignTab
+        | typeof pocketActions.assignTab
+        | typeof tabActions.updateTabPocket
+      >
+    >,
+    getState: () => State
+  ) => {
     const oldPocket = getTabPocket(getState(), payload.tabId)
-    dispatch(pocketActions.unassignTab({
-      pocketId: oldPocket,
-      tabId: payload.tabId
-    }))
+    dispatch(
+      pocketActions.unassignTab({
+        pocketId: oldPocket,
+        tabId: payload.tabId
+      })
+    )
     dispatch(pocketActions.assignTab(payload))
     dispatch(tabActions.updateTabPocket(payload))
   }
 }
 
-export const updatePocketSettings = (
-  { payload }: ActionType<typeof ui.updatePocketSettings>
-) => pocketActions.updatePocket(payload)
+export const updatePocketSettings = ({
+  payload
+}: ActionType<typeof ui.updatePocketSettings>) =>
+  pocketActions.updatePocket(payload)
 
-export const movePocket = (
-  { payload }: ActionType<typeof ui.movePocket>
-) => {
-  console.log("actions movePocket")
+export const movePocket = ({ payload }: ActionType<typeof ui.movePocket>) => {
+  console.log('actions movePocket')
   return pocketActions.movePocket(payload)
 }
 
-export const newPocket = (
-  { payload }: ActionType<typeof ui.newPocket>
-) => {
+export const newPocket = ({ payload }: ActionType<typeof ui.newPocket>) => {
   const pocketId = id()
   return pocketActions.newPocket({ id: pocketId, settings: payload })
 }
 
-export const deletePocket = (
-  { payload }: ActionType<typeof ui.deletePocket>
-) => {
-  return (dispatch: Dispatch<ActionType<
-    typeof pocketActions.deletePocket
-    | typeof tabActions.deleteTab
-  >>, getState: () => State) => {
+export const deletePocket = ({
+  payload
+}: ActionType<typeof ui.deletePocket>) => {
+  return (
+    dispatch: Dispatch<
+      ActionType<
+        typeof pocketActions.deletePocket | typeof tabActions.deleteTab
+      >
+    >,
+    getState: () => State
+  ) => {
     const tabIds = getTabIdListForPocket(getState(), payload)
     for (const tabId of tabIds) {
       dispatch(tabActions.deleteTab(tabId))

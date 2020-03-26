@@ -32,12 +32,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppHolder>
-        {selectComponent(routerState)}
-      </AppHolder>
+      <AppHolder>{selectComponent(routerState)}</AppHolder>
     </ThemeProvider>
   )
-
 }
 
 export default App

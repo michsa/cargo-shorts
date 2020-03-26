@@ -9,7 +9,7 @@ export type Args<T> = T extends (...xs: infer A) => unknown ? A : never
 // --- state --- //
 
 export type State = {
-  readonly pockets: PocketState,
+  readonly pockets: PocketState
   readonly tabs: TabState
 }
 
@@ -28,26 +28,26 @@ export class PocketListRoute {
   id: 'POCKET_LIST'
 }
 
-export type RouterState = (NewPocketRoute | EditPocketRoute | PocketListRoute)
+export type RouterState = NewPocketRoute | EditPocketRoute | PocketListRoute
 
 // --- pockets --- //
 
 export type PocketID = string
 
-export type PocketMap = Readonly<{[id in PocketID]: Pocket}>
+export type PocketMap = Readonly<{ [id in PocketID]: Pocket }>
 
 export interface Pocket {
-  id: PocketID,
-  name: string,
-  color: string,
-  icon: string,
+  id: PocketID
+  name: string
+  color: string
+  icon: string
   tabs: TabID[]
 }
 
 export type PocketSettings = Omit<Pocket, 'id' | 'tabs'>
 
 export type PocketState = {
-  readonly byId: PocketMap,
+  readonly byId: PocketMap
   readonly idList: PocketID[]
 }
 
@@ -56,19 +56,19 @@ export type PocketState = {
 export type TabID = string
 
 export type Tab = {
-  url: string,
-  title: string,
+  url: string
+  title: string
   favicon: string
 }
 
 export type SavedTab = Tab & {
-  id: TabID,
+  id: TabID
   pocket: PocketID
 }
 
-export type TabMap = Readonly<{[id in TabID]: SavedTab}>
+export type TabMap = Readonly<{ [id in TabID]: SavedTab }>
 
 export type TabState = {
-  readonly byId: TabMap,
+  readonly byId: TabMap
   readonly current?: Tab
 }

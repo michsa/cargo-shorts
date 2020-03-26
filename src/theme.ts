@@ -1,10 +1,10 @@
 export interface Theme {
-  isDark: boolean,
-  backgroundColor: string,
-  altBackgroundColor: string,
-  primaryColor: string,
-  secondaryColor: string,
-  textColor: string,
+  isDark: boolean
+  backgroundColor: string
+  altBackgroundColor: string
+  primaryColor: string
+  secondaryColor: string
+  textColor: string
   accentColor: string
 }
 

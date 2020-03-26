@@ -18,8 +18,8 @@ export const Button = flexifyCentered(styled('button')`
 `)
 
 interface Props {
-  icon?: string, 
-  children?: React.ReactChild, 
+  icon?: string
+  children?: React.ReactChild
   onClick: () => void
 }
 

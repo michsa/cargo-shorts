@@ -5,12 +5,12 @@ import { Tab } from '../../types'
 import { FlexChild, FlexParent } from '../shared/flexbox'
 import { Truncated } from '../shared/utils'
 
-interface Props { 
-  tab: Tab,
+interface Props {
+  tab: Tab
   iconSize?: number
 }
 
-const Favicon = styled('div') <{ src: string, iconSize: number }>`
+const Favicon = styled('div')<{ src: string; iconSize: number }>`
   width: ${props => props.iconSize}px;
   height: ${props => props.iconSize}px;
   background-image: url(${props => props.src});
@@ -26,17 +26,19 @@ const TabInfo = ({ tab, iconSize = 32 }: Props) => (
     justifyContent="center"
     className="tab-info"
   >
-    {tab.favicon &&
+    {tab.favicon && (
       <FlexChild flex={0}>
         <Favicon src={tab.favicon} iconSize={iconSize} />
       </FlexChild>
-    }
+    )}
     <FlexChild
       flexDirection="column"
       flex={1}
       style={{ minWidth: 0, textAlign: 'left' }}
     >
-      <Truncated style={{ fontWeight: 600, fontSize: '1.1rem' }}>{tab.title}</Truncated>
+      <Truncated style={{ fontWeight: 600, fontSize: '1.1rem' }}>
+        {tab.title}
+      </Truncated>
       <Truncated>{tab.url}</Truncated>
     </FlexChild>
   </FlexParent>

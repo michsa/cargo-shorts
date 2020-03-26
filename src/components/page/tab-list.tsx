@@ -10,7 +10,7 @@ import { List } from '../shared/utils'
 import TabListItem from './tab-list-item'
 
 interface OwnProps {
-  pocketId: PocketID,
+  pocketId: PocketID
   color: string
 }
 
@@ -18,7 +18,7 @@ interface StateProps {
   tabs: SavedTab[]
 }
 
-const StyledList = styled(List) <{ color: string }>`
+const StyledList = styled(List)<{ color: string }>`
   border: 0px dashed ${props => props.color};
   border-top: 0;
   border-bottom-left-radius: 4px;
@@ -27,18 +27,15 @@ const StyledList = styled(List) <{ color: string }>`
 
 const makeMapStateToProps = () => {
   const getOrderedTabs = makeGetOrderedTabs()
-  const mapStateToProps = (state: State, { pocketId }: OwnProps) => ({
-    tabs: getOrderedTabs(state, pocketId)
-  } as StateProps)
+  const mapStateToProps = (state: State, { pocketId }: OwnProps) =>
+    ({
+      tabs: getOrderedTabs(state, pocketId)
+    } as StateProps)
   return mapStateToProps
 }
 
 const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
-  <Droppable
-    droppableId={pocketId}
-    direction="vertical"
-    type="LIST"
-  >
+  <Droppable droppableId={pocketId} direction="vertical" type="LIST">
     {(provided: DroppableProvided) => (
       <StyledList
         className="tab-list"
@@ -46,13 +43,9 @@ const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
         ref={provided.innerRef}
         {...provided.droppableProps}
       >
-        {tabs.map((tab, index) =>
-          <TabListItem
-            tab={tab}
-            key={tab.id}
-            index={index}
-          />
-        )}
+        {tabs.map((tab, index) => (
+          <TabListItem tab={tab} key={tab.id} index={index} />
+        ))}
         {provided.placeholder}
       </StyledList>
     )}

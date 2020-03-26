@@ -18,27 +18,25 @@ interface Handlers {
   onDragEnd: (result: DropResult) => void
 }
 
-const mapStateToProps = (state: State) => ({
-  pockets: getOrderedPockets(state)
-} as Props)
+const mapStateToProps = (state: State) =>
+  ({
+    pockets: getOrderedPockets(state)
+  } as Props)
 
 const mapDispatchToProps = {
-  onDragEnd: (result: DropResult) => (
-    result.destination && (
-      result.type === 'COLUMN'
-        ? movePocket({
+  onDragEnd: (result: DropResult) =>
+    result.destination &&
+    (result.type === 'COLUMN'
+      ? movePocket({
           start: result.source.index,
           end: result.destination.index
         })
-        : moveTab({
+      : moveTab({
           tabId: result.draggableId,
           pocketId: result.destination.droppableId,
           position: result.destination.index
-        })
-    )
-  )
+        }))
 } as Handlers
-
 
 const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
   const handleDragEnd = (result: DropResult) => {
@@ -55,7 +53,7 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
         direction="horizontal"
         type="COLUMN"
       >
-        {(provided) => (
+        {provided => (
           <FlexParent
             flex={1}
             flexWrap="none"
@@ -65,14 +63,14 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
             {...provided.droppableProps}
           >
             <FlexChild flex="1 1" />
-            {pockets.map((pocket, index) =>
+            {pockets.map((pocket, index) => (
               <PocketListItem
                 index={index}
                 pocket={pocket}
                 key={pocket.id}
-                handleEdit={(x) => x}
+                handleEdit={x => x}
               />
-            )}
+            ))}
             {provided.placeholder}
             <FlexChild flex="1 1" />
           </FlexParent>

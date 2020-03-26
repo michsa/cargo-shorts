@@ -11,7 +11,7 @@ import reducer from './reducers'
 
 const storageConfig = {
   key: 'syncStorage',
-  storage: syncStorage,
+  storage: syncStorage
 }
 
 const persistedStore = () => {
@@ -33,6 +33,6 @@ export default createBackgroundStore({
     [getType(ui.newPocket)]: actions.newPocket,
     [getType(ui.deletePocket)]: actions.deletePocket,
     [getType(ui.movePocket)]: actions.movePocket,
-    [getType(ui.updatePocketSettings)]: actions.updatePocketSettings,
+    [getType(ui.updatePocketSettings)]: actions.updatePocketSettings
   }
 })

@@ -1,13 +1,28 @@
 import { move } from 'ramda'
 import * as React from 'react'
 import {
-  DragDropContext, Droppable, DroppableProvided, DropResult
+  DragDropContext,
+  Droppable,
+  DroppableProvided,
+  DropResult
 } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { movePocket, moveTab, newTab, removeTab } from '../../redux/actions/ui'
-import { getCurrentSavedTab, getCurrentTab, getOrderedPockets } from '../../redux/selectors'
-import { EditPocketRoute, NewPocketRoute, Pocket, PocketID, SavedTab, State, Tab } from '../../types'
+import {
+  getCurrentSavedTab,
+  getCurrentTab,
+  getOrderedPockets
+} from '../../redux/selectors'
+import {
+  EditPocketRoute,
+  NewPocketRoute,
+  Pocket,
+  PocketID,
+  SavedTab,
+  State,
+  Tab
+} from '../../types'
 import NewPocketButton from '../shared/new-pocket-button'
 import TabInfo from '../shared/tab-info'
 // import { List } from '../shared/utils'
@@ -21,8 +36,8 @@ interface OwnProps {
 }
 
 interface StateProps {
-  pockets: Pocket[],
-  savedTab: SavedTab | undefined,
+  pockets: Pocket[]
+  savedTab: SavedTab | undefined
   tab: Tab
 }
 
@@ -31,38 +46,43 @@ interface Handlers {
     pocketId: PocketID,
     tab: Tab,
     savedTab: SavedTab | undefined
-  ) => void,
-  onNewPocket: () => void,
+  ) => void
+  onNewPocket: () => void
   onDragEnd: (result: DropResult) => void
 }
 
-const mapStateToProps = (state: State) => ({
-  pockets: getOrderedPockets(state),
-  savedTab: getCurrentSavedTab(state),
-  tab: getCurrentTab(state)
-} as StateProps)
+const mapStateToProps = (state: State) =>
+  ({
+    pockets: getOrderedPockets(state),
+    savedTab: getCurrentSavedTab(state),
+    tab: getCurrentTab(state)
+  } as StateProps)
 
 const mapDispatchToProps = {
-  onPocketClick: (pocketId, tab, savedTab) => (
+  onPocketClick: (pocketId, tab, savedTab) =>
     savedTab
       ? savedTab.pocket === pocketId
         ? removeTab(savedTab)
         : moveTab({ tabId: savedTab.id, pocketId })
-      : newTab({ tab, pocketId })
-  ),
-  onDragEnd: (result: DropResult) => (
-    result.destination && movePocket({
+      : newTab({ tab, pocketId }),
+  onDragEnd: (result: DropResult) =>
+    result.destination &&
+    movePocket({
       start: result.source.index,
       end: result.destination.index
-    })
-  ),
+    }),
   onNewPocket: () => null // shufflePockets()
 } as Handlers
 
 const PocketList = ({
-  setRoute, pockets, savedTab, tab, onPocketClick, onNewPocket, onDragEnd
+  setRoute,
+  pockets,
+  savedTab,
+  tab,
+  onPocketClick,
+  onNewPocket,
+  onDragEnd
 }: OwnProps & StateProps & Handlers) => {
-
   const handleDragEnd = (result: DropResult) => {
     if (result.destination) {
       pockets = move(result.source.index, result.destination.index, pockets)
@@ -71,41 +91,41 @@ const PocketList = ({
   }
 
   return (
-    <section id='pocket-list'>
+    <section id="pocket-list">
       <PopupHeader>
         <TabInfo tab={tab} />
       </PopupHeader>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable
-          droppableId={'popupPocketList'}
-        >
+        <Droppable droppableId={'popupPocketList'}>
           {(provided: DroppableProvided) => (
-              <div
-                className="list"
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {pockets.map((pocket, index) =>
-                  <PocketListItem
-                    key={pocket.id}
-                    pocket={pocket}
-                    isActive={!!savedTab && savedTab.pocket === pocket.id}
-                    handleClick={(id: PocketID) => onPocketClick(id, tab, savedTab)}
-                    handleEdit={() => setRoute(route.editPocket(pocket.id))}
-                    index={index}
-                  />
-                )}
-                {provided.placeholder}
-                <div>
-                  <NewPocketButton
-                    onClick={() => {
-                      onNewPocket()
-                      setRoute(route.newPocket())
-                    }}
-                  />
-                </div>
+            <div
+              className="list"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {pockets.map((pocket, index) => (
+                <PocketListItem
+                  key={pocket.id}
+                  pocket={pocket}
+                  isActive={!!savedTab && savedTab.pocket === pocket.id}
+                  handleClick={(id: PocketID) =>
+                    onPocketClick(id, tab, savedTab)
+                  }
+                  handleEdit={() => setRoute(route.editPocket(pocket.id))}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+              <div>
+                <NewPocketButton
+                  onClick={() => {
+                    onNewPocket()
+                    setRoute(route.newPocket())
+                  }}
+                />
               </div>
-            )}
+            </div>
+          )}
         </Droppable>
       </DragDropContext>
     </section>

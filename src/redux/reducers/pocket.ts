@@ -1,4 +1,13 @@
-import { append, assoc, insert, lensPath, move, omit, over, without } from 'ramda'
+import {
+  append,
+  assoc,
+  insert,
+  lensPath,
+  move,
+  omit,
+  over,
+  without
+} from 'ramda'
 import { combineReducers, Reducer } from 'redux'
 import { ActionType, getType } from 'typesafe-actions'
 
@@ -92,7 +101,6 @@ const idList: Reducer<PocketID[]> = (
   action: ActionType<typeof pocket>
 ): PocketID[] => {
   switch (action.type) {
-
     case getType(pocket.newPocket):
       return append<PocketID>(action.payload.id)(state)
 

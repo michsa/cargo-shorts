@@ -17,10 +17,7 @@ export const Truncated = styled.div`
 `
 
 export const DragHandle = () => (
-  <FlexCenter
-    flexDirection="column"
-    className="drag-handle"
-  >
+  <FlexCenter flexDirection="column" className="drag-handle">
     <FlexChild>::</FlexChild>
     <FlexChild>::</FlexChild>
   </FlexCenter>

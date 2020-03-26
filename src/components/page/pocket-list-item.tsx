@@ -14,22 +14,22 @@ import PocketDetails from './pocket-details'
 import TabList from './tab-list'
 
 interface Props {
-  pocket: Pocket,
-  index: number,
+  pocket: Pocket
+  index: number
   handleEdit: (id: string) => void
 }
 
 const PocketListItem = styled.div<{ color: string }>`
-background-color: ${props =>
+  background-color: ${props =>
     Color(props.theme.altBackgroundColor)
-      .mix(Color(props.color), 0.3).hex()
-  }
+      .mix(Color(props.color), 0.3)
+      .hex()};
 `
 
 const PocketListItemWrapper = ({ pocket, handleEdit, index }: Props) => {
   return (
     <Draggable draggableId={pocket.id} index={index}>
-      {(provided) => (
+      {provided => (
         <div
           className="pocket-list-item-holder"
           ref={provided.innerRef}
@@ -53,11 +53,14 @@ const PocketListItemWrapper = ({ pocket, handleEdit, index }: Props) => {
                   <FlexChild flex={0}>
                     <PocketIcon icon={pocket.icon} />
                   </FlexChild>
-                  <FlexChild style={{ minWidth: 0, textAlign: 'left' }} className="pocket-name" flex={1}>
+                  <FlexChild
+                    style={{ minWidth: 0, textAlign: 'left' }}
+                    className="pocket-name"
+                    flex={1}
+                  >
                     <Truncated>{pocket.name}</Truncated>
                   </FlexChild>
                   <PocketCount count={pocket.tabs.length} />
-
                 </PocketDetails>
                 <FlexParent
                   className="edit-pocket"

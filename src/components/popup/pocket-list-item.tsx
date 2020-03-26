@@ -11,16 +11,22 @@ import { DragHandle, Truncated } from '../shared/utils'
 import PocketDetails from './pocket-details'
 
 interface Props {
-  pocket: Pocket,
-  isActive: boolean,
-  index: number,
-  handleEdit: (id: string) => void,
+  pocket: Pocket
+  isActive: boolean
+  index: number
+  handleEdit: (id: string) => void
   handleClick: (id: string) => void
 }
 
-const PocketListItem = ({ pocket, isActive, index, handleEdit, handleClick }: Props) => (
+const PocketListItem = ({
+  pocket,
+  isActive,
+  index,
+  handleEdit,
+  handleClick
+}: Props) => (
   <Draggable draggableId={pocket.id} index={index}>
-    {(provided) => (
+    {provided => (
       <div
         className="pocket-list-item"
         ref={provided.innerRef}
@@ -41,7 +47,11 @@ const PocketListItem = ({ pocket, isActive, index, handleEdit, handleClick }: Pr
           <FlexChild flex={0}>
             <PocketIcon icon={pocket.icon} />
           </FlexChild>
-          <FlexChild style={{ minWidth: 0, textAlign: 'left' }} className="pocket-name" flex={1}>
+          <FlexChild
+            style={{ minWidth: 0, textAlign: 'left' }}
+            className="pocket-name"
+            flex={1}
+          >
             <Truncated>{pocket.name}</Truncated>
           </FlexChild>
           <PocketCount count={pocket.tabs.length} />

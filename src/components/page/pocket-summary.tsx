@@ -12,17 +12,18 @@ interface Props {
   pockets: Pocket[]
 }
 
-const mapStateToProps = (state: State) => ({
-  pockets: getOrderedPockets(state)
-} as Props)
+const mapStateToProps = (state: State) =>
+  ({
+    pockets: getOrderedPockets(state)
+  } as Props)
 
-const IconHolder = styled(FlexCenter) <{ color: string }>`
+const IconHolder = styled(FlexCenter)<{ color: string }>`
   background-color: ${props => props.color};
 `
 
 const PocketIcons = ({ pockets }: Props) => (
   <FlexCenter className="pocket-summary">
-    {pockets.map(pocket =>
+    {pockets.map(pocket => (
       <IconHolder
         color={pocket.color}
         key={pocket.id}
@@ -31,7 +32,7 @@ const PocketIcons = ({ pockets }: Props) => (
         <PocketIcon icon={pocket.icon} />
         <PocketCount count={pocket.tabs.length} margin={0} />
       </IconHolder>
-    )}
+    ))}
   </FlexCenter>
 )
 
