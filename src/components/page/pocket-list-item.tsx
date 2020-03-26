@@ -21,7 +21,7 @@ interface Props {
 
 const PocketListItem = styled.div<{ color: string }>`
   background-color: ${props =>
-    Color(props.theme.altBackgroundColor)
+    Color(props.theme.colors.altBackground)
       .mix(Color(props.color), 0.3)
       .hex()};
 `

@@ -1,10 +1,15 @@
-import styled from "../../styled"
+import React from 'react'
+import { Box } from 'reflexbox'
 
-const PopupHeader = styled('header')`
-  text-align: center;
-  padding: 12px 0;
-  background-color: ${props => props.theme.secondaryColor};
-  border-bottom: 2px solid ${props => props.theme.primaryColor};
-`
+// import styled from "../../styled"
+
+// const PopupHeader = styled.header(props => ({
+//   textAlign: 'center',
+//   padding: '12px 0',
+//   backgroundColor: props.theme.colors.secondary,
+//   borderBottom: '2px solid ${props => props.theme.colors.primary}'
+// }))
+
+const PopupHeader = props => <Box bg="primaryColor" py={12} {...props} />
 
 export default PopupHeader

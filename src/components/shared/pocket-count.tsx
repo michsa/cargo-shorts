@@ -6,17 +6,17 @@ import styled from "../../styled"
 
 const PocketCountStyle = styled(Flex)<{ margin: number }>`
   background-color: ${props =>
-    Color(props.theme.altBackgroundColor)
+    Color(props.theme.colors.altBackground)
       .alpha(0.65)
       .string()};
   box-shadow: 0 0 0 1px ${props =>
-    Color(props.theme.altBackgroundColor)
+    Color(props.theme.colors.altBackground)
       .alpha(0.15)
       .string()}, 0 0 3px ${props =>
-  Color(props.theme.altBackgroundColor)
+  Color(props.theme.colors.altBackground)
     .alpha(0.65)
     .string()};
-  color: ${props => props.theme.textColor}
+  color: ${props => props.theme.colors.text}
   margin: 0 ${props => props.margin}px;
 }
 `

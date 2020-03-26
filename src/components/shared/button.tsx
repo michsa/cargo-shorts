@@ -6,14 +6,14 @@ import styled from "../../styled"
 import { Emoji } from './emoji'
 
 export const Button = styled('button')`
-  border-color: ${props => props.theme.primaryColor};
-  color: ${props => props.theme.primaryColor};
-  background-color: ${props => props.theme.altBackgroundColor};
+  border-color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.primary};
+  background-color: ${props => props.theme.colors.altBackground};
   :hover {
-    background-color: ${props => props.theme.accentColor};
+    background-color: ${props => props.theme.colors.accent};
   }
   :active {
-    background-color: ${props => props.theme.secondaryColor};
+    background-color: ${props => props.theme.colors.secondary};
   }
 `
 

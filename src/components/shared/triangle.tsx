@@ -40,7 +40,7 @@ const Inner = styled(Base)<TriangleProps>`
   border-width: 0px ${props => props.width - props.borderWidth}px
     ${props => props.height - props.borderWidth}px;
   border-color: transparent transparent
-    ${props => props.bgColor || props.theme.backgroundColor};
+    ${props => props.bgColor || props.theme.colors.background};
   top: -${props => props.height - props.borderWidth}px;
   ${props => props.side}: ${props => props.margin + props.borderWidth}px;
   z-index: 10;

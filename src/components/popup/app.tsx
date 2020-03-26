@@ -12,7 +12,7 @@ import PocketSettings from './pocket-settings'
 const AppHolder = styled.main`
   margin: 0;
   padding: 0;
-  color: ${props => props.theme.textColor};
+  color: ${props => props.theme.colors.text};
 `
 
 const App = () => {

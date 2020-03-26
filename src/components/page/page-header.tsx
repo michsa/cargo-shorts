@@ -8,7 +8,7 @@ import PocketIcons from './pocket-summary'
 
 const PageHeaderButton = styled(IconButton)`
   background-color: transparent;
-  color: ${props => props.theme.textColor};
+  color: ${props => props.theme.colors.text};
 `
 
 const PageHeader = () => (

@@ -34,10 +34,10 @@ export const Emoji: FunctionComponent<EmojiProps> =
     <NimbleEmoji emoji={emoji} size={size || 16} data={data} set="twitter" />
   )) <{}>`
 filter:
-  drop-shadow(-1px -1px 0 ${props => props.theme.textColor})
-  drop-shadow(-1px 1px 0 ${props => props.theme.textColor})
-  drop-shadow(1px -1px 0 ${props => props.theme.textColor})
-  drop-shadow(1px 1px 0 ${props => props.theme.textColor});
+  drop-shadow(-1px -1px 0 ${props => props.theme.colors.text})
+  drop-shadow(-1px 1px 0 ${props => props.theme.colors.text})
+  drop-shadow(1px -1px 0 ${props => props.theme.colors.text})
+  drop-shadow(1px 1px 0 ${props => props.theme.colors.text});
 `
 
 export const Emoji00: FunctionComponent<EmojiProps> =
@@ -87,9 +87,9 @@ export const Emoji: FunctionComponent<EmojiProps> =
 
 export const DropShadow = styled('span')({
   filter: `
-  drop-shadow(0 -1px ${props => props.theme.textColor}99)
-  drop-shadow(-1px 1px ${props => props.theme.textColor}99)
-  drop-shadow(1px 0.5px ${props => props.theme.textColor}CC)`,
+  drop-shadow(0 -1px ${props => props.theme.colors.text}99)
+  drop-shadow(-1px 1px ${props => props.theme.colors.text}99)
+  drop-shadow(1px 0.5px ${props => props.theme.colors.text}CC)`,
   '& .emoji': {
     width: 'auto',
     height: '100%'

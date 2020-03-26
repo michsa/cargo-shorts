@@ -68,18 +68,18 @@ const Inputs = styled(Flex)<{ color: string }>`
   * {
     color: ${props =>
       Color(props.color).isDark() !== props.theme.isDark
-        ? props.theme.altBackgroundColor
-        : props.theme.textColor};
+        ? props.theme.colors.altBackground
+        : props.theme.colors.text};
     border-color: ${props =>
       Color(props.color).isDark() !== props.theme.isDark
-        ? props.theme.altBackgroundColor
-        : props.theme.textColor};
+        ? props.theme.colors.altBackground
+        : props.theme.colors.text};
     &::placeholder {
       color: ${props =>
         Color(
           Color(props.color).isDark() !== props.theme.isDark
-            ? props.theme.altBackgroundColor
-            : props.theme.textColor
+            ? props.theme.colors.altBackground
+            : props.theme.colors.text
         )
           .alpha(0.5)
           .string()};
