@@ -18,18 +18,15 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react',
   ],
   rules: {
     'no-undef': 0,
     'no-unused-vars': 0,
-    '@typescript-eslint/member-delimiter-style': [
-      2,
-      {
-        multiline: { delimiter: 'none', requireLast: false },
-        singleline: { delimiter: 'semi', requireLast: false },
-      },
-    ],
     '@typescript-eslint/explicit-function-return-type': 0,
-    'emotion/syntax-preference': [1, 'object'],
+    // change this to 1 after migration is done
+    'emotion/syntax-preference': [0, 'object'],
   },
 }
