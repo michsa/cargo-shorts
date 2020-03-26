@@ -1,4 +1,4 @@
-import { BaseEmoji, NimblePicker } from 'emoji-mart'
+import { BaseEmoji, NimblePicker, Data } from 'emoji-mart'
 import data from 'emoji-mart/data/twitter.json'
 import React from 'react'
 import twemoji from 'twemoji'
@@ -10,7 +10,7 @@ type PickerProps = { onSelect: (emoji: BaseEmoji) => void }
 export const Picker = ({ onSelect }: PickerProps) => (
   <NimblePicker
     native={false}
-    data={data}
+    data={data as unknown as Data}
     set="twitter"
     emoji="eyes"
     title="Pick an icon!"
