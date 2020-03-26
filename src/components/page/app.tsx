@@ -1,18 +1,18 @@
+import { ThemeProvider } from 'emotion-theming'
 import * as React from 'react'
-import { ThemeProvider } from 'styled-components'
+import { Flex } from 'reflexbox'
 
 import theme from '../../theme'
-import { FlexParent } from '../shared/flexbox'
 
 import PageHeader from './page-header'
 import PocketList from './pocket-list'
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <FlexParent id="page" flexDirection="column">
+    <Flex id="page" flexDirection="column">
       <PageHeader />
       <PocketList />
-    </FlexParent>
+    </Flex>
   </ThemeProvider>
 )
 

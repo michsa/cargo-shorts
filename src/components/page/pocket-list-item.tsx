@@ -1,11 +1,11 @@
 import Color from 'color'
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
+import { Flex } from 'reflexbox'
 
 import styled from '../../styled-components'
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
-import { FlexChild, FlexParent } from '../shared/flexbox'
 import PocketCount from '../shared/pocket-count'
 import PocketIcon from '../shared/pocket-icon'
 import { DragHandle, Truncated } from '../shared/utils'
@@ -47,29 +47,29 @@ const PocketListItemWrapper = ({ pocket, handleEdit, index }: Props) => {
                   color={pocket.color}
                   alignItems="center"
                 >
-                  <FlexChild flex={0} {...provided.dragHandleProps}>
+                  <Flex flex={0} {...provided.dragHandleProps}>
                     <DragHandle />
-                  </FlexChild>
-                  <FlexChild flex={0}>
+                  </Flex>
+                  <Flex flex={0}>
                     <PocketIcon icon={pocket.icon} />
-                  </FlexChild>
-                  <FlexChild
+                  </Flex>
+                  <Flex
                     style={{ minWidth: 0, textAlign: 'left' }}
                     className="pocket-name"
                     flex={1}
                   >
                     <Truncated>{pocket.name}</Truncated>
-                  </FlexChild>
+                  </Flex>
                   <PocketCount count={pocket.tabs.length} />
                 </PocketDetails>
-                <FlexParent
+                <Flex
                   className="edit-pocket"
                   onClick={() => handleEdit(pocket.id)}
                   justifyContent="center"
                   alignItems="center"
                 >
                   <Emoji emoji="✏️" size={13} />
-                </FlexParent>
+                </Flex>
               </div>
               <TabList pocketId={pocket.id} color={pocket.color} />
             </PocketListItem>

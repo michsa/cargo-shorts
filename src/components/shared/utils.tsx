@@ -1,8 +1,7 @@
 import React from 'react'
+import { Flex } from 'reflexbox'
 
 import styled from '../../styled-components'
-
-import { FlexCenter, FlexChild } from './flexbox'
 
 export const List = styled.ul`
   list-style-type: none;
@@ -17,8 +16,13 @@ export const Truncated = styled.div`
 `
 
 export const DragHandle = () => (
-  <FlexCenter flexDirection="column" className="drag-handle">
-    <FlexChild>::</FlexChild>
-    <FlexChild>::</FlexChild>
-  </FlexCenter>
+  <Flex
+    flexDirection="column"
+    className="drag-handle"
+    justifyContent="center"
+    alignItems="center"
+  >
+    <Flex>::</Flex>
+    <Flex>::</Flex>
+  </Flex>
 )

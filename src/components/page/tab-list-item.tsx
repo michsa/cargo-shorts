@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
+import { Flex } from 'reflexbox'
 
 import { SavedTab } from '../../types'
-import { FlexCenter, FlexChild } from '../shared/flexbox'
 import TabInfo from '../shared/tab-info'
 import { DragHandle } from '../shared/utils'
 
@@ -19,16 +19,16 @@ const TabListItem = ({ tab, index }: Props) => (
         ref={provided.innerRef}
         {...provided.draggableProps}
       >
-        <FlexCenter>
-          <FlexChild {...provided.dragHandleProps} flex={0}>
+        <Flex justifyContent="center" alignItems="center">
+          <Flex {...provided.dragHandleProps} flex={0}>
             <DragHandle />
-          </FlexChild>
-          <FlexChild flex={1} style={{ minWidth: 0, textAlign: 'left' }}>
+          </Flex>
+          <Flex flex={1} style={{ minWidth: 0, textAlign: 'left' }}>
             <a href={tab.url}>
               <TabInfo tab={tab} iconSize={24} />
             </a>
-          </FlexChild>
-        </FlexCenter>
+          </Flex>
+        </Flex>
       </li>
     )}
   </Draggable>

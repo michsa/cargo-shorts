@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Flex } from 'reflexbox'
 
 import { getOrderedPockets } from '../../redux/selectors'
 import styled from '../../styled-components'
 import { Pocket, State } from '../../types'
-import { FlexCenter } from '../shared/flexbox'
 import PocketCount from '../shared/pocket-count'
 import PocketIcon from '../shared/pocket-icon'
 
@@ -17,12 +17,12 @@ const mapStateToProps = (state: State) =>
     pockets: getOrderedPockets(state)
   } as Props)
 
-const IconHolder = styled(FlexCenter)<{ color: string }>`
+const IconHolder = styled(Flex)<{ color: string }>`
   background-color: ${props => props.color};
 `
 
 const PocketIcons = ({ pockets }: Props) => (
-  <FlexCenter className="pocket-summary">
+  <Flex className="pocket-summary" justifyContent="center" alignItems="center">
     {pockets.map(pocket => (
       <IconHolder
         color={pocket.color}
@@ -33,7 +33,7 @@ const PocketIcons = ({ pockets }: Props) => (
         <PocketCount count={pocket.tabs.length} margin={0} />
       </IconHolder>
     ))}
-  </FlexCenter>
+  </Flex>
 )
 
 export default connect(mapStateToProps)(PocketIcons)

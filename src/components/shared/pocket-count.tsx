@@ -1,11 +1,10 @@
 import Color from 'color'
 import React from 'react'
+import { Flex } from 'reflexbox'
 
 import styled from '../../styled-components'
 
-import { FlexChild } from './flexbox'
-
-const PocketCountStyle = styled(FlexChild)<{ margin: number }>`
+const PocketCountStyle = styled(Flex)<{ margin: number }>`
   background-color: ${props =>
     Color(props.theme.altBackgroundColor)
       .alpha(0.65)
