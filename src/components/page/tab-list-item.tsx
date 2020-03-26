@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { Flex } from 'reflexbox'
 
 import { SavedTab } from '../../types'
+import Flex from '../shared/flex'
 import TabInfo from '../shared/tab-info'
 import { DragHandle } from '../shared/utils'
 

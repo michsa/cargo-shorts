@@ -1,18 +1,18 @@
 import * as React from 'react'
-import { Flex } from 'reflexbox'
 
-import styled from "../../styled"
+import styled from '../../styled'
 import { IconButton } from '../shared/button'
+import Flex from '../shared/flex'
 
 import PocketIcons from './pocket-summary'
 
-const PageHeaderButton = styled(IconButton)`
-  background-color: transparent;
-  color: ${props => props.theme.colors.text};
-`
+const PageHeaderButton = styled(IconButton)(props => ({
+  backgroundColor: 'transparent',
+  color: props.theme.colors.text
+}))
 
 const PageHeader = () => (
-  <Flex className="page-header" alignItems="center" flex="0 0 48px">
+  <Flex id="page-header" alignItems="center" flex="0 0 48px">
     <Flex flex="0 0 160px" className="title">
       <div className="shorts" />
       Cargo Shorts

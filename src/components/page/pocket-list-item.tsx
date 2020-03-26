@@ -1,11 +1,11 @@
 import Color from 'color'
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { Flex } from 'reflexbox'
 
 import styled from "../../styled"
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
+import Flex from '../shared/flex'
 import PocketCount from '../shared/pocket-count'
 import PocketIcon from '../shared/pocket-icon'
 import { DragHandle, Truncated } from '../shared/utils'

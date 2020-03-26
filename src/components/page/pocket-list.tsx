@@ -2,11 +2,11 @@ import { move } from 'ramda'
 import * as React from 'react'
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
-import { Flex } from 'reflexbox'
 
 import { movePocket, moveTab } from '../../redux/actions/ui'
 import { getOrderedPockets } from '../../redux/selectors'
 import { Pocket, State } from '../../types'
+import Flex from '../shared/flex'
 
 import PocketListItem from './pocket-list-item'
 
@@ -56,8 +56,6 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
         {provided => (
           <Flex
             flex={1}
-            flexWrap="nowrap"
-            flexDirection="row"
             className="pocket-list"
             ref={provided.innerRef}
             {...provided.droppableProps}

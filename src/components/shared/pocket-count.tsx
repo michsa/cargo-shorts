@@ -1,8 +1,8 @@
 import Color from 'color'
 import React from 'react'
-import { Flex } from 'reflexbox'
 
 import styled from "../../styled"
+import Flex from '../shared/flex'
 
 const PocketCountStyle = styled(Flex)<{ margin: number }>`
   background-color: ${props =>

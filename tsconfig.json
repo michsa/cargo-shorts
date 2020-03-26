@@ -20,7 +20,7 @@
       "node_modules/@types",
       "node_modules/web-ext-types"
     ],
-    "types": ["node", "jest"],
+    "types": ["node", "jest", "@emotion/core", "@emotion/styled"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true

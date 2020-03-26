@@ -3,7 +3,6 @@ import 'emoji-mart/css/emoji-mart.css'
 import React, { useState } from 'react'
 import { TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
-import { Flex } from 'reflexbox'
 
 import { pocketDefaults as defaults } from '../../constants'
 import {
@@ -24,6 +23,7 @@ import {
 import { getRandomOf } from '../../utils'
 import { IconButton } from '../shared/button'
 import { Emoji, Picker } from '../shared/emoji'
+import Flex from '../shared/flex'
 import PocketIcon from '../shared/pocket-icon'
 import { Triangle } from '../shared/triangle'
 
@@ -172,7 +172,7 @@ const PocketSettingsComponent = ({
         </Flex>
       </Inputs>
 
-      <Flex className="pickers" justifyContent="center" flexWrap="wrap">
+      <Flex className="pickers" justifyContent="center" wrap>
         {activePicker === 'color' ? (
           <React.Fragment>
             <Triangle side="right" margin={6} />

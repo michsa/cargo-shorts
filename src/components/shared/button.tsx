@@ -1,7 +1,7 @@
 import React from 'react'
-import { Flex } from 'reflexbox'
 
-import styled from "../../styled"
+import styled from '../../styled'
+import Flex from '../shared/flex'
 
 import { Emoji } from './emoji'
 

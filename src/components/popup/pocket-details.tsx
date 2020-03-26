@@ -1,8 +1,8 @@
 import Color from 'color'
 import { prop } from 'ramda'
-import { Flex } from 'reflexbox'
 
-import styled from "../../styled"
+import styled from '../../styled'
+import Flex from '../shared/flex'
 
 export default styled(Flex)<{ isActive: boolean; color: string }>`
   display: flex;

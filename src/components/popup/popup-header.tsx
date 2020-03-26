@@ -1,15 +1,18 @@
-import React from 'react'
-import { Box } from 'reflexbox'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+import Flex from '../shared/flex'
 
-// import styled from "../../styled"
-
-// const PopupHeader = styled.header(props => ({
-//   textAlign: 'center',
-//   padding: '12px 0',
-//   backgroundColor: props.theme.colors.secondary,
-//   borderBottom: '2px solid ${props => props.theme.colors.primary}'
-// }))
-
-const PopupHeader = props => <Box bg="primaryColor" py={12} {...props} />
-
+const PopupHeader = (props: { children?: React.ReactNode }) => (
+  <Flex
+    center
+    as="header"
+    css={theme => ({
+      borderBottom: `2px solid`,
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.secondary,
+      padding: `12px 0`
+    })}
+    {...props}
+  />
+)
 export default PopupHeader
