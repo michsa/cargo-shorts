@@ -12,7 +12,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['@typescript-eslint', 'react', 'emotion'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -29,6 +29,7 @@ module.exports = {
         singleline: { delimiter: 'comma', requireLast: false },
       },
     ],
-    '@typescript-eslint/explicit-function-return-type': 0
+    '@typescript-eslint/explicit-function-return-type': 0,
+    'emotion/syntax-preference': [1, 'object'],
   },
 }
