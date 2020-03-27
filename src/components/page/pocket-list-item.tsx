@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import Color from 'color'
-import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
 import styled from '../../styled'
