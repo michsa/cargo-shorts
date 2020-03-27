@@ -27,7 +27,12 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <main
-        css={theme => ({ margin: 0, padding: 0, color: theme.colors.text })}
+        css={theme => ({
+          margin: 0,
+          padding: 0,
+          color: theme.colors.text,
+          width: 300
+        })}
       >
         {selectComponent(routerState)}
       </main>

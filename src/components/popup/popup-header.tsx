@@ -7,8 +7,7 @@ const PopupHeader = (props: { children?: React.ReactNode }) => (
     center
     as="header"
     css={theme => ({
-      borderBottom: `2px solid`,
-      borderColor: theme.colors.primary,
+      borderBottom: `2px solid ${theme.colors.primary}`,
       backgroundColor: theme.colors.secondary,
       padding: `12px 0`
     })}

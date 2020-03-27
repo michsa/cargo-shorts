@@ -3,14 +3,14 @@ import data from 'emoji-mart/data/twitter.json'
 import React from 'react'
 import twemoji from 'twemoji'
 
-import styled from "../../styled"
+import styled from '../../styled'
 
 type PickerProps = { onSelect: (emoji: BaseEmoji) => void }
 
 export const Picker = ({ onSelect }: PickerProps) => (
   <NimblePicker
     native={false}
-    data={data as unknown as Data}
+    data={(data as unknown) as Data}
     set="twitter"
     emoji="eyes"
     title="Pick an icon!"
@@ -20,6 +20,13 @@ export const Picker = ({ onSelect }: PickerProps) => (
     onSelect={onSelect}
     autoFocus={true}
     style={{ width: '276px' }}
+    css={{
+      'div.twitter-picker': {
+        border: '0 !important',
+        boxShadow: 'rgba(0, 0, 0, 0.2) 0px 1px 4px 1px !important',
+        borderRadius: '4px !important'
+      }
+    }}
   />
 )
 

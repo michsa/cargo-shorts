@@ -1,6 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import Color from 'color'
 import 'emoji-mart/css/emoji-mart.css'
-import React, { useState } from 'react'
+import { createRef, Fragment, useState } from 'react'
 import { TwitterPicker } from 'react-color'
 import { connect } from 'react-redux'
 
@@ -11,7 +13,6 @@ import {
   updatePocketSettings
 } from '../../redux/actions/ui'
 import { getPocketById } from '../../redux/selectors/pocket'
-import styled from "../../styled"
 import {
   Args,
   Pocket,
@@ -63,39 +64,15 @@ const mapDispatchToProps = {
   onDelete: (id: PocketID) => deletePocket(id)
 } as Handlers
 
-const Inputs = styled(Flex)<{ color: string }>`
-  background-color: ${props => props.color};
-  * {
-    color: ${props =>
-      Color(props.color).isDark() !== props.theme.isDark
-        ? props.theme.colors.altBackground
-        : props.theme.colors.text};
-    border-color: ${props =>
-      Color(props.color).isDark() !== props.theme.isDark
-        ? props.theme.colors.altBackground
-        : props.theme.colors.text};
-    &::placeholder {
-      color: ${props =>
-        Color(
-          Color(props.color).isDark() !== props.theme.isDark
-            ? props.theme.colors.altBackground
-            : props.theme.colors.text
-        )
-          .alpha(0.5)
-          .string()};
-    }
-  }
-`
-
 const PickerPlaceholder = () => (
-  <div style={{ position: 'relative', width: '100%' }}>
-    <div style={{ position: 'absolute', top: '32%', left: '12%' }}>
+  <div css={{ position: 'relative', width: '100%' }}>
+    <div css={{ position: 'absolute', top: '32%', left: '12%' }}>
       pick an icon
     </div>
-    <div style={{ position: 'absolute', top: '8%', left: '24%' }}>
+    <div css={{ position: 'absolute', top: '8%', left: '24%' }}>
       give it a name
     </div>
-    <div style={{ position: 'absolute', top: '28%', right: '12%' }}>
+    <div css={{ position: 'absolute', top: '28%', right: '12%' }}>
       choose a color
     </div>
   </div>
@@ -126,7 +103,7 @@ const PocketSettingsComponent = ({
     return id && onDelete(id)
   }
 
-  const nameInput = React.createRef<HTMLInputElement>()
+  const nameInput = createRef<HTMLInputElement>()
   const callAndRefocus = <T extends Function, never>(
     fn: T,
     ...args: Args<T>
@@ -142,17 +119,69 @@ const PocketSettingsComponent = ({
 
   return (
     <div id="pocket-settings">
-      <PopupHeader>
+      <PopupHeader css={{ padding: '12px 16px' }}>
         <Flex justifyContent="center" alignItems="center">
           <h1 className="title">{id ? 'Edit' : 'New'} Pocket</h1>
         </Flex>
       </PopupHeader>
 
-      <Inputs color={settings.color} className="inputs" as="section">
-        <Flex className="icon-input" flex={0} onClick={() => setPicker('icon')}>
+      <Flex
+        center
+        className="inputs"
+        css={theme => ({
+          backgroundColor: settings.color,
+          margin: '12px 8px',
+          padding: '0 8px',
+          height: 40,
+          boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.3)',
+          '*': {
+            color:
+              Color(settings.color).isDark() !== theme.isDark
+                ? theme.colors.altBackground
+                : theme.colors.text,
+            borderColor:
+              Color(settings.color).isDark() !== theme.isDark
+                ? theme.colors.altBackground
+                : theme.colors.text,
+            '&::placeholder': {
+              color: Color(
+                Color(settings.color).isDark() !== theme.isDark
+                  ? theme.colors.altBackground
+                  : theme.colors.text
+              )
+                .alpha(0.5)
+                .string()
+            }
+          }
+        })}
+      >
+        <Flex
+          css={{
+            borderBottomStyle: 'dotted',
+            borderBottomWidth: 2,
+            cursor: 'pointer',
+            height: 24,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+          className="icon-input"
+          flex={0}
+          onClick={() => setPicker('icon')}
+        >
           <PocketIcon icon={settings.icon} />
         </Flex>
-        <Flex flex={5} className="name-input">
+        <Flex
+          flex={5}
+          className="name-input"
+          css={{
+            margin: '0 6px',
+            borderBottomStyle: 'dotted',
+            borderBottomWidth: 2,
+            height: 24,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
           <input
             type="text"
             ref={nameInput}
@@ -161,20 +190,41 @@ const PocketSettingsComponent = ({
             onChange={e => updateSettings('name', e.target.value)}
             placeholder={placeholder}
             maxLength={40}
+            css={{
+              fontFamily: 'Catamaran", sans-serif',
+              width: '100%',
+              padding: 2,
+              fontSize: '1.2em',
+              fontWeight: 600,
+              border: 0,
+              outline: 0,
+              backgroundColor: 'transparent'
+            }}
           />
         </Flex>
         <Flex
           className="input-color"
+          css={{ padding: '0px 4px', cursor: 'pointer' }}
           flex={0}
           onClick={() => callAndRefocus(setPicker, 'color')}
         >
           <Emoji emoji="🎨" size={19} />
         </Flex>
-      </Inputs>
+      </Flex>
 
-      <Flex className="pickers" justifyContent="center" wrap>
+      <Flex
+        className="pickers"
+        justifyContent="center"
+        wrap
+        css={{
+          height: 258,
+          position: 'relative',
+          width: 276,
+          margin: '0 auto'
+        }}
+      >
         {activePicker === 'color' ? (
-          <React.Fragment>
+          <Fragment>
             <Triangle side="right" margin={6} />
             <TwitterPicker
               color={settings.color}
@@ -184,16 +234,16 @@ const PocketSettingsComponent = ({
                 callAndRefocus(updateSettings, 'color', colorResult.hex)
               }
             />
-          </React.Fragment>
+          </Fragment>
         ) : activePicker === 'icon' ? (
-          <React.Fragment>
+          <Fragment>
             <Triangle margin={4} width={9} />
             <Picker
               onSelect={emoji =>
                 callAndRefocus(updateSettings, 'icon', emoji.native)
               }
             />
-          </React.Fragment>
+          </Fragment>
         ) : (
           <PickerPlaceholder />
         )}
@@ -204,6 +254,14 @@ const PocketSettingsComponent = ({
         justifyContent="space-between"
         as="nav"
         alignItems="center"
+        css={{
+          margin: '16px 8px 12px',
+          '& > button': {
+            borderStyle: 'solid',
+            width: '100%',
+            height: 36
+          }
+        }}
       >
         <Flex flex={1}>
           <IconButton icon="🙅" onClick={() => setRoute(route.pocketList())}>
@@ -212,12 +270,19 @@ const PocketSettingsComponent = ({
         </Flex>
         <Flex flex="0 1 16px" />
         {id && (
-          <React.Fragment>
-            <Flex flex={0} className="delete-button">
+          <Fragment>
+            <Flex
+              flex={0}
+              className="delete-button"
+              css={{
+                borderColor: '#F44336',
+                ':hover': { backgroundColor: '#FF5722' }
+              }}
+            >
               <IconButton icon="🗑️" onClick={handleDelete} />
             </Flex>
             <Flex flex="0 1 16px" />
-          </React.Fragment>
+          </Fragment>
         )}
         <Flex flex={1}>
           <IconButton icon="👌" onClick={handleConfirm}>
