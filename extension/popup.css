@@ -4,20 +4,7 @@ body {
 
 /* --- pocket list --- */
 
-#pocket-list .list {
-  max-height: 384px;
-  overflow-y: visible;
-}
-
 /* --- new pocket button --- */
-
-.new-pocket {
-  margin: 8px;
-}
-
-.new-pocket>button {
-  width: 100%;
-}
 
 
 /* --- pocket settings --- */

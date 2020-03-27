@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { move } from 'ramda'
-import * as React from 'react'
 import {
   DragDropContext,
   Droppable,
@@ -100,6 +101,10 @@ const PocketList = ({
           {(provided: DroppableProvided) => (
             <div
               className="list"
+              css={{  
+                maxHeight: 384,
+                overflowY: 'visible',
+              }}
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
