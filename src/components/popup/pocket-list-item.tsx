@@ -29,20 +29,18 @@ const PocketListItem = ({
     {provided => (
       <div
         className="pocket-list-item"
-        css={theme => ({
+        css={{
           borderRadius: 2,
           overflow: 'hidden',
           cursor: 'pointer',
           position: 'relative',
           height: 32,
-          margin: '8px 8px 0',
           boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
-          backgroundColor: theme.colors.accent,
           ':hover > *:first-child': {
             marginRight: 32,
             transition: 'margin-right 0.3s ease 0.3s'
           }
-        })}
+        }}
         ref={provided.innerRef}
         {...provided.draggableProps}
       >
@@ -86,32 +84,33 @@ const PocketListItem = ({
           <Flex flex={0}>
             <PocketIcon icon={pocket.icon} />
           </Flex>
-          <Flex
-            css={{ minWidth: 0, textAlign: 'left' }}
+          <div
+            css={{ minWidth: 0, textAlign: 'left', flex: 1 }}
             className="pocket-name"
-            flex={1}
           >
             <Truncated>{pocket.name}</Truncated>
-          </Flex>
+          </div>
           <PocketCount count={pocket.tabs.length} />
         </Flex>
         <Flex
+          css={theme => ({
+            // emotion bug - for some reason it prepends the first style in the
+            // list with 0, so we just add a dummy style 
+            dummy: 'unset',
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            bottom: 0,
+            zIndex: 1,
+            width: 32,
+            cursor: 'pointer',
+            backgroundColor: theme.colors.accent
+          })}
+          inline
           center
-          className="edit-pocket"
           onClick={() => handleEdit(pocket.id)}
-          css={
-            {
-              // position: 'absolute',
-              // right: 0,
-              // top: 0,
-              // bottom: 0,
-              // zIndex: 1,
-              // width: 32,
-              // cursor: 'pointer'
-            }
-          }
         >
-          <Emoji emoji="✏️asdfasdf" size={13} />
+          <Emoji emoji="✏️" size={13} />
         </Flex>
       </div>
     )}
