@@ -24,9 +24,9 @@ import {
   State,
   Tab
 } from '../../types'
+import Flex from '../shared/flex'
 import NewPocketButton from '../shared/new-pocket-button'
 import TabInfo from '../shared/tab-info'
-// import { List } from '../shared/utils'
 
 import { route } from './hooks'
 import PocketListItem from './pocket-list-item'
@@ -99,10 +99,12 @@ const PocketList = ({
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId={'popupPocketList'}>
           {(provided: DroppableProvided) => (
-            <div
-              className="list"
+            <Flex
+              column
+              gap={8}
               css={{  
                 maxHeight: 384,
+                padding: 8,
                 overflowY: 'visible',
               }}
               ref={provided.innerRef}
@@ -121,15 +123,13 @@ const PocketList = ({
                 />
               ))}
               {provided.placeholder}
-              <div>
-                <NewPocketButton
+              <NewPocketButton
                   onClick={() => {
                     onNewPocket()
                     setRoute(route.newPocket())
                   }}
                 />
-              </div>
-            </div>
+            </Flex>
           )}
         </Droppable>
       </DragDropContext>
