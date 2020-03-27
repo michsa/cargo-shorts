@@ -1,4 +1,6 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+import Color from 'color'
 import { Draggable } from 'react-beautiful-dnd'
 
 import { Pocket } from '../../types'
@@ -7,8 +9,6 @@ import Flex from '../shared/flex'
 import PocketCount from '../shared/pocket-count'
 import PocketIcon from '../shared/pocket-icon'
 import { DragHandle, Truncated } from '../shared/utils'
-
-import PocketDetails from './pocket-details'
 
 interface Props {
   pocket: Pocket
@@ -32,13 +32,26 @@ const PocketListItem = ({
         ref={provided.innerRef}
         {...provided.draggableProps}
       >
-        <PocketDetails
-          isActive={isActive}
+        <Flex
+          css={theme => ({
+            backgroundColor: isActive
+              ? pocket.color
+              : theme.colors.altBackground,
+            color:
+              isActive && Color(pocket.color).isDark() !== theme.isDark
+                ? theme.colors.altBackground
+                : theme.colors.text,
+            borderLeft: `8px solid ${pocket.color}`,
+            ':hover': {
+              backgroundColor: Color(theme.colors.altBackground)
+                .mix(Color(pocket.color), isActive ? 0.8 : 0.15)
+                .hex()
+            }
+          })}
           onClick={() => handleClick(pocket.id)}
           className="details"
-          flex={1}
           alignItems="center"
-          color={pocket.color}
+          flex={1}
         >
           <Flex flex={0} {...provided.dragHandleProps}>
             <DragHandle />
@@ -47,14 +60,27 @@ const PocketListItem = ({
             <PocketIcon icon={pocket.icon} />
           </Flex>
           <Flex
-            style={{ minWidth: 0, textAlign: 'left' }}
+            css={{ minWidth: 0, textAlign: 'left' }}
             className="pocket-name"
             flex={1}
           >
             <Truncated>{pocket.name}</Truncated>
           </Flex>
-          <PocketCount count={pocket.tabs.length} />
-        </PocketDetails>
+          <PocketCount
+            css={theme => ({
+              backgroundColor: Color(theme.colors.altBackground)
+                .alpha(0.65)
+                .string(),
+              boxShadow: `0 0 0 1px ${Color(theme.colors.altBackground)
+                .alpha(0.15)
+                .string()}, 0 0 3px ${Color(theme.colors.altBackground)
+                .alpha(0.65)
+                .string()}`,
+              color: theme.colors.text
+            })}
+            count={pocket.tabs.length}
+          />
+        </Flex>
         <Flex
           className="edit-pocket"
           onClick={() => handleEdit(pocket.id)}
