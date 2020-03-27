@@ -9,45 +9,6 @@ body {
   overflow-y: visible;
 }
 
-.pocket-list-item {
-  position: relative;
-  height: 32px;
-  margin: 8px 8px 0;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  background-color: #FEDB41;
-}
-
-.pocket-list-item .details {
-  cursor: pointer;
-  position: absolute;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  z-index: 2;
-  margin-right: 0px;
-  transition: color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s;
-}
-
-.pocket-list-item:hover .details {
-  margin-right: 32px;
-  transition: margin-right 0.3s ease 0.3s;
-}
-
-.pocket-list-item .edit-pocket {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  width: 32px;
-}
-
-.pocket-list-item .edit-pocket>* {
-  cursor: pointer;
-}
-
 /* --- new pocket button --- */
 
 .new-pocket {

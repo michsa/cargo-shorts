@@ -1,12 +1,10 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import Color from 'color'
-import React from 'react'
-
-import Flex from '../shared/flex'
 
 const PocketCount = ({ count }: { count: number }) => (
-  <Flex
+  <div
     className="pocket-count"
-    flex={0}
     css={theme => ({
       backgroundColor: Color(theme.colors.altBackground)
         .alpha(0.65)
@@ -16,11 +14,11 @@ const PocketCount = ({ count }: { count: number }) => (
         .string()}, 0 0 3px ${Color(theme.colors.altBackground)
         .alpha(0.65)
         .string()}`,
-      color: theme.colors.text,
+      color: theme.colors.text
     })}
   >
     {count}
-  </Flex>
+  </div>
 )
 
 export default PocketCount

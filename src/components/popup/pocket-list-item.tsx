@@ -29,14 +29,41 @@ const PocketListItem = ({
     {provided => (
       <div
         className="pocket-list-item"
+        css={theme => ({
+          borderRadius: 2,
+          overflow: 'hidden',
+          cursor: 'pointer',
+          position: 'relative',
+          height: 32,
+          margin: '8px 8px 0',
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
+          backgroundColor: theme.colors.accent,
+          ':hover > *:first-child': {
+            marginRight: 32,
+            transition: 'margin-right 0.3s ease 0.3s'
+          }
+        })}
         ref={provided.innerRef}
         {...provided.draggableProps}
       >
         <Flex
           css={theme => ({
+            cursor: 'pointer',
+            position: 'absolute',
+            boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+            zIndex: 2,
+            marginRight: 0,
+            transition:
+              'color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s',
             backgroundColor: isActive
               ? pocket.color
-              : theme.colors.altBackground,
+              : Color(theme.colors.altBackground)
+                  .mix(Color(pocket.color), 0)
+                  .hex(),
             color:
               isActive && Color(pocket.color).isDark() !== theme.isDark
                 ? theme.colors.altBackground
@@ -66,28 +93,25 @@ const PocketListItem = ({
           >
             <Truncated>{pocket.name}</Truncated>
           </Flex>
-          <PocketCount
-            css={theme => ({
-              backgroundColor: Color(theme.colors.altBackground)
-                .alpha(0.65)
-                .string(),
-              boxShadow: `0 0 0 1px ${Color(theme.colors.altBackground)
-                .alpha(0.15)
-                .string()}, 0 0 3px ${Color(theme.colors.altBackground)
-                .alpha(0.65)
-                .string()}`,
-              color: theme.colors.text
-            })}
-            count={pocket.tabs.length}
-          />
+          <PocketCount count={pocket.tabs.length} />
         </Flex>
         <Flex
+          center
           className="edit-pocket"
           onClick={() => handleEdit(pocket.id)}
-          justifyContent="center"
-          alignItems="center"
+          css={
+            {
+              // position: 'absolute',
+              // right: 0,
+              // top: 0,
+              // bottom: 0,
+              // zIndex: 1,
+              // width: 32,
+              // cursor: 'pointer'
+            }
+          }
         >
-          <Emoji emoji="✏️" size={13} />
+          <Emoji emoji="✏️asdfasdf" size={13} />
         </Flex>
       </div>
     )}
