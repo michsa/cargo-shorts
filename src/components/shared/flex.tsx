@@ -26,7 +26,7 @@ const Flex = styled.div<FlexProps>(
     flexDirection: column ? 'column' : 'row'
   }),
   ({ wrap, gap = 0, column }) =>
-    gap && !wrap && { '> * + *': { [`margin${column ? 'Top' : 'Left'}`]: gap } }
+    !!gap && !wrap && { '> * + *': { [`margin${column ? 'Top' : 'Left'}`]: gap } }
 )
 
 export default Flex

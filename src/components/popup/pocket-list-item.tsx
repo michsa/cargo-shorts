@@ -94,9 +94,6 @@ const PocketListItem = ({
         </Flex>
         <Flex
           css={theme => ({
-            // emotion bug - for some reason it prepends the first style in the
-            // list with 0, so we just add a dummy style 
-            dummy: 'unset',
             position: 'absolute',
             right: 0,
             top: 0,
