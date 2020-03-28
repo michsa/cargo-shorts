@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 
-import styled from '../../styled'
 import { Tab } from '../../types'
 import Flex from '../shared/flex'
 import { Truncated } from '../shared/utils'
@@ -11,21 +10,29 @@ interface Props {
   iconSize?: number
 }
 
-const Favicon = styled.div<{ src: string; iconSize: number }>(props => ({
-  width: props.iconSize,
-  height: props.iconSize,
-  backgroundImage: `url(${props.src})`,
-  backgroundSize: 'contain',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat'
-}))
-
 const TabInfo = ({ tab, iconSize = 32 }: Props) => (
-  <Flex center className="tab-info" flex={1}>
+  <Flex
+    center
+    className="tab-info"
+    flex={1}
+    gap={8}
+    css={{
+      // needed for children to truncate, since this is the top-level flex
+      overflow: 'hidden'
+    }}
+  >
     {tab.favicon && (
-      <Flex flex={0}>
-        <Favicon src={tab.favicon} iconSize={iconSize} />
-      </Flex>
+      <div
+        css={{
+          width: iconSize,
+          height: iconSize,
+          backgroundImage: `url(${tab.favicon})`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          flex: `0 0 ${iconSize}px`
+        }}
+      />
     )}
     <Flex column flex={1} css={{ minWidth: 0, textAlign: 'left' }}>
       <Truncated css={{ fontWeight: 600, fontSize: '1.1rem' }}>

@@ -37,16 +37,6 @@ h1 {
   letter-spacing: 1px;
 }
 
-/* --- tab info --- */
-
-.tab-info {
-  margin: 0 8px;
-}
-
-.tab-info>* {
-  margin: 0 4px;
-}
-
 /* --- pocket list item --- */
 
 .pocket-list-item .details .pocket-name {

@@ -9,7 +9,7 @@ const PopupHeader = (props: { children?: React.ReactNode }) => (
     css={theme => ({
       borderBottom: `2px solid ${theme.colors.primary}`,
       backgroundColor: theme.colors.secondary,
-      padding: `12px 0`
+      padding: 12
     })}
     {...props}
   />

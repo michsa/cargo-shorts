@@ -119,7 +119,7 @@ const PocketSettingsComponent = ({
 
   return (
     <div id="pocket-settings">
-      <PopupHeader css={{ padding: '12px 16px' }}>
+      <PopupHeader>
         <Flex justifyContent="center" alignItems="center">
           <h1 className="title">{id ? 'Edit' : 'New'} Pocket</h1>
         </Flex>
