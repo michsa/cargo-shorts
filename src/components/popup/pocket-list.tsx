@@ -102,10 +102,10 @@ const PocketList = ({
             <Flex
               column
               gap={8}
-              css={{  
+              css={{
                 maxHeight: 384,
                 padding: 8,
-                overflowY: 'visible',
+                overflowY: 'visible'
               }}
               ref={provided.innerRef}
               {...provided.droppableProps}
@@ -124,11 +124,11 @@ const PocketList = ({
               ))}
               {provided.placeholder}
               <NewPocketButton
-                  onClick={() => {
-                    onNewPocket()
-                    setRoute(route.newPocket())
-                  }}
-                />
+                onClick={() => {
+                  onNewPocket()
+                  setRoute(route.newPocket())
+                }}
+              />
             </Flex>
           )}
         </Droppable>

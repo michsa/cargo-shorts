@@ -6,13 +6,13 @@ import Flex from '../shared/flex'
 export const List = styled.ul({
   listStyleType: 'none',
   margin: 0,
-  padding: 0,
+  padding: 0
 })
 
 export const Truncated = styled.div({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
-  textOverflow: 'ellipsis',
+  textOverflow: 'ellipsis'
 })
 
 export const DragHandle = () => (
