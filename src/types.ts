@@ -1,3 +1,5 @@
+import { BaseEmoji } from 'emoji-mart'
+
 // --- utils --- //
 
 export type Diff<T, U> = T extends U ? never : T
@@ -40,7 +42,7 @@ export interface Pocket {
   id: PocketID
   name: string
   color: string
-  icon: string
+  icon: string | BaseEmoji
   tabs: TabID[]
 }
 

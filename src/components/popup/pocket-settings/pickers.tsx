@@ -2,11 +2,11 @@
 import { jsx } from '@emotion/core'
 import 'emoji-mart/css/emoji-mart.css'
 import { Fragment } from 'react'
-import { TwitterPicker } from 'react-color'
+import { SliderPicker, CirclePicker } from 'react-color'
 
-import { PocketSettings, Pocket } from '../../../types'
 import { pocketDefaults as defaults } from '../../../constants'
-import { Picker } from '../../shared/emoji'
+import { PocketSettings, Pocket } from '../../../types'
+import { Picker as EmojiPicker } from '../../shared/emoji'
 import Flex from '../../shared/flex'
 import { Triangle } from '../../shared/triangle'
 
@@ -43,23 +43,39 @@ const Pickers = ({
     {activePicker === 'color' ? (
       <Fragment>
         <Triangle side="right" margin={6} />
-        <TwitterPicker
+        <CirclePicker
           color={settings.color}
           colors={defaults.color}
-          triangle="hide"
+          //triangle="hide"
+          css={{ width: 276 }}
           onChangeComplete={colorResult => {
             refocus()
             updateSettings('color', colorResult.hex)
+            console.log('change complete', colorResult)
+          }}
+          circleSize={24}
+          circleSpacing={8}
+        />
+        <SliderPicker
+          color={settings.color}
+          //colors={defaults.color}
+          //triangle="hide"
+          css={{ width: 276 }}
+          onChangeComplete={colorResult => {
+            refocus()
+            updateSettings('color', colorResult.hex)
+            console.log('change complete', colorResult)
           }}
         />
       </Fragment>
     ) : activePicker === 'icon' ? (
       <Fragment>
         <Triangle margin={4} width={9} />
-        <Picker
+        <EmojiPicker
           onSelect={emoji => {
             refocus()
-            updateSettings('icon', emoji.native)
+            updateSettings('icon', emoji)
+            console.log('updated: ', emoji)
           }}
         />
       </Fragment>

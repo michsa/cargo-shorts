@@ -9,29 +9,27 @@ export const pocketDefaults = {
         "Groceries", "Free apps", "Flash games", "Podcasts", "Webcomics",
         "Food porn", "Books", "Tutorials", "TED talks", "Research papers"
     ],
-    icon: ['👶'],
-    oldIcon: [
-        ':sunglasses:', ':joy:', ':ok_hand:', ':muscle:', ':strawberry:',
-        ':pumpkin:', ':mage:', ':sparkles:', ':sun_with_face:', ':rainbow:',
-        ':floppy_disk:', ':phone:', ':candle:', ':books:', ':briefcase:',
-        ':shopping_trolley:', ':100:', ':nerd_face:', ':wink:', ':scream:',
-        ':heart_eyes:', ':grimacing:', ':japanese_goblin:', ':ghost:',
-        ':alien:', ':space_invader:', ':merperson:', ':shrug:', ':dancers:',
-        ':pray:', ':sparkling_heart:', ':sweat_drops:', ':peach:', ':socks:',
-        ':eggplant:', ':high_heel:', ':crown:', ':lipstick:', ':lizard:',
-        ':camel:', ':hatching_chick:', ':pig:', ':sheep:', ':unicorn_face:',
-        ':dragon:', ':squid:', ':snail:', ':tulip:', ':palm_tree:', ':whale:',
-        ':mushroom:', ':pizza:', ':camera:', ':selfie:', ':joystick:', ':tada:'
-    ],
+    icon: [
+        'baby', 'sunglasses', 'joy', 'ok_hand', 'muscle', 'strawberry',
+        '+1', 'mage', 'sparkles', 'sun_with_face', 'rainbow',
+        'floppy_disk', 'phone', 'candle', 'books', 'briefcase',
+        'shopping_trolley', '100', 'nerd_face', 'wink', 'scream',
+        'heart_eyes', 'grimacing', 'japanese_goblin', 'ghost',
+        'alien', 'space_invader', 'merperson', 'shrug', 'dancers',
+        'pray', 'sparkling_heart', 'sweat_drops', 'peach', 'socks',
+        'eggplant', 'high_heel', 'crown', 'lipstick', 'lizard',
+        'camel', 'hatching_chick', 'pig', 'sheep', 'unicorn_face',
+        'dragon', 'squid', 'snail', 'tulip', 'palm_tree', 'whale',
+        'mushroom', 'pizza', 'camera', 'selfie', 'joystick', 'tada'
+    ].map(id => ({ id })),
     color: [
         "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
         "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107",
-        "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
-        "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107",
-        "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4",
-        "#ff9800", "#ff5722", "#795548", "#e91e63"
+        "#795548"
     ]
 }
+
+console.log(pocketDefaults.icon)
 
 export const NEW_POCKET = 'NEW_POCKET'
 export const REMOVE_POCKET = 'REMOVE_POCKET'

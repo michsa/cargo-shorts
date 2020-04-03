@@ -129,6 +129,9 @@ h1 {
   cursor: inherit;
 }
 
-.emoji-mart-emoji {
-  vertical-align: middle !important;
+.emoji-mart-emoji span {
+  filter:
+  drop-shadow(0 -1px #08386399)
+  drop-shadow(-1px 1px #08386399)
+  drop-shadow(1px 0.5px #083863CC)
 }
