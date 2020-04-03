@@ -94,7 +94,7 @@ const PocketSettingsComponent = ({
   const [placeholder] = useState(getRandomOf(defaults.name) || 'Pocket Name')
 
   return (
-    <div id="pocket-settings">
+    <Flex column id="pocket-settings">
       <PopupHeader>
         <Flex justifyContent="center" alignItems="center">
           <h1 className="title">{id ? 'Edit' : 'New'} Pocket!</h1>
@@ -105,7 +105,7 @@ const PocketSettingsComponent = ({
       />
       <Pickers {...{ activePicker, settings, updateSettings, refocus }} />
       <NavButtons {...{ setRoute, id, handleDelete, handleConfirm }} />
-    </div>
+    </Flex>
   )
 }
 

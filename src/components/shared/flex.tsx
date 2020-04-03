@@ -3,7 +3,7 @@ import { pick } from 'ramda'
 
 import styled from '../../styled'
 
-type FlexProps = StyledOptions & {
+export type FlexProps = StyledOptions & {
   alignItems?: string
   flex?: number | string
   center?: boolean

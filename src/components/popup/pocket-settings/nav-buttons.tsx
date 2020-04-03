@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { Fragment } from 'react'
+import styled from '@emotion/styled'
 
 import { PocketID, PocketListRoute } from '../../../types'
 import { IconButton } from '../../shared/button'
@@ -14,47 +14,36 @@ interface Props {
   handleDelete: () => void
 }
 
+const DeleteButton = styled(IconButton)({
+  borderColor: '#F44336',
+  ':hover': { backgroundColor: '#FF5722' }
+})
+
 const NavButtons = ({ setRoute, id, handleDelete, handleConfirm }: Props) => (
   <Flex
     className="nav-buttons"
-    justifyContent="space-between"
-    as="nav"
+    justifyContent="stretch"
     alignItems="center"
+    gap={8}
     css={{
       margin: '16px 8px 12px',
-      '& > button': {
-        borderStyle: 'solid',
-        width: '100%',
-        height: 36
-      }
+      button: { borderStyle: 'solid' }
     }}
   >
-    <Flex flex={1}>
-      <IconButton icon="🙅" onClick={() => setRoute(route.pocketList())}>
-        Cancel
-      </IconButton>
-    </Flex>
-    <Flex flex="0 1 16px" />
+    <IconButton flex={1} icon="🙅" onClick={() => setRoute(route.pocketList())}>
+      Cancel
+    </IconButton>
     {id && (
-      <Fragment>
-        <Flex
-          flex={0}
-          className="delete-button"
-          css={{
-            borderColor: '#F44336',
-            ':hover': { backgroundColor: '#FF5722' }
-          }}
-        >
-          <IconButton icon="🗑️" onClick={handleDelete} />
-        </Flex>
-        <Flex flex="0 1 16px" />
-      </Fragment>
+      <DeleteButton
+        // className="delete-button"
+        flex={0}
+        icon="🗑️"
+        onClick={handleDelete}
+      />
     )}
-    <Flex flex={1}>
-      <IconButton icon="👌" onClick={handleConfirm}>
-        Save
-      </IconButton>
-    </Flex>
+    <IconButton flex={1} icon="👌" onClick={handleConfirm}>
+      Save
+    </IconButton>
   </Flex>
 )
 
