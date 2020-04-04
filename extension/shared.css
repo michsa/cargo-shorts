@@ -37,19 +37,6 @@ h1 {
   letter-spacing: 1px;
 }
 
-/* --- misc --- */
-
-.drag-handle {
-  font-size: 11px;
-  line-height: 8px;
-  letter-spacing: 0px;
-  width: 20px;
-  height: 16px;
-  cursor: grab;
-  font-family: "Hind" !important;
-  font-weight: 500 !important;
-}
-
 /* --- external components --- */
 
 .twitter-picker input {

@@ -38,7 +38,7 @@ const PocketListItem = ({
           boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
           ':hover > *:first-child': {
             marginRight: 32,
-            transition: 'margin-right 0.3s ease 0.3s'
+            transition: 'margin-right 0.3s ease 0.2s'
           }
         }}
         ref={provided.innerRef}
@@ -54,7 +54,9 @@ const PocketListItem = ({
             bottom: 0,
             top: 0,
             zIndex: 2,
+            borderRadius: 2,
             marginRight: 0,
+            paddingRight: 8,
             transition:
               'color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s',
             backgroundColor: isActive
@@ -77,22 +79,18 @@ const PocketListItem = ({
           className="details"
           alignItems="center"
           flex={1}
+          gap={8}
         >
-          <Flex flex={0} {...provided.dragHandleProps}>
-            <DragHandle />
-          </Flex>
-          <Flex flex={0}>
-            <PocketIcon icon={pocket.icon} />
-          </Flex>
+          <DragHandle {...provided.dragHandleProps} />
+          <PocketIcon icon={pocket.icon} />
           <div
             css={{
               flex: 1,
               fontFamily: 'Nunito, sans-serif',
               fontSize: '1em',
               fontWeight: 600,
-              marginLeft: 8,
               minWidth: 0,
-              textAlign: 'left',
+              textAlign: 'left'
             }}
             className="pocket-name"
           >
