@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
-import * as React from 'react'
 
 import theme from '../../theme'
 import Flex from '../shared/flex'
