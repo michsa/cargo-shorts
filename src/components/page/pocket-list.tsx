@@ -1,7 +1,8 @@
 import { move } from 'ramda'
 import * as React from 'react'
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
+import Snuggle from 'react-snuggle'
 
 import { movePocket, moveTab } from '../../redux/actions/ui'
 import { getOrderedPockets } from '../../redux/selectors'
@@ -48,32 +49,20 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable
-        droppableId="pagePocketList"
-        direction="horizontal"
-        type="COLUMN"
-      >
-        {provided => (
-          <Flex
-            flex={1}
-            className="pocket-list"
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            <Flex flex="1 1" />
-            {pockets.map((pocket, index) => (
-              <PocketListItem
-                index={index}
-                pocket={pocket}
-                key={pocket.id}
-                handleEdit={x => x}
-              />
-            ))}
-            {provided.placeholder}
-            <Flex flex="1 1" />
-          </Flex>
-        )}
-      </Droppable>
+      <Flex flex={1} className="pocket-list">
+        <Flex flex="1 1" />
+        <Snuggle style={{ width: '800px' }}>
+          {pockets.map((pocket, index) => (
+            <PocketListItem
+              index={index}
+              pocket={pocket}
+              key={pocket.id}
+              handleEdit={x => x}
+            />
+          ))}
+        </Snuggle>
+        <Flex flex="1 1" />
+      </Flex>
     </DragDropContext>
   )
 }
