@@ -56,11 +56,7 @@ const convertEmoji = (emoji: string | BaseEmoji): BaseEmoji =>
     ? getEmojiDataFromNative(emoji, 'twitter', (data as unknown) as Data)
     : emoji
 
-export const Emoji = ({
-  emoji,
-  size,
-  ...props
-}: EmojiProps) => {
+export const Emoji = ({ emoji, size, ...props }: EmojiProps) => {
   const emojiObj = convertEmoji(emoji)
   return (
     <div

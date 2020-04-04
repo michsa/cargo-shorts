@@ -27,9 +27,7 @@ const PocketListItem = styled.div<{ color: string }>(props => ({
 
 const PocketListItemWrapper = ({ pocket, handleEdit }: Props) => {
   return (
-    <div
-      className="pocket-list-item-holder"
-    >
+    <div className="pocket-list-item-holder">
       <PocketListItem
         className="pocket-list-item"
         key={pocket.id}
@@ -47,11 +45,14 @@ const PocketListItemWrapper = ({ pocket, handleEdit }: Props) => {
             <Flex flex={0}>
               <PocketIcon icon={pocket.icon} />
             </Flex>
-            <Flex style={{ minWidth: 0, textAlign: 'left' }} className="pocket-name" flex={1}>
+            <Flex
+              style={{ minWidth: 0, textAlign: 'left' }}
+              className="pocket-name"
+              flex={1}
+            >
               <Truncated>{pocket.name}</Truncated>
             </Flex>
             <PocketCount count={pocket.tabs.length} />
-
           </PocketDetails>
           <Flex
             className="edit-pocket"
@@ -64,7 +65,6 @@ const PocketListItemWrapper = ({ pocket, handleEdit }: Props) => {
         </div>
         <TabList pocketId={pocket.id} color={pocket.color} />
       </PocketListItem>
-
     </div>
   )
 }

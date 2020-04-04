@@ -17,7 +17,7 @@ const PocketCount = ({ count }: { count: number }) => (
       padding: '1px 6px',
       fontSize: '0.9em',
       verticalAlign: 'middle',
-      lineHeight: 'normal',
+      lineHeight: 'normal'
     })}
   >
     {count}
