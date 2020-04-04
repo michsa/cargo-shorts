@@ -76,7 +76,7 @@ export const Emoji = ({
         emoji={emojiObj}
         native={false}
         set="twitter"
-        size={size || 14}
+        size={size || 16}
         skin={emojiObj.skin || undefined}
         {...props}
       />

@@ -25,7 +25,6 @@ export const Button = ({ icon, children, ...props }: Props & FlexProps) => (
       borderWidth: 2,
       color: theme.colors.primary,
       cursor: 'pointer',
-      fontFamily: 'Nunito, sans-serif',
       fontSize: '1.1em',
       fontWeight: 700,
       height: 32,

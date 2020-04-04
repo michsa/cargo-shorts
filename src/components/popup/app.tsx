@@ -4,6 +4,7 @@ import { ThemeProvider } from 'emotion-theming'
 
 import theme from '../../theme'
 import { RouterState } from '../../types'
+import GlobalStyles from '../shared/global-styles'
 
 import { route, useRouter } from './hooks'
 import PocketList from './pocket-list'
@@ -26,6 +27,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <main
         css={theme => ({
           margin: 0,

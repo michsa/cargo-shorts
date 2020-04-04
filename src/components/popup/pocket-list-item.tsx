@@ -84,14 +84,7 @@ const PocketListItem = ({
           <DragHandle {...provided.dragHandleProps} />
           <PocketIcon icon={pocket.icon} />
           <div
-            css={{
-              flex: 1,
-              fontFamily: 'Nunito, sans-serif',
-              fontSize: '1em',
-              fontWeight: 600,
-              minWidth: 0,
-              textAlign: 'left'
-            }}
+            css={{ flex: 1, fontWeight: 600, minWidth: 0 }}
             className="pocket-name"
           >
             <Truncated>{pocket.name}</Truncated>

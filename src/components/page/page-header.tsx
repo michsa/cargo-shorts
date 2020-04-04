@@ -42,7 +42,7 @@ const PageHeader = () => (
     <IconButton
       onClick={() => null}
       icon="⚙️"
-      css={theme => ({ color: theme.colors.text, borderStyle: 'solid' })}
+      css={theme => ({ color: theme.colors.text })}
     >
       Options
     </IconButton>

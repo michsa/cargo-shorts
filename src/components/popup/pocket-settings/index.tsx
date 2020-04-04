@@ -97,7 +97,18 @@ const PocketSettingsComponent = ({
     <Flex column id="pocket-settings">
       <PopupHeader>
         <Flex justifyContent="center" alignItems="center">
-          <h1 className="title">{id ? 'Edit' : 'New'} Pocket!</h1>
+          <h1
+            css={{
+              fontSize: 17,
+              fontWeight: 700,
+              padding: 0,
+              margin: 0,
+              textTransform: 'uppercase',
+              letterSpacing: 1
+            }}
+          >
+            {id ? 'Edit' : 'New'} Pocket
+          </h1>
         </Flex>
       </PopupHeader>
       <Inputs

@@ -19,24 +19,6 @@ html {
   }
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  font-family: "Nunito", sans-serif;
-  font-size: 10pt;
-  font-weight: 400;
-}
-
-h1 {
-  font-size: 17px;
-  font-weight: 700;
-  padding: 0;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
 /* --- external components --- */
 
 .twitter-picker input {
@@ -86,15 +68,4 @@ h1 {
 
 .emoji-mart .emoji-mart-emoji {
   padding: 4px !important;
-}
-
-.emoji-mart-emoji {
-  cursor: inherit;
-}
-
-.emoji-mart-emoji span {
-  filter:
-  drop-shadow(0 -1px #08386399)
-  drop-shadow(-1px 1px #08386399)
-  drop-shadow(1px 0.5px #083863CC)
 }
