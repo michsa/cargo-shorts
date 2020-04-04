@@ -15,12 +15,11 @@ interface Props {
 const TabListItem = ({ tab, index }: Props) => (
   <Draggable draggableId={tab.id} index={index}>
     {provided => (
-      <li
+      <div
         className="tab-list-item"
         ref={provided.innerRef}
         css={theme => ({
           backgroundColor: theme.colors.background,
-          margin: '4px 4px 0',
           padding: '4px 0',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.15)'
         })}
@@ -49,7 +48,7 @@ const TabListItem = ({ tab, index }: Props) => (
             </a>
           </Flex>
         </Flex>
-      </li>
+      </div>
     )}
   </Draggable>
 )

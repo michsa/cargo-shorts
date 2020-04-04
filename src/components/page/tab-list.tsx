@@ -5,11 +5,9 @@ import { Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { makeGetOrderedTabs } from '../../redux/selectors'
-import styled from '../../styled'
 import { PocketID, SavedTab, State } from '../../types'
 import { Emoji } from '../shared/emoji'
 import Flex from '../shared/flex'
-import { List } from '../shared/utils'
 
 import TabListItem from './tab-list-item'
 
@@ -21,14 +19,6 @@ interface OwnProps {
 interface StateProps {
   tabs: SavedTab[]
 }
-
-const StyledList = styled(List)<{ color: string }>(({ color }) => ({
-  border: '0px dashed',
-  borderColor: color,
-  borderTop: 0,
-  borderBottomLeftRadius: 4,
-  borderBottomRightRadius: 4
-}))
 
 const makeMapStateToProps = () => {
   const getOrderedTabs = makeGetOrderedTabs()
@@ -42,16 +32,21 @@ const makeMapStateToProps = () => {
 const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
   <Droppable droppableId={pocketId} direction="vertical" type="LIST">
     {(provided: DroppableProvided) => (
-      <StyledList
+      <Flex
+        column
         className="tab-list"
+        gap={4}
         css={{
           overflow: 'auto',
-          paddingBottom: 4,
-          flexGrow: 1,
+          padding: 6,
           /* for Firefox */
-          minHeight: 0
+          minHeight: 0,
+          border: '0px dashed',
+          borderColor: color,
+          borderTop: 0,
+          borderBottomLeftRadius: 4,
+          borderBottomRightRadius: 4
         }}
-        color={color}
         ref={provided.innerRef}
         {...provided.droppableProps}
       >
@@ -66,19 +61,27 @@ const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
           <Flex
             center
             gap={8}
-            css={{ height: 48, fontSize: '1.5em', fontWeight: 100 }}
+            css={theme => ({
+              height: 46,
+              boxSizing: 'border-box',
+              fontSize: '1.3em',
+              fontWeight: 200,
+              border: `2px dashed ${theme.colors.text}55`,
+              opacity: 0.6
+            })}
           >
-            <span>{`This pocket's empty...`}</span>
+            <span>{`Nothing but lint in here`}</span>
             <span>
-              <Emoji emoji="🕳️" />
+              <Emoji emoji="🤷" />
             </span>
           </Flex>
         )}
-      </StyledList>
+      </Flex>
     )}
   </Droppable>
 )
 
-// 🤷
+//
+// 🕳️
 
 export default connect(makeMapStateToProps)(TabList)
