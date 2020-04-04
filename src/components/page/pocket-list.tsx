@@ -6,8 +6,8 @@ import { connect } from 'react-redux'
 
 import { movePocket, moveTab } from '../../redux/actions/ui'
 import { getOrderedPockets } from '../../redux/selectors'
+import Grid from '../shared/grid'
 import { Pocket, State } from '../../types'
-import Flex from '../shared/flex'
 
 import PocketListItem from './pocket-list-item'
 
@@ -49,18 +49,13 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Flex
-        flex={1}
-        column
-        wrap
+      <Grid
+        autoRows="minmax(42px, auto)"
+        gap={8}
+        columns="repeat(auto-fit, minmax(300px, 400px))"
         className="pocket-list"
-        css={{
-          padding: '8px 8px 0',
-          overflowX: 'auto',
-          '> *': { maxWidth: 512, minWidth: 320, margin: 8 }
-        }}
-        alignItems="center"
-        alignContent="center"
+        placeContent="center"
+        css={{ padding: 8, paddingBottom: 0 }}
       >
         {pockets.map((pocket, index) => (
           <PocketListItem
@@ -70,7 +65,7 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
             handleEdit={x => x}
           />
         ))}
-      </Flex>
+      </Grid>
     </DragDropContext>
   )
 }

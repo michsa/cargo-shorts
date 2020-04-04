@@ -5,6 +5,7 @@ import Color from 'color'
 import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
 import Flex from '../shared/flex'
+import { GridItem } from '../shared/grid'
 import PocketCount from '../shared/pocket-count'
 import { Truncated } from '../shared/utils'
 
@@ -17,7 +18,8 @@ interface Props {
 }
 
 const PocketListItem = ({ pocket, handleEdit }: Props) => (
-  <div
+  <GridItem
+    height={(pocket.tabs.length || 1) + 1}
     className="pocket-list-item"
     key={pocket.id}
     color={pocket.color}
@@ -98,6 +100,6 @@ const PocketListItem = ({ pocket, handleEdit }: Props) => (
       </Flex>
     </div>
     <TabList pocketId={pocket.id} color={pocket.color} />
-  </div>
+  </GridItem>
 )
 export default PocketListItem
