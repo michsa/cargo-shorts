@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { move } from 'ramda'
-import * as React from 'react'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import Snuggle from 'react-snuggle'
@@ -49,9 +50,15 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Flex flex={1} className="pocket-list">
-        <Flex flex="1 1" />
-        <Snuggle style={{ width: '800px' }}>
+      <Flex
+        flex={1}
+        className="pocket-list"
+        css={{
+          padding: '8px 8px 0',
+          overflowX: 'auto'
+        }}
+      >
+        <Snuggle>
           {pockets.map((pocket, index) => (
             <PocketListItem
               index={index}
@@ -61,7 +68,6 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
             />
           ))}
         </Snuggle>
-        <Flex flex="1 1" />
       </Flex>
     </DragDropContext>
   )

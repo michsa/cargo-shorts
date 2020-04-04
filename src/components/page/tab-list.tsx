@@ -1,4 +1,5 @@
-import * as React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
@@ -40,6 +41,13 @@ const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
     {(provided: DroppableProvided) => (
       <StyledList
         className="tab-list"
+        css={{
+          overflow: 'auto',
+          paddingBottom: 4,
+          flexGrow: 1,
+          /* for Firefox */
+          minHeight: 0,
+        }}
         color={color}
         ref={provided.innerRef}
         {...provided.droppableProps}
