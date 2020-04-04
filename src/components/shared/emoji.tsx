@@ -1,14 +1,16 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import {
   BaseEmoji,
   NimblePicker as EmojiPicker,
   Emoji as EmojiComponent,
   getEmojiDataFromNative,
-  Data,
+  Data
 } from 'emoji-mart'
 import data from 'emoji-mart/data/twitter.json'
-import React, { FC } from 'react'
 
 import styled from '../../styled'
+
 type PickerProps = { onSelect: (emoji: BaseEmoji) => void }
 
 export const Picker = ({ onSelect }: PickerProps) => (
@@ -54,20 +56,30 @@ const convertEmoji = (emoji: string | BaseEmoji): BaseEmoji =>
     ? getEmojiDataFromNative(emoji, 'twitter', (data as unknown) as Data)
     : emoji
 
-export const Emoji: FC<EmojiProps> = ({
+export const Emoji = ({
   emoji,
   size,
   ...props
 }: EmojiProps) => {
   const emojiObj = convertEmoji(emoji)
   return (
-  <EmojiComponent
-    //data={(data as unknown) as Data}
-    emoji={emojiObj}
-    native={false}
-    set="twitter"
-    size={size || 14}
-    skin={emojiObj.skin || undefined}
-    {...props}
-  />
-)}
+    <div
+      css={{
+        display: 'contents',
+        // targets the span wrapper around the image; otherwise it takes up
+        // vertical space and messes up alignments
+        '.emoji-mart-emoji': { width: size, height: size }
+      }}
+    >
+      <EmojiComponent
+        //data={(data as unknown) as Data}
+        emoji={emojiObj}
+        native={false}
+        set="twitter"
+        size={size || 14}
+        skin={emojiObj.skin || undefined}
+        {...props}
+      />
+    </div>
+  )
+}

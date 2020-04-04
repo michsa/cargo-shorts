@@ -15,10 +15,10 @@ export const Button = ({ icon, children, ...props }: Props & FlexProps) => (
   <Flex
     as="button"
     center
-    gap="0.4em"
+    gap="0.5em"
     className="button"
     css={theme => ({
-      backgroundColor: theme.colors.altBackground,
+      backgroundColor: `${theme.colors.text}09`,
       borderColor: theme.colors.primary,
       borderRadius: 4,
       borderStyle: 'dashed',
@@ -33,7 +33,7 @@ export const Button = ({ icon, children, ...props }: Props & FlexProps) => (
       outline: 'none',
       padding: '4px 16px',
       textAlign: 'center',
-      transition: '0.1s',
+      transition: 'all 0.2s',
       ':hover': {
         backgroundColor: theme.colors.accent,
         borderStyle: 'solid',

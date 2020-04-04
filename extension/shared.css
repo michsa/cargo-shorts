@@ -37,30 +37,6 @@ h1 {
   letter-spacing: 1px;
 }
 
-/* --- pocket list item --- */
-
-.pocket-list-item .details .pocket-name {
-  font-family: "Nunito", sans-serif;
-  text-align: left;
-  font-weight: 600;
-  font-size: 1em;
-  margin-left: 8px;
-}
-
-.pocket-count {
-  border-radius: 2px;
-  padding: 0.2em 0.6em;
-  padding: 1px 6px;
-  margin: 0 8px;
-  font-size: 0.9em;
-  vertical-align: middle;
-  line-height: normal;
-}
-
-.edit-pocket {
-  cursor: pointer;
-}
-
 /* --- misc --- */
 
 .drag-handle {

@@ -1,30 +1,51 @@
-import * as React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 
-import styled from '../../styled'
 import { IconButton } from '../shared/button'
 import Flex from '../shared/flex'
 
 import PocketIcons from './pocket-summary'
 
-const PageHeaderButton = styled(IconButton)(props => ({
-  backgroundColor: 'transparent',
-  color: props.theme.colors.text
-}))
-
 const PageHeader = () => (
-  <Flex id="page-header" alignItems="center" flex="0 0 48px">
-    <Flex flex="0 0 160px" className="title">
-      <div className="shorts" />
+  <Flex
+    id="page-header"
+    alignItems="center"
+    justifyContent="space-between"
+    css={theme => ({
+      backgroundColor: theme.colors.secondary,
+      borderBottom: `2px solid ${theme.colors.primary}`,
+      padding: 16
+    })}
+  >
+    <Flex
+      alignItems="center"
+      css={theme => ({
+        fontSize: '1.5em',
+        fontWeight: 600,
+        color: theme.colors.text
+      })}
+    >
+      <div
+        className="shorts"
+        css={{
+          display: 'inline-block',
+          height: 22,
+          width: 22,
+          verticalAlign: 'sub',
+          marginRight: 8,
+          backgroundImage: 'url(icons/blue_lined.svg)'
+        }}
+      />
       Cargo Shorts
     </Flex>
-    <Flex flex={1} className="icons">
-      <PocketIcons />
-    </Flex>
-    <Flex flex="0 0 160px" justifyContent="flex-end" className="buttons">
-      <PageHeaderButton onClick={() => null} icon="⚙️">
-        Options
-      </PageHeaderButton>
-    </Flex>
+    <PocketIcons />
+    <IconButton
+      onClick={() => null}
+      icon="⚙️"
+      css={theme => ({ color: theme.colors.text, borderStyle: 'solid' })}
+    >
+      Options
+    </IconButton>
   </Flex>
 )
 export default PageHeader

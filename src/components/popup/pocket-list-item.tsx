@@ -85,7 +85,15 @@ const PocketListItem = ({
             <PocketIcon icon={pocket.icon} />
           </Flex>
           <div
-            css={{ minWidth: 0, textAlign: 'left', flex: 1 }}
+            css={{
+              flex: 1,
+              fontFamily: 'Nunito, sans-serif',
+              fontSize: '1em',
+              fontWeight: 600,
+              marginLeft: 8,
+              minWidth: 0,
+              textAlign: 'left',
+            }}
             className="pocket-name"
           >
             <Truncated>{pocket.name}</Truncated>

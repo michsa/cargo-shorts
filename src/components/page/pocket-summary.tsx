@@ -18,16 +18,22 @@ const mapStateToProps = (state: State) =>
   } as Props)
 
 const PocketIcons = ({ pockets }: Props) => (
-  <Flex className="pocket-summary" center>
+  <Flex className="pocket-summary" center gap={8}>
     {pockets.map(pocket => (
       <Flex
         center
-        css={{ backgroundColor: pocket.color }}
-        key={pocket.id}
         className="pocket-summary-item"
+        gap={8}
+        css={{
+          backgroundColor: pocket.color,
+          padding: '5px 7px',
+          borderRadius: 4,
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
+        }}
+        key={pocket.id}
       >
         <PocketIcon icon={pocket.icon} />
-        <PocketCount count={pocket.tabs.length} css={{ margin: 0 }} />
+        <PocketCount count={pocket.tabs.length} />
       </Flex>
     ))}
   </Flex>
