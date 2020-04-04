@@ -28,6 +28,7 @@ const PocketListItem = ({ pocket, handleEdit }: Props) => (
       borderRadius: 4,
       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
       height: 'auto',
+      overflow: 'hidden',
       /* for Firefox */
       minHeight: 0
     })}
@@ -90,7 +91,7 @@ const PocketListItem = ({ pocket, handleEdit }: Props) => (
           width: 36,
           height: 36,
           backgroundColor: theme.colors.accent,
-          float: 'right'
+          float: 'right',
         })}
       >
         <Emoji emoji="✏️" size={13} />

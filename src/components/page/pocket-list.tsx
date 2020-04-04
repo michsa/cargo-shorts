@@ -3,7 +3,6 @@ import { jsx } from '@emotion/core'
 import { move } from 'ramda'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
-import Snuggle from 'react-snuggle'
 
 import { movePocket, moveTab } from '../../redux/actions/ui'
 import { getOrderedPockets } from '../../redux/selectors'
@@ -52,22 +51,25 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
     <DragDropContext onDragEnd={handleDragEnd}>
       <Flex
         flex={1}
+        column
+        wrap
         className="pocket-list"
         css={{
           padding: '8px 8px 0',
-          overflowX: 'auto'
+          overflowX: 'auto',
+          '> *': { maxWidth: 512, minWidth: 320, margin: 8 }
         }}
+        alignItems="center"
+        alignContent="center"
       >
-        <Snuggle rowGap={2} columnWidth={400}>
-          {pockets.map((pocket, index) => (
-            <PocketListItem
-              index={index}
-              pocket={pocket}
-              key={pocket.id}
-              handleEdit={x => x}
-            />
-          ))}
-        </Snuggle>
+        {pockets.map((pocket, index) => (
+          <PocketListItem
+            index={index}
+            pocket={pocket}
+            key={pocket.id}
+            handleEdit={x => x}
+          />
+        ))}
       </Flex>
     </DragDropContext>
   )
