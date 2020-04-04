@@ -1,11 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+import { Fragment } from 'react'
 import { Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { makeGetOrderedTabs } from '../../redux/selectors'
 import styled from '../../styled'
 import { PocketID, SavedTab, State } from '../../types'
+import { Emoji } from '../shared/emoji'
+import Flex from '../shared/flex'
 import { List } from '../shared/utils'
 
 import TabListItem from './tab-list-item'
@@ -46,19 +49,36 @@ const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
           paddingBottom: 4,
           flexGrow: 1,
           /* for Firefox */
-          minHeight: 0,
+          minHeight: 0
         }}
         color={color}
         ref={provided.innerRef}
         {...provided.droppableProps}
       >
-        {tabs.map((tab, index) => (
-          <TabListItem tab={tab} key={tab.id} index={index} />
-        ))}
-        {provided.placeholder}
+        {tabs && tabs.length ? (
+          <Fragment>
+            {tabs.map((tab, index) => (
+              <TabListItem tab={tab} key={tab.id} index={index} />
+            ))}
+            {provided.placeholder}
+          </Fragment>
+        ) : (
+          <Flex
+            center
+            gap={8}
+            css={{ height: 48, fontSize: '1.5em', fontWeight: 100 }}
+          >
+            <span>{`This pocket's empty...`}</span>
+            <span>
+              <Emoji emoji="🕳️" />
+            </span>
+          </Flex>
+        )}
       </StyledList>
     )}
   </Droppable>
 )
+
+// 🤷
 
 export default connect(makeMapStateToProps)(TabList)
