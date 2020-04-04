@@ -6,10 +6,8 @@ import { Pocket } from '../../types'
 import { Emoji } from '../shared/emoji'
 import Flex from '../shared/flex'
 import PocketCount from '../shared/pocket-count'
-import PocketIcon from '../shared/pocket-icon'
 import { Truncated } from '../shared/utils'
 
-import PocketDetails from './pocket-details'
 import TabList from './tab-list'
 
 interface Props {
@@ -20,85 +18,85 @@ interface Props {
 
 const PocketListItem = ({ pocket, handleEdit }: Props) => (
   <div
-    className="pocket-list-item-holder"
-    css={{
-      position: 'relative',
-      flex: '0 0 304px'
-    }}
+    className="pocket-list-item"
+    key={pocket.id}
+    color={pocket.color}
+    css={theme => ({
+      backgroundColor: Color(theme.colors.altBackground)
+        .mix(Color(pocket.color), 0.3)
+        .hex(),
+      borderRadius: 4,
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
+      height: 'auto',
+      /* for Firefox */
+      minHeight: 0
+    })}
   >
     <div
-      className="pocket-list-item"
-      key={pocket.id}
-      color={pocket.color}
-      css={theme => ({
-        backgroundColor: Color(theme.colors.altBackground)
-          .mix(Color(pocket.color), 0.3)
-          .hex(),
-        borderRadius: 4,
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
-        height: 'auto',
-        flexGrow: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        /* for Firefox */
-        minHeight: 0
-      })}
+      className="pocket-info"
+      css={{
+        position: 'relative',
+        height: 36,
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+        ':hover .details': {
+          marginRight: 36,
+          transition: 'margin-right 0.3s ease 0.3s'
+        }
+      }}
     >
-      <div
-        className="pocket-info"
-        css={{
-          position: 'relative',
-          height: 32,
-          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
-          ':hover .details': {
-            marginRight: 32,
-            transition: 'margin-right 0.3s ease 0.3s'
-          }
-        }}
+      <Flex
+        className="details"
+        alignItems="center"
+        gap={8}
+        css={theme => ({
+          backgroundColor: pocket.color,
+          color:
+            Color(pocket.color).isDark() !== theme.isDark
+              ? theme.colors.altBackground
+              : theme.colors.text,
+          position: 'absolute',
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.15)',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 0,
+          zIndex: 2,
+          marginRight: 0,
+          padding: '0 12px',
+          transition:
+            'color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s'
+        })}
       >
-        <PocketDetails
-          className="details"
-          color={pocket.color}
-          alignItems="center"
-          css={{
-            position: 'absolute',
-            boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.15)',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            top: 0,
-            zIndex: 2,
-            marginRight: 0,
-            transition:
-              'color 0.2s ease, background-color 0.2s ease, margin-right 0.3s ease 0s'
-          }}
-        >
-          <PocketIcon icon={pocket.icon} />
-          <Flex
-            css={{ minWidth: 0, textAlign: 'left', fontSize: '1.2em' }}
-            className="pocket-name"
-            flex={1}
-          >
-            <Truncated>{pocket.name}</Truncated>
-          </Flex>
-          <PocketCount count={pocket.tabs.length} />
-        </PocketDetails>
+        <Emoji emoji={pocket.icon} size={18} />
         <Flex
-          className="edit-pocket"
-          onClick={() => handleEdit(pocket.id)}
-          center
           css={{
-            width: 32,
-            height: 32,
-            backgroundColor: '#FEDB41',
-            float: 'right'
+            minWidth: 0,
+            textAlign: 'left',
+            fontSize: '1.2em',
+            fontWeight: 600
           }}
+          className="pocket-name"
+          flex={1}
         >
-          <Emoji emoji="✏️" size={13} />
+          <Truncated>{pocket.name}</Truncated>
         </Flex>
-      </div>
-      <TabList pocketId={pocket.id} color={pocket.color} />
+        <PocketCount count={pocket.tabs.length} />
+      </Flex>
+      <Flex
+        className="edit-pocket"
+        onClick={() => handleEdit(pocket.id)}
+        center
+        css={theme => ({
+          width: 36,
+          height: 36,
+          backgroundColor: theme.colors.accent,
+          float: 'right'
+        })}
+      >
+        <Emoji emoji="✏️" size={13} />
+      </Flex>
     </div>
+    <TabList pocketId={pocket.id} color={pocket.color} />
   </div>
 )
 export default PocketListItem

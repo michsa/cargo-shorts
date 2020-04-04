@@ -28,10 +28,14 @@ const TabListItem = ({ tab, index }: Props) => (
       >
         <Flex justifyContent="center" alignItems="center">
           <DragHandle {...provided.dragHandleProps} />
-          <Flex as="a" flex={1} css={{ minWidth: 0, textAlign: 'left' }}>
+          <Flex flex={1} css={{ minWidth: 0, textAlign: 'left' }}>
             <a
               href={tab.url}
-              css={{ textDecoration: 'none', color: 'inherit' }}
+              css={{
+                textDecoration: 'none',
+                color: 'inherit',
+                overflow: 'hidden'
+              }}
             >
               <TabInfo
                 tab={tab}

@@ -58,7 +58,7 @@ const PocketList = ({ pockets, onDragEnd }: Props & Handlers) => {
           overflowX: 'auto'
         }}
       >
-        <Snuggle>
+        <Snuggle rowGap={2} columnWidth={400}>
           {pockets.map((pocket, index) => (
             <PocketListItem
               index={index}
