@@ -4,6 +4,7 @@ import {
   insert,
   lensPath,
   move,
+  o,
   omit,
   over,
   without
@@ -47,6 +48,19 @@ const shuffle = <T>(xs: T[]): T[] => {
 
 // --- reducer: pockets by id --- //
 
+const updateTabs = (pocketId: PocketID, fn: (...xs: unknown[]) => TabID[]) => (
+  state: PocketMap
+) => over<PocketMap>(tabsLens(pocketId), fn, state)
+
+const unassignTab = (pocketId: PocketID, tabId: TabID) =>
+  updateTabs(pocketId, without([tabId]))
+
+const assignTab = (
+  pocketId: PocketID,
+  tabId: TabID,
+  index: number | undefined
+) => updateTabs(pocketId, insertOrAppend(tabId, index))
+
 const byId: Reducer<PocketMap> = (
   state: PocketMap = initialState.byId,
   action: ActionType<typeof pocket>
@@ -76,18 +90,24 @@ const byId: Reducer<PocketMap> = (
       }
 
     case getType(pocket.unassignTab):
-      return over<PocketMap>(
-        tabsLens(action.payload.pocketId),
-        without([action.payload.tabId]),
-        state
-      )
+      return unassignTab(action.payload.pocketId, action.payload.tabId)(state)
 
     case getType(pocket.assignTab):
-      return over<PocketMap>(
-        tabsLens(action.payload.pocketId),
-        insertOrAppend(action.payload.tabId, action.payload.position),
-        state
-      )
+      return assignTab(
+        action.payload.pocketId,
+        action.payload.tabId,
+        action.payload.position
+      )(state)
+
+    case getType(pocket.moveTab):
+      return o(
+        unassignTab(action.payload.oldPocketId, action.payload.tabId),
+        assignTab(
+          action.payload.pocketId,
+          action.payload.tabId,
+          action.payload.position
+        )
+      )(state)
 
     default:
       return state

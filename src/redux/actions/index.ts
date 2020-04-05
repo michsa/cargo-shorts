@@ -83,21 +83,14 @@ export const moveTab = ({ payload }: ActionType<typeof ui.moveTab>) => {
   return (
     dispatch: Dispatch<
       ActionType<
-        | typeof pocketActions.unassignTab
-        | typeof pocketActions.assignTab
+        | typeof pocketActions.moveTab
         | typeof tabActions.updateTabPocket
       >
     >,
     getState: () => State
   ) => {
-    const oldPocket = getTabPocket(getState(), payload.tabId)
-    dispatch(
-      pocketActions.unassignTab({
-        pocketId: oldPocket,
-        tabId: payload.tabId
-      })
-    )
-    dispatch(pocketActions.assignTab(payload))
+    const oldPocketId = getTabPocket(getState(), payload.tabId)
+    dispatch(pocketActions.moveTab({ ...payload, oldPocketId }))
     dispatch(tabActions.updateTabPocket(payload))
   }
 }

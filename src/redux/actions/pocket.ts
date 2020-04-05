@@ -25,6 +25,13 @@ export const unassignTab = create('pocket/UNASSIGN_TAB')<{
   tabId: TabID
 }>()
 
+export const moveTab = create('pocket/MOVE_TAB')<{
+  pocketId: PocketID
+  tabId: TabID
+  position?: number
+  oldPocketId: PocketID
+}>()
+
 export const shufflePockets = create('pocket/SHUFFLE')()
 
 export const movePocket = create('pocket/MOVE')<{
