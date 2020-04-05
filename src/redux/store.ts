@@ -33,6 +33,7 @@ export default createBackgroundStore({
     [getType(ui.newPocket)]: actions.newPocket,
     [getType(ui.deletePocket)]: actions.deletePocket,
     [getType(ui.movePocket)]: actions.movePocket,
+    [getType(ui.reorderPockets)]: actions.reorderPockets,
     [getType(ui.updatePocketSettings)]: actions.updatePocketSettings
   }
 })

@@ -38,3 +38,5 @@ export const movePocket = create('pocket/MOVE')<{
   start: number
   end: number
 }>()
+
+export const reorderPockets = create('pocket/REORDER')<PocketID[]>()

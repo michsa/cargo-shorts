@@ -12,6 +12,9 @@ import * as ui from './ui'
 
 type BrowserTab = Tabs.Tab
 
+export const reorderPockets = ({ payload }) =>
+  pocketActions.reorderPockets(payload)
+
 export const shufflePockets = pocketActions.shufflePockets
 
 export const getCurrentTabInfo = () => {
@@ -83,8 +86,7 @@ export const moveTab = ({ payload }: ActionType<typeof ui.moveTab>) => {
   return (
     dispatch: Dispatch<
       ActionType<
-        | typeof pocketActions.moveTab
-        | typeof tabActions.updateTabPocket
+        typeof pocketActions.moveTab | typeof tabActions.updateTabPocket
       >
     >,
     getState: () => State

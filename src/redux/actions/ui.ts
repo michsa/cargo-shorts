@@ -32,6 +32,8 @@ export const movePocket = create('ui/MOVE_POCKET')<{
   end: number
 }>()
 
+export const reorderPockets = create('ui/REORDER_POCKETS')<PocketID[]>()
+
 export const deletePocket = create('ui/DELETE_POCKET')<PocketID>()
 
 export const shufflePockets = create('ui/SHUFFLE_POCKETS')()

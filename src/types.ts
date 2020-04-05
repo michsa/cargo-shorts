@@ -8,13 +8,6 @@ export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>
 
 export type Args<T> = T extends (...xs: infer A) => unknown ? A : never
 
-// --- state --- //
-
-export type State = {
-  readonly pockets: PocketState
-  readonly tabs: TabState
-}
-
 // --- routes --- //
 
 export class NewPocketRoute {
@@ -73,4 +66,11 @@ export type TabMap = Readonly<{ [id in TabID]: SavedTab }>
 export type TabState = {
   readonly byId: TabMap
   readonly current?: Tab
+}
+
+// --- state --- //
+
+export type State = {
+  readonly pockets: PocketState
+  readonly tabs: TabState
 }
