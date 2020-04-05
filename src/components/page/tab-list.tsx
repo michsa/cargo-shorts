@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { Fragment } from 'react'
-import { Droppable, DroppableProvided } from 'react-beautiful-dnd'
+import { useState } from 'react'
 import { connect } from 'react-redux'
+import { ReactSortable } from 'react-sortablejs'
 
 import { makeGetOrderedTabs } from '../../redux/selectors'
 import { PocketID, SavedTab, State } from '../../types'
@@ -29,57 +29,67 @@ const makeMapStateToProps = () => {
   return mapStateToProps
 }
 
-const TabList = ({ pocketId, tabs, color }: StateProps & OwnProps) => (
-  <Droppable droppableId={pocketId} direction="vertical" type="LIST">
-    {(provided: DroppableProvided) => (
-      <Flex
-        column
-        className="tab-list"
-        gap={4}
-        css={{
-          overflow: 'auto',
-          padding: 6,
-          /* for Firefox */
-          minHeight: 0,
-          border: '0px dashed',
-          borderColor: color,
-          borderTop: 0,
-          borderBottomLeftRadius: 4,
-          borderBottomRightRadius: 4
+const TabList = ({ grid, tabs, color }: StateProps & OwnProps) => {
+  const [state, setState] = useState(tabs)
+  return (
+    <Flex
+      column
+      className="tab-list"
+      css={{
+        overflow: 'hidden',
+        padding: 6,
+        border: '0px dashed',
+        borderColor: color,
+        borderTop: 0,
+        borderBottomLeftRadius: 4,
+        borderBottomRightRadius: 4,
+        position: 'relative',
+        '> div': { minHeight: 46 }
+      }}
+    >
+      {!state.length && (
+        <Flex
+          center
+          gap={8}
+          css={theme => ({
+            boxSizing: 'border-box',
+            fontSize: '1.3em',
+            fontWeight: 200,
+            border: `2px dashed ${theme.colors.text}44`,
+            opacity: 0.6,
+            position: 'absolute',
+            top: 6,
+            left: 6,
+            bottom: 6,
+            right: 6
+          })}
+        >
+          <span>{`Nothing but lint in here`}</span>
+          <span>
+            <Emoji emoji="🤷" />
+          </span>
+        </Flex>
+      )}
+      <ReactSortable
+        group="tabs"
+        list={state}
+        animation={200}
+        setList={x => {
+          console.log(
+            'setList',
+            x.map(t => t.id)
+          )
+          setState(x)
         }}
-        ref={provided.innerRef}
-        {...provided.droppableProps}
+        onChange={() => grid.update()}
       >
-        {tabs && tabs.length ? (
-          <Fragment>
-            {tabs.map((tab, index) => (
-              <TabListItem tab={tab} key={tab.id} index={index} />
-            ))}
-            {provided.placeholder}
-          </Fragment>
-        ) : (
-          <Flex
-            center
-            gap={8}
-            css={theme => ({
-              height: 46,
-              boxSizing: 'border-box',
-              fontSize: '1.3em',
-              fontWeight: 200,
-              border: `2px dashed ${theme.colors.text}55`,
-              opacity: 0.6
-            })}
-          >
-            <span>{`Nothing but lint in here`}</span>
-            <span>
-              <Emoji emoji="🤷" />
-            </span>
-          </Flex>
-        )}
-      </Flex>
-    )}
-  </Droppable>
-)
+        {state.map((tab, index) => (
+          <TabListItem tab={tab} key={tab.id} index={index} />
+        ))}
+      </ReactSortable>
+    </Flex>
+  )
+}
 
 //
 // 🕳️
