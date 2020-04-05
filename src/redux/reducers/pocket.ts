@@ -135,7 +135,7 @@ const idList: Reducer<PocketID[]> = (
 
     case getType(pocket.reorderPockets): {
       console.log('reorder pockets!', action.payload)
-      return action.payload
+      return [...action.payload]
     }
 
     default:

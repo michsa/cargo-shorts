@@ -9,9 +9,9 @@ import { Pocket, State } from '../../types'
 
 import PocketListItem from './pocket-list-item'
 
-type Grid = { update: () => void }
+type Grid = { update: () => void } | undefined
 
-export const GridContext = createContext<Grid | undefined>(undefined)
+export const GridContext = createContext<Grid>(undefined)
 
 interface Props {
   pockets: Pocket[]
@@ -21,12 +21,13 @@ const mapStateToProps = (state: State) =>
   ({ pockets: getOrderedPockets(state) } as Props)
 
 const PocketList = ({ pockets }: Props) => {
-  const [grid, setGrid] = useState()
+  const [grid, setGrid] = useState<Grid>()
+  grid && grid.update()
   return (
     <GridContext.Provider value={grid}>
       <XMasonry
         ref={setGrid}
-        smartUpdate={false}
+        smartUpdate={true}
         targetBlockWidth={400}
         maxColumns={4}
       >
