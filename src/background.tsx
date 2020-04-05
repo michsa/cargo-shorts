@@ -2,7 +2,7 @@
 
 import backgroundStore from './redux/store'
 
-console.log(backgroundStore.getState())
+console.log('background store: ', backgroundStore.getState())
 
 /*
 async function resetStorageData() {

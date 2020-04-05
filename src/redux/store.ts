@@ -1,5 +1,6 @@
+import * as R from 'ramda'
 import { applyMiddleware, createStore } from 'redux'
-import { persistReducer, persistStore } from 'redux-persist'
+import { persistReducer, persistStore, PersistedState } from 'redux-persist'
 import { syncStorage } from 'redux-persist-webextension-storage'
 import thunk from 'redux-thunk'
 import { createBackgroundStore } from 'redux-webext'
@@ -9,9 +10,16 @@ import * as actions from './actions'
 import * as ui from './actions/ui'
 import reducer from './reducers'
 
+const getOrReturn = <T extends R.Placeholder>(x: string) => (obj: T) =>
+  R.propOr<T>(obj, x, obj)
+
 const storageConfig = {
   key: 'syncStorage',
-  storage: syncStorage
+  storage: syncStorage,
+  migrate: (state: PersistedState) =>
+    Promise.resolve(
+      R.over(R.lensPath(['pockets', 'idList']), getOrReturn('payload'), state)
+    )
 }
 
 const persistedStore = () => {
@@ -24,7 +32,7 @@ const persistedStore = () => {
 }
 
 export default createBackgroundStore({
-  store: persistedStore().store,
+  store: R.tap(x => console.log('persistedStore', x))(persistedStore().store),
   actions: {
     [getType(ui.requestCurrentTabInfo)]: actions.getCurrentTabInfo,
     [getType(ui.newTab)]: actions.newTab,
