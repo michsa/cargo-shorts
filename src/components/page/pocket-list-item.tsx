@@ -12,11 +12,10 @@ import TabList from './tab-list'
 
 interface Props {
   pocket: Pocket
-  index: number
   handleEdit: (id: string) => void
 }
 
-const PocketListItem = ({ grid, pocket, handleEdit }: Props) => (
+const PocketListItem = ({ pocket, handleEdit }: Props) => (
   <div
     className="pocket-list-item"
     key={pocket.id}
@@ -94,7 +93,7 @@ const PocketListItem = ({ grid, pocket, handleEdit }: Props) => (
         <Emoji emoji="✏️" size={13} />
       </Flex>
     </div>
-    <TabList grid={grid} pocketId={pocket.id} color={pocket.color} />
+    <TabList pocketId={pocket.id} color={pocket.color} />
   </div>
 )
 export default PocketListItem

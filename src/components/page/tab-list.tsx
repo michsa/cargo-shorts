@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { connect } from 'react-redux'
 import { ReactSortable } from 'react-sortablejs'
 
@@ -9,6 +9,7 @@ import { PocketID, SavedTab, State } from '../../types'
 import { Emoji } from '../shared/emoji'
 import Flex from '../shared/flex'
 
+import { GridContext } from './pocket-list'
 import TabListItem from './tab-list-item'
 
 interface OwnProps {
@@ -20,17 +21,14 @@ interface StateProps {
   tabs: SavedTab[]
 }
 
-const makeMapStateToProps = () => {
-  const getOrderedTabs = makeGetOrderedTabs()
-  const mapStateToProps = (state: State, { pocketId }: OwnProps) =>
-    ({
-      tabs: getOrderedTabs(state, pocketId)
-    } as StateProps)
-  return mapStateToProps
-}
+const makeMapStateToProps = () => (state: State, { pocketId }: OwnProps) =>
+  ({
+    tabs: makeGetOrderedTabs()(state, pocketId)
+  } as StateProps)
 
-const TabList = ({ grid, tabs, color }: StateProps & OwnProps) => {
+const TabList = ({ tabs, color }: StateProps & OwnProps) => {
   const [state, setState] = useState(tabs)
+  const grid = useContext(GridContext)
   return (
     <Flex
       column
@@ -81,7 +79,7 @@ const TabList = ({ grid, tabs, color }: StateProps & OwnProps) => {
           )
           setState(x)
         }}
-        onChange={() => grid.update()}
+        onChange={() => grid && grid.update()}
       >
         {state.map((tab, index) => (
           <TabListItem tab={tab} key={tab.id} index={index} />
@@ -91,7 +89,6 @@ const TabList = ({ grid, tabs, color }: StateProps & OwnProps) => {
   )
 }
 
-//
 // 🕳️
 
 export default connect(makeMapStateToProps)(TabList)
