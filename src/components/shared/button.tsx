@@ -46,7 +46,7 @@ export const Button = ({ icon, children, ...props }: Props & FlexProps) => (
     {...props}
   >
     {icon && <Emoji emoji={icon} size={14} />}
-    {children && <span>{children}</span>}
+    {children && <span className="text">{children}</span>}
   </Flex>
 )
 

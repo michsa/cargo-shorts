@@ -29,11 +29,17 @@ const PocketIcons = ({ pockets, reorderPockets }: Props & Handlers) => {
       list={state}
       animation={200}
       setList={(x: Pocket[]) => {
+        console.log('setList (pockets)', x.map(p => p.name))
         setState(x)
         reorderPockets(x.map(p => p.id))
       }}
       className="pocket-summary"
-      css={{ display: 'flex' }}
+      css={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        margin: '0 16px'
+      }}
     >
       {state.map(pocket => (
         <Flex
