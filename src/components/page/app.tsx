@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 
 import theme from '../../theme'
+import Flex from '../shared/flex'
 import GlobalStyles from '../shared/global-styles'
 
 import { GridProvider } from './grid-context'
@@ -13,8 +14,10 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyles />
     <GridProvider>
-      <PageHeader />
-      <PocketList />
+      <Flex column id="page">
+        <PageHeader />
+        <PocketList />
+      </Flex>
     </GridProvider>
   </ThemeProvider>
 )

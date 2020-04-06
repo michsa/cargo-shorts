@@ -19,18 +19,24 @@ const mapStateToProps = (state: State) =>
 const PocketList = ({ pockets }: Props) => {
   const { setGrid } = useGrid()
   return (
-      <XMasonry
-        ref={setGrid}
-        smartUpdate={false}
-        targetBlockWidth={400}
-        maxColumns={4}
-      >
-        {pockets.map((pocket, i) => (
-          <XBlock key={`${i}:${pocket.id}`}>
-            <PocketListItem pocket={pocket} handleEdit={x => x} />
-          </XBlock>
-        ))}
-      </XMasonry>
+    <div css={{ overflow: 'auto' }}>
+      {/* XMasonry eats the bottom padding on its parent for some reason,
+          so we need this wrapper if we want padding around our grid */}
+      <div css={{ margin: 8 }}>
+        <XMasonry
+          ref={setGrid}
+          smartUpdate={false}
+          targetBlockWidth={400}
+          maxColumns={4}
+        >
+          {pockets.map((pocket, i) => (
+            <XBlock key={`${i}:${pocket.id}`}>
+              <PocketListItem pocket={pocket} handleEdit={x => x} />
+            </XBlock>
+          ))}
+        </XMasonry>
+      </div>
+    </div>
   )
 }
 
