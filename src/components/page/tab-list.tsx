@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { connect } from 'react-redux'
 import { ReactSortable } from 'react-sortablejs'
 
@@ -9,7 +9,7 @@ import { PocketID, SavedTab, State } from '../../types'
 import { Emoji } from '../shared/emoji'
 import Flex from '../shared/flex'
 
-import { GridContext } from './pocket-list'
+import { useGrid } from './grid-context'
 import TabListItem from './tab-list-item'
 
 interface OwnProps {
@@ -28,7 +28,7 @@ const makeMapStateToProps = () => (state: State, { pocketId }: OwnProps) =>
 
 const TabList = ({ tabs, color }: StateProps & OwnProps) => {
   const [state, setState] = useState(tabs)
-  const grid = useContext(GridContext)
+  const { grid } = useGrid()
   return (
     <Flex
       column
