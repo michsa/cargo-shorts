@@ -25,8 +25,8 @@ const PocketList = ({ pockets }: Props) => {
         targetBlockWidth={400}
         maxColumns={4}
       >
-        {pockets.map(pocket => (
-          <XBlock key={pocket.id}>
+        {pockets.map((pocket, i) => (
+          <XBlock key={`${i}:${pocket.id}`}>
             <PocketListItem pocket={pocket} handleEdit={x => x} />
           </XBlock>
         ))}
