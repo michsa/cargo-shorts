@@ -64,6 +64,6 @@
     "ts-jest": "^25.2.1",
     "web-ext-types": "^3.2.1",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   }
 }
